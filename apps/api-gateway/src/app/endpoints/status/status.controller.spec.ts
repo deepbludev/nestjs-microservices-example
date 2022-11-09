@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { AppController } from '../app.controller'
+import { StatusController } from './status.controller'
 
-describe('AppController', () => {
+describe('StatusController', () => {
   let app: TestingModule
-  let appController: AppController
+  let statusCtrl: StatusController
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
-      controllers: [AppController],
+      controllers: [StatusController],
     }).compile()
 
-    appController = app.get(AppController)
+    statusCtrl = app.get(StatusController)
   })
 
   describe('GET /status', () => {
     it('should return status OK', () => {
-      expect(appController.status()).toEqual({
+      expect(statusCtrl.status()).toEqual({
         statusCode: 200,
         message: '[api-gateway] All systems operational.',
       })
