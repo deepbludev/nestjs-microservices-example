@@ -1,13 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
-
-import { AppService } from './app.service';
+import { Controller, Get, HttpStatus } from '@nestjs/common'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getData() {
-    return this.appService.getData();
+  @Get('status')
+  status() {
+    return {
+      statusCode: HttpStatus.OK,
+      message: '[api-gateway] All systems operational.',
+    }
   }
 }
