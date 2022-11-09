@@ -1,25 +1,17 @@
-FROM node:alpine as development
+FROM node:18-alpine as base
 
 WORKDIR /workspace
-
 COPY . .
+EXPOSE 3000
+
+FROM base as development
 
 RUN yarn global add nx
 RUN yarn install
 
-
-FROM node:alpine as production
+FROM base as production
 
 ARG SERVICE_NAME
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /workspace
-
-COPY . .
-
+ENV NODE_ENV=production
 RUN yarn install --production=true
-
-EXPOSE 3000
-
 CMD node dist/apps/${SERVICE_NAME}/main

@@ -17,6 +17,7 @@ services:
 
   api-gateway:
     container_name: api-gateway
+    image: api-gateway:dev
     build:
       context: .
       dockerfile: Dockerfile
@@ -25,7 +26,25 @@ services:
         SERVICE_NAME: api-gateway
     command: yarn nx serve api-gateway
     ports:
-      - 3000:3000
+      - 4000:3000
+    depends_on:
+      - rmq-broker
+    volumes:
+      - .:/workspace
+      - /workspace/node_modules
+
+  micro-iam:
+    container_name: micro-image
+    image: micro-iam:dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+      args:
+        SERVICE_NAME: micro-iam
+    command: yarn nx serve micro-iam
+    ports:
+      - 4001:3000
     depends_on:
       - rmq-broker
     volumes:
