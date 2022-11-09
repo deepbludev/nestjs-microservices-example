@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 
 import { ApiGatewayConfigModule } from './config/config.module'
-import { StatusController } from './endpoints/status/status.controller'
+import { IamModule } from './endpoints/iam/iam.module'
+import { StatusModule } from './endpoints/status/status.module'
 
 @Module({
-  imports: [ApiGatewayConfigModule],
-  controllers: [StatusController],
+  imports: [ApiGatewayConfigModule, IamModule, StatusModule],
 })
 export class AppModule {}

@@ -19,4 +19,12 @@ describe('API Gateway (e2e)', () => {
       })
     })
   })
+
+  describe('/iam', () => {
+    describe('GET', () => {
+      it('returns http status 200 OK', () => {
+        return e2e.request().get('/iam').expect(HttpStatus.OK)
+      })
+    })
+  })
 })
