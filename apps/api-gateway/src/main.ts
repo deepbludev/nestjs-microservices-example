@@ -7,10 +7,9 @@ import { AppModule } from './app/app.module'
 async function bootstrap() {
   const apiGateway = await NestFactory.create(AppModule)
   const port = apiGateway.get(ConfigService).get('port')
-  apiGateway.setGlobalPrefix('api')
 
   await apiGateway.listen(port)
-  Logger.log(`🚀 API Gateway is running on: http://localhost:${port}/api`)
+  Logger.log(`🚀 API Gateway is running on ${await apiGateway.getUrl()}`)
 }
 
 bootstrap()
