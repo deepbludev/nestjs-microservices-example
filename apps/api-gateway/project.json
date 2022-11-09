@@ -4,6 +4,15 @@
   "sourceRoot": "apps/api-gateway/src",
   "projectType": "application",
   "targets": {
+    "deploy": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build api-gateway --configuration=production --with-deps",
+          "docker build . -t nocodeapp_api-gateway:production --target production --build-arg SERVICE_NAME=api-gateway"
+        ]
+      }
+    },
     "build": {
       "executor": "@nrwl/webpack:webpack",
       "outputs": [

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  nginx:
+    restart: always
+    build:
+      context: ./.nginx
+    ports:
+      - 80:80
+    depends_on:
+      - api-gateway
+
+  rmq-broker:
+    image: rabbitmq
+    ports:
+      - 5672:5672
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+      args:
+        SERVICE_NAME: api-gateway
+    command: yarn nx serve api-gateway
+    ports:
+      - 3000:3000
+    depends_on:
+      - rmq-broker
+    volumes:
+      - .:/workspace
+      - /workspace/node_modules
