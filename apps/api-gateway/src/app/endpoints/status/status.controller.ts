@@ -6,7 +6,7 @@ export class StatusController {
   status() {
     return {
       statusCode: HttpStatus.OK,
-      message: '[api-gateway] All systems operational.',
+      message: '[API] All systems operational',
     }
   }
 }

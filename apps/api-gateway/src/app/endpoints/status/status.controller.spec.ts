@@ -4,21 +4,21 @@ import { StatusController } from './status.controller'
 
 describe('StatusController', () => {
   let app: TestingModule
-  let statusCtrl: StatusController
+  let ctrl: StatusController
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [StatusController],
     }).compile()
 
-    statusCtrl = app.get(StatusController)
+    ctrl = app.get(StatusController)
   })
 
   describe('GET /status', () => {
     it('should return status OK', () => {
-      expect(statusCtrl.status()).toEqual({
+      expect(ctrl.status()).toEqual({
         statusCode: 200,
-        message: '[api-gateway] All systems operational.',
+        message: '[API] All systems operational',
       })
     })
   })
