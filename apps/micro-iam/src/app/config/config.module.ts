@@ -4,7 +4,7 @@ import { rmqConfig } from '@lean/shared/infra/comms'
 
 import { portsConfig } from './ports.config'
 
-export const ApiGatewayConfigModule = ConfigModule.forRoot({
+export const IamConfigModule = ConfigModule.forRoot({
   isGlobal: true,
   load: [portsConfig, rmqConfig],
 })

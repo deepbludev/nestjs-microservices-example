@@ -1,4 +1,4 @@
 export const RabbitMQ = Object.freeze({
-  URI: 'RABBITMQ_URI',
-  QUEUE: (queue: string) => 'RABBITMQ_QUEUE_' + queue,
+  URI: 'rmqUri',
+  QUEUE: (queue: string) => 'rmqQueue_' + queue,
 })

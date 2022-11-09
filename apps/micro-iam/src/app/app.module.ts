@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common'
 
+import { RmqModule } from '@lean/shared/infra/comms'
+
 import { AppController } from './app.controller'
-import { AppService } from './app.service'
+import { IamConfigModule } from './config/config.module'
 
 @Module({
-  imports: [],
+  imports: [RmqModule, IamConfigModule],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

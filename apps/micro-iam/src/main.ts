@@ -1,21 +1,16 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+
+import { Microservice, RmqService } from '@lean/shared/infra/comms'
 
 import { AppModule } from './app/app.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
-  const globalPrefix = 'api'
-  app.setGlobalPrefix(globalPrefix)
-  const port = process.env.PORT || 3000
-  await app.listen(port)
+  const iam = await NestFactory.create(AppModule)
+  iam.connectMicroservice(iam.get(RmqService).connect(Microservice.IAM))
+  await iam.startAllMicroservices()
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
+    `🚀 IAM Microservice running subscribed to queue: ${Microservice.IAM}`
   )
 }
 
