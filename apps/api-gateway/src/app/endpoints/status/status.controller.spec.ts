@@ -15,7 +15,7 @@ describe('StatusController', () => {
   })
 
   describe('GET /status', () => {
-    it('should return status OK', () => {
+    it('returns status OK', () => {
       expect(ctrl.status()).toEqual({
         statusCode: 200,
         message: '[API] All systems operational',
