@@ -19,7 +19,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@lean/shared/infra/comms": [
+      "@obeya/shared/infra/comms": [
         "libs/shared/infra/comms/src/index.ts"
       ]
     }

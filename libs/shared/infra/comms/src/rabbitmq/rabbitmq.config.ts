@@ -1,4 +1,4 @@
-import { RabbitMQ } from '@lean/shared/infra/comms'
+import { RabbitMQ } from './rabbitmq.constants'
 
 export const rmqConfig = () => ({
   rmqUri: process.env.RABBITMQ_URI || 'amqp://user:pass@rmq-broker:5672',

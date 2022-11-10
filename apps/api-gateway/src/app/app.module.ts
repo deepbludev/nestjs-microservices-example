@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
-
-import { Microservice, RmqModule } from '@lean/shared/infra/comms'
+import { Microservice, RmqModule } from '@obeya/shared/infra/comms'
 
 import { ApiGatewayConfigModule } from './config/config.module'
 import { IamModule } from './endpoints/iam/iam.module'

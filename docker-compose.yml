@@ -38,7 +38,7 @@ services:
       - /workspace/node_modules
 
   micro-iam:
-    container_name: micro-image
+    container_name: micro-iam
     image: micro-iam:dev
     build:
       context: .

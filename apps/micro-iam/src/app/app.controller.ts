@@ -1,7 +1,6 @@
 import { Controller } from '@nestjs/common'
 import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices'
-
-import { RmqService } from '@lean/shared/infra/comms'
+import { RmqService } from '@obeya/shared/infra/comms'
 
 @Controller()
 export class AppController {

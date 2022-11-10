@@ -1,6 +1,7 @@
 import { DynamicModule, Global, Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { ClientsModule, Transport } from '@nestjs/microservices'
+
 import { RabbitMQ } from './rabbitmq.constants'
 import { RmqService } from './rabbitmq.service'
 

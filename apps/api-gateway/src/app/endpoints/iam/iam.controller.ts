@@ -1,8 +1,7 @@
-import { firstValueFrom } from 'rxjs'
 import { Controller, Get, HttpStatus, Inject } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
-
-import { Microservice } from '@lean/shared/infra/comms'
+import { Microservice } from '@obeya/shared/infra/comms'
+import { firstValueFrom } from 'rxjs'
 
 @Controller('/iam')
 export class IamController {

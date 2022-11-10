@@ -1,7 +1,6 @@
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-
-import { Microservice, RmqService } from '@lean/shared/infra/comms'
+import { Microservice, RmqService } from '@obeya/shared/infra/comms'
 
 import { AppModule } from './app/app.module'
 
