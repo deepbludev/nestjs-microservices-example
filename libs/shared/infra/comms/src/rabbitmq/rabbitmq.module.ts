@@ -21,13 +21,13 @@ export class RmqModule {
       global: true,
       imports: [
         ClientsModule.registerAsync(
-          queues.map(queue => ({
-            name: queue,
+          queues.map(q => ({
+            name: q,
             useFactory: (configService: ConfigService) => ({
               transport: Transport.RMQ,
               options: {
-                urls: [configService.get<string>(RabbitMQ.URI)],
-                queue: configService.get<string>(RabbitMQ.QUEUE(queue)),
+                urls: [configService.get<string>(RabbitMQ.uri)],
+                queue: configService.get<string>(RabbitMQ.queue(q)),
               },
             }),
             inject: [ConfigService],
