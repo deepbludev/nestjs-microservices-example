@@ -1,6 +1,7 @@
-import supertest from 'supertest'
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
+import supertest from 'supertest'
+
 import { AppModule } from '../../src/app/app.module'
 import { TestLogger } from './test-logger'
 

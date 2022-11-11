@@ -18,7 +18,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@obeya/shared/infra/comms": [
+        "libs/shared/infra/comms/src/index.ts"
+      ]
+    }
   },
   "exclude": [
     "node_modules",
