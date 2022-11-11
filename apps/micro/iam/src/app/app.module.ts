@@ -1,6 +1,5 @@
-import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq'
 import { Module } from '@nestjs/common'
-import { Exchange } from '@obeya/shared/infra/comms'
+import { AmqpModule, Exchange } from '@obeya/shared/infra/comms'
 
 import { AppRpcController } from './app.rpc.controller'
 import { IamConfigModule } from './config/config.module'
@@ -9,10 +8,7 @@ import { IamConfigModule } from './config/config.module'
   imports: [
     IamConfigModule,
     AppModule,
-    RabbitMQModule.forRoot(RabbitMQModule, {
-      exchanges: [{ name: Exchange.IAM, type: 'topic' }],
-      uri: 'amqp://guest:guest@rmq-broker:5672',
-    }),
+    AmqpModule.forRoot({ exchanges: [Exchange.IAM] }),
   ],
   providers: [AppRpcController],
 })

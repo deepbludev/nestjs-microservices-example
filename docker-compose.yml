@@ -11,7 +11,7 @@ services:
     depends_on:
       - api-gateway
 
-  rmq-broker:
+  rabbitmq:
     image: rabbitmq:3.8-management-alpine
     ports:
       - 5672:5672
@@ -30,7 +30,7 @@ services:
     ports:
       - 4000:3000
     depends_on:
-      - rmq-broker
+      - rabbitmq
     volumes:
       - .:/workspace
       - /workspace/node_modules
@@ -48,7 +48,7 @@ services:
     ports:
       - 4001:3000
     depends_on:
-      - rmq-broker
+      - rabbitmq
     volumes:
       - .:/workspace
       - /workspace/node_modules
