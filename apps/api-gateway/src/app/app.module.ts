@@ -1,16 +1,10 @@
 import { Module } from '@nestjs/common'
-import { Microservice, RmqModule } from '@obeya/shared/infra/comms'
 
 import { ApiGatewayConfigModule } from './config/config.module'
 import { IamModule } from './endpoints/iam/iam.module'
 import { StatusModule } from './endpoints/status/status.module'
 
 @Module({
-  imports: [
-    ApiGatewayConfigModule,
-    IamModule,
-    StatusModule,
-    RmqModule.forRoot({ queues: [Microservice.IAM] }),
-  ],
+  imports: [ApiGatewayConfigModule, IamModule, StatusModule],
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
 export enum Microservice {
-  API_GATEWAY = 'API_GATEWAY',
-  IAM = 'IAM',
+  API_GATEWAY = 'api-gateway',
+  IAM = 'iam',
 }

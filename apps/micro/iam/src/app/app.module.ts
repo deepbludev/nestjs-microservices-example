@@ -1,11 +1,19 @@
+import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq'
 import { Module } from '@nestjs/common'
-import { RmqModule } from '@obeya/shared/infra/comms'
+import { Microservice } from '@obeya/shared/infra/comms'
 
-import { AppController } from './app.controller'
+import { AppRpcController } from './app.rpc.controller'
 import { IamConfigModule } from './config/config.module'
 
 @Module({
-  imports: [RmqModule, IamConfigModule],
-  controllers: [AppController],
+  imports: [
+    IamConfigModule,
+    AppModule,
+    RabbitMQModule.forRoot(RabbitMQModule, {
+      exchanges: [{ name: Microservice.IAM, type: 'topic' }],
+      uri: 'amqp://guest:guest@rmq-broker:5672',
+    }),
+  ],
+  providers: [AppRpcController],
 })
 export class AppModule {}
