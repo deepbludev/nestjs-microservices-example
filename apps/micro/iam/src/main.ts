@@ -2,10 +2,10 @@ import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 
-import { AppModule } from './app/app.module'
+import { IamMicroserviceModule } from './app/iam.microservice.module'
 
 async function bootstrap() {
-  const iam = await NestFactory.create(AppModule)
+  const iam = await NestFactory.create(IamMicroserviceModule)
   const config = iam.get(ConfigService)
   const port = config.get('port')
 

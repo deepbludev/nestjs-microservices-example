@@ -1,3 +1,3 @@
 export const amqpConfig = () => ({
-  amqpUri: process.env.AMQP_URI || 'amqp://guest:guest@rabbitmq:5672',
+  amqpUri: process.env.AMQP_URI || 'amqp://guest:guest@localhost:5672',
 })

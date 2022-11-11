@@ -7,9 +7,9 @@ import { IamConfigModule } from './config/config.module'
 @Module({
   imports: [
     IamConfigModule,
-    AppModule,
+    IamMicroserviceModule,
     AmqpModule.forRoot({ exchanges: [Exchange.IAM] }),
   ],
   providers: [AppRpcController],
 })
-export class AppModule {}
+export class IamMicroserviceModule {}

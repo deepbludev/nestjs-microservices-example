@@ -1,22 +1,24 @@
 import { HttpStatus } from '@nestjs/common'
 
+import { ApiGatewayModule } from '../../src/app/api-gateway.module'
 import { TestEnvironment } from '../utils/test-environment.util'
 
 describe('API Gateway (e2e)', () => {
-  let e2e: TestEnvironment
+  let api: TestEnvironment
+  // let iam: TestEnvironment
 
   beforeEach(async () => {
-    e2e = await TestEnvironment.init()
+    api = await TestEnvironment.init(ApiGatewayModule)
   })
 
   afterEach(async () => {
-    await e2e.close()
+    await api.close()
   })
 
   describe('/status', () => {
     describe('GET', () => {
       it('returns http status 200 OK', () => {
-        return e2e.request().get('/status').expect(HttpStatus.OK)
+        return api.request().get('/status').expect(HttpStatus.OK)
       })
     })
   })
@@ -24,7 +26,7 @@ describe('API Gateway (e2e)', () => {
   describe('/iam', () => {
     describe('GET', () => {
       it('returns http status 200 OK', () => {
-        return e2e.request().get('/iam').expect(HttpStatus.OK)
+        return api.request().get('/iam').expect(HttpStatus.OK)
       })
     })
   })

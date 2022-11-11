@@ -7,4 +7,4 @@ import { StatusModule } from './endpoints/status/status.module'
 @Module({
   imports: [ApiGatewayConfigModule, IamModule, StatusModule],
 })
-export class AppModule {}
+export class ApiGatewayModule {}

@@ -1,54 +1,8 @@
 version: '3.8'
 
 services:
-  nginx:
-    image: obeya-nginx:dev
-    restart: always
-    build:
-      context: ./.nginx
-    ports:
-      - 80:80
-    depends_on:
-      - api-gateway
-
   rabbitmq:
     image: rabbitmq:3.8-management-alpine
     ports:
       - 5672:5672
       - 15672:15672
-
-  api-gateway:
-    container_name: api-gateway
-    image: obeya-api-gateway:dev
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: development
-      args:
-        SERVICE_NAME: api-gateway
-    command: yarn nx serve api-gateway
-    ports:
-      - 4000:3000
-    depends_on:
-      - rabbitmq
-    volumes:
-      - .:/workspace
-      - /workspace/node_modules
-
-  micro-iam:
-    container_name: micro-iam
-    image: obeya-micro-iam:dev
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: development
-      args:
-        SERVICE_NAME: micro/iam
-    command: yarn nx serve micro-iam
-    ports:
-      - 4001:3000
-    depends_on:
-      - rabbitmq
-    volumes:
-      - .:/workspace
-      - /workspace/node_modules
