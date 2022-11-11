@@ -1,9 +1,9 @@
 import { RabbitRPC } from '@golevelup/nestjs-rabbitmq'
-import { Microservice } from '@obeya/shared/infra/comms'
+import { Exchange } from '@obeya/shared/infra/comms'
 
 export class AppRpcController {
   @RabbitRPC({
-    exchange: Microservice.IAM,
+    exchange: Exchange.IAM,
     routingKey: 'status',
     queue: 'iam-status-queue',
   })

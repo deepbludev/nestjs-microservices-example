@@ -1,6 +1,6 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq'
 import { Controller, Get, HttpStatus } from '@nestjs/common'
-import { Microservice } from '@obeya/shared/infra/comms'
+import { Exchange } from '@obeya/shared/infra/comms'
 
 @Controller('/iam')
 export class IamHttpController {
@@ -9,7 +9,7 @@ export class IamHttpController {
   @Get()
   async status() {
     const response = await this.amqp.request<{ message: string }>({
-      exchange: Microservice.IAM,
+      exchange: Exchange.IAM,
       routingKey: 'status',
       payload: {
         request: 'Hello, World!',
