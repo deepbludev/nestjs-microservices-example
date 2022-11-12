@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common'
+import { AmqpModule, Exchange } from '@obeya/shared/infra/comms'
 
-import { IamController } from './iam.controller'
+import { IamHttpController } from './iam.http.controller'
 
 @Module({
-  imports: [],
-  controllers: [IamController],
+  imports: [IamModule, AmqpModule.forRoot({ exchanges: [Exchange.IAM] })],
+  controllers: [IamHttpController],
 })
 export class IamModule {}

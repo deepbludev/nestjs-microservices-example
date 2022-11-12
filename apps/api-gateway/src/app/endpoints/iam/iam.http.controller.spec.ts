@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { IamController } from './iam.controller'
+import { IamHttpController } from './iam.http.controller'
 
 describe('IamController', () => {
   let app: TestingModule
-  let ctrl: IamController
+  let ctrl: IamHttpController
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
-      controllers: [IamController],
+      controllers: [IamHttpController],
     }).compile()
 
-    ctrl = app.get(IamController)
+    ctrl = app.get(IamHttpController)
   })
 
   describe('GET /status', () => {

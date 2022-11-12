@@ -1,8 +1,7 @@
-import { INestApplication } from '@nestjs/common'
+import { INestApplication, Type } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import supertest from 'supertest'
 
-import { AppModule } from '../../src/app/app.module'
 import { TestLogger } from './test-logger'
 
 export class TestEnvironment {
@@ -11,9 +10,9 @@ export class TestEnvironment {
     public readonly module: TestingModule
   ) {}
 
-  static async init() {
+  static async init(microservice: Type) {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [microservice],
     }).compile()
 
     const app = module.createNestApplication()
