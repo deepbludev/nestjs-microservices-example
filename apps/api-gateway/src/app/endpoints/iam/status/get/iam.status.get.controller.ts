@@ -3,17 +3,15 @@ import { Controller, Get, HttpStatus } from '@nestjs/common'
 import { Exchange } from '@obeya/shared/infra/comms'
 
 @Controller('/iam')
-export class IamHttpController {
+export class IamStatusGetController {
   constructor(private readonly amqp: AmqpConnection) {}
 
-  @Get()
+  @Get('/status')
   async status() {
     const response = await this.amqp.request<{ message: string }>({
       exchange: Exchange.IAM,
       routingKey: 'status',
-      payload: {
-        request: 'Hello, World!',
-      },
+      payload: {},
       timeout: 10000,
     })
     const message = response?.message || '[IAM] Systems down'
