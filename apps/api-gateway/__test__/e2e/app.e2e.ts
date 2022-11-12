@@ -5,7 +5,6 @@ import { TestEnvironment } from '../utils/test-environment.util'
 
 describe('API Gateway (e2e)', () => {
   let api: TestEnvironment
-  // let iam: TestEnvironment
 
   beforeEach(async () => {
     api = await TestEnvironment.init(ApiGatewayModule)
