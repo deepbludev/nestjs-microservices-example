@@ -8,7 +8,6 @@ import {
   RabbitMQHandlers,
 } from '@golevelup/nestjs-rabbitmq'
 import { Injectable, LoggerService } from '@nestjs/common'
-import { ModuleRef } from '@nestjs/core'
 import { AmqpConnectionManagerOptions } from 'amqp-connection-manager'
 import { Channel, Connection, Options } from 'amqplib'
 
