@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { AmqpModule, Exchange } from '@obeya/shared/infra/comms'
 
-import { AppRpcController } from './app.rpc.controller'
 import { IamConfigModule } from './config/config.module'
+import { StatusAmqpRpcController } from './rpc/status/status.amqp.rpc.controller'
 
 @Module({
   imports: [
@@ -10,6 +10,6 @@ import { IamConfigModule } from './config/config.module'
     IamMicroserviceModule,
     AmqpModule.forRoot({ exchanges: [Exchange.IAM] }),
   ],
-  providers: [AppRpcController],
+  providers: [StatusAmqpRpcController],
 })
 export class IamMicroserviceModule {}

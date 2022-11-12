@@ -18,7 +18,9 @@ describe('IAM (e2e)', () => {
     describe('/status', () => {
       describe('GET', () => {
         it('returns http status 200 OK', () => {
-          return api.request().get('/iam/status').expect(HttpStatus.OK)
+          return api.request().get('/iam/status').expect(HttpStatus.OK).expect({
+            message: '[IAM] All systems operational',
+          })
         })
       })
     })

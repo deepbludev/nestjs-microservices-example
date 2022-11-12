@@ -1,9 +1,9 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq'
 
-import { IamStatusGetAmqpController } from './iam.status.get.amqp.controller'
+import { IamStatusAmqpGetController } from './iam.status.amqp.get.controller'
 
-describe(IamStatusGetAmqpController, () => {
-  const ctrl = new IamStatusGetAmqpController(new AmqpConnection({ uri: '' }))
+describe(IamStatusAmqpGetController, () => {
+  const ctrl = new IamStatusAmqpGetController(new AmqpConnection({ uri: '' }))
 
   describe('GET /status', () => {
     it('returns status 200 OK if IAM microservice is up', async () => {

@@ -1,22 +1,19 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq'
 import { Controller, Get } from '@nestjs/common'
-import { Exchange } from '@obeya/shared/infra/comms'
+import { Exchange, rpc } from '@obeya/shared/infra/comms'
 
 @Controller('/iam')
-export class IamStatusGetAmqpController {
+export class IamStatusAmqpGetController {
   constructor(readonly amqp: AmqpConnection) {}
 
   @Get('/status')
   async status() {
-    const response = await this.amqp.request<{ message: string }>({
+    const { message } = await this.amqp.request<{ message: string }>({
       exchange: Exchange.IAM,
-      routingKey: 'status',
-      payload: {},
+      routingKey: rpc.iam.status.query,
       timeout: 10000,
     })
 
-    return {
-      message: response?.message,
-    }
+    return { message }
   }
 }
