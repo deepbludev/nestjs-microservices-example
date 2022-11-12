@@ -3,7 +3,7 @@ import { Controller, Get } from '@nestjs/common'
 import { Exchange } from '@obeya/shared/infra/comms'
 
 @Controller('/iam')
-export class IamStatusGetController {
+export class IamStatusGetAmqpController {
   constructor(readonly amqp: AmqpConnection) {}
 
   @Get('/status')

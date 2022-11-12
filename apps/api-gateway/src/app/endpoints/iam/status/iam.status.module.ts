@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 
-import { IamStatusGetController } from './get/iam.status.get.controller'
+import { IamStatusGetAmqpController } from './get/iam.status.get.amqp.controller'
 
 @Module({
-  controllers: [IamStatusGetController],
+  controllers: [IamStatusGetAmqpController],
 })
 export class IamStatusModule {}

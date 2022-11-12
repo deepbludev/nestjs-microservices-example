@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { StatusController } from './status.controller'
+import { StatusGetController } from './status.get.controller'
 
-describe('StatusController', () => {
+describe(StatusGetController, () => {
   let app: TestingModule
-  let ctrl: StatusController
+  let ctrl: StatusGetController
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
-      controllers: [StatusController],
+      controllers: [StatusGetController],
     }).compile()
 
-    ctrl = app.get(StatusController)
+    ctrl = app.get(StatusGetController)
   })
 
   describe('GET /status', () => {
