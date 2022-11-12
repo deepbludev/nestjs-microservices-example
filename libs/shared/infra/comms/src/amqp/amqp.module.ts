@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config'
 
 import { Exchange } from '../comms.constants'
 import { amqp } from './amqp.constants'
+import { AmqpService } from './amqp.service'
 
 interface AmqpModuleOptions {
   exchanges: Exchange[]
@@ -11,7 +12,8 @@ interface AmqpModuleOptions {
 
 @Global()
 @Module({
-  providers: [],
+  providers: [AmqpService],
+  exports: [AmqpService],
 })
 export class AmqpModule {
   static forRoot({ exchanges }: AmqpModuleOptions): DynamicModule {

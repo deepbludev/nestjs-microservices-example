@@ -1,10 +1,9 @@
-import { AmqpConnection } from '@golevelup/nestjs-rabbitmq'
 import { Controller, Get } from '@nestjs/common'
-import { Exchange, rpc } from '@obeya/shared/infra/comms'
+import { AmqpService, Exchange, rpc } from '@obeya/shared/infra/comms'
 
 @Controller('/iam')
 export class IamStatusAmqpGetController {
-  constructor(readonly amqp: AmqpConnection) {}
+  constructor(readonly amqp: AmqpService) {}
 
   @Get('/status')
   async status() {

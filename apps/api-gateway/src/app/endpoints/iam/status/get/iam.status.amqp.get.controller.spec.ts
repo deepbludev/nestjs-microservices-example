@@ -1,9 +1,9 @@
-import { AmqpConnection } from '@golevelup/nestjs-rabbitmq'
+import { amqpServiceMock } from '@obeya/shared/infra/comms'
 
 import { IamStatusAmqpGetController } from './iam.status.amqp.get.controller'
 
 describe(IamStatusAmqpGetController, () => {
-  const ctrl = new IamStatusAmqpGetController(new AmqpConnection({ uri: '' }))
+  const ctrl = new IamStatusAmqpGetController(amqpServiceMock)
 
   describe('GET /status', () => {
     it('returns status 200 OK if IAM microservice is up', async () => {

@@ -1,3 +1,3 @@
-export const amqp = Object.freeze({
+export const amqp = {
   uri: 'amqpUri',
-})
+} as const
