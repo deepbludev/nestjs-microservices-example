@@ -29,7 +29,6 @@ describe('IAM (e2e)', () => {
           .send(body)
           .expect(HttpStatus.CREATED)
           .expect({
-            statusCode: HttpStatus.CREATED,
             message: `User ${body.email} created`,
           })
       })
