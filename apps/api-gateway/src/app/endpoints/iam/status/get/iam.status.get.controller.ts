@@ -4,7 +4,7 @@ import { Exchange } from '@obeya/shared/infra/comms'
 
 @Controller('/iam')
 export class IamStatusGetController {
-  constructor(private readonly amqp: AmqpConnection) {}
+  constructor(readonly amqp: AmqpConnection) {}
 
   @Get('/status')
   async status() {
