@@ -27,7 +27,7 @@ export class User extends IAggregateRoot<
   UserId,
   { email: UserEmail; password: UserPassword }
 > {
-  static create({ id, ...props }: SignupUserDTO): Result<User> {
+  static signup({ id, ...props }: SignupUserDTO): Result<User> {
     const [userId, ...results] = createProps({ id, ...props })
 
     const result = Result.combine<User>([userId, ...results])
@@ -48,5 +48,13 @@ export class User extends IAggregateRoot<
     this.id = id.data
     this.props.email = email.data
     this.props.password = password.data
+  }
+
+  get email() {
+    return this.props.email
+  }
+
+  get password() {
+    return this.props.password
   }
 }

@@ -33,7 +33,7 @@ describe(SignupUserHandler, () => {
       beforeAll(async () => {
         response = await commandbus.dispatch(command)
         saveSpy = jest.spyOn(repo, 'save')
-        createSpy = jest.spyOn(User, 'create')
+        createSpy = jest.spyOn(User, 'signup')
         await handler.handle(command)
 
         user = await repo.get(UserId.from(id).data)
