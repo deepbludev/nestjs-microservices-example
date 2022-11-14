@@ -11,7 +11,7 @@ export class SignupUserAmqpRpcController
 
   @amqpHandler(Exchange.IAM, SignupUser)
   async run({ id, email, password }: SignupUserDTO) {
-    const { isOk } = await this.commandbus.dispatch(
+    const { isOk, error } = await this.commandbus.dispatch(
       SignupUser.with({ id, email, password })
     )
 
@@ -21,6 +21,6 @@ export class SignupUserAmqpRpcController
           message: `User ${email} created`,
           status: HttpStatus.CREATED,
         }
-      : new HttpException('Invalid credentials', HttpStatus.FORBIDDEN)
+      : new HttpException(error.message, HttpStatus.FORBIDDEN)
   }
 }
