@@ -1,0 +1,35 @@
+{
+  "name": "contexts-iam-infra",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/contexts/iam/infra/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/contexts/iam/infra",
+        "tsConfig": "libs/contexts/iam/infra/tsconfig.lib.json",
+        "packageJson": "libs/contexts/iam/infra/package.json",
+        "main": "libs/contexts/iam/infra/src/index.ts",
+        "assets": ["libs/contexts/iam/infra/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/contexts/iam/infra/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/contexts/iam/infra/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
