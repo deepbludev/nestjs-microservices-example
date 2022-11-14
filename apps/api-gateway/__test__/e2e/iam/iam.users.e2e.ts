@@ -1,4 +1,5 @@
 import { HttpStatus } from '@nestjs/common'
+import { signupUserDTOStub } from '@obeya/contexts/iam/domain'
 
 import { ApiGatewayModule } from '../../../src/app/api-gateway.module'
 import { TestEnvironment } from '../../utils/test-environment.util'
@@ -17,11 +18,7 @@ describe('IAM (e2e)', () => {
   describe('/users', () => {
     describe('POST', () => {
       it('creates a valid user', () => {
-        const body = {
-          id: 'cce2fded-90cd-4ec9-8806-842834e73e6c',
-          email: 'valid@email.com',
-          password: 'valid_password',
-        }
+        const body = signupUserDTOStub()
 
         return api
           .request()
@@ -30,7 +27,7 @@ describe('IAM (e2e)', () => {
           .expect(HttpStatus.CREATED)
           .expect({
             data: {
-              id: 'cce2fded-90cd-4ec9-8806-842834e73e6c',
+              id: body.id,
             },
             message: 'User valid@email.com created',
             status: 201,

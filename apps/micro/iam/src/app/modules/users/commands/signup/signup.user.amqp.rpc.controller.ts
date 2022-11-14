@@ -10,9 +10,9 @@ export class SignupUserAmqpRpcController
   constructor(private readonly commandbus: ICommandBus) {}
 
   @amqpHandler(Exchange.IAM, SignupUser)
-  async run({ id, email }: SignupUserDTO) {
+  async run({ id, email, password }: SignupUserDTO) {
     const { isOk } = await this.commandbus.dispatch(
-      SignupUser.with({ id, email })
+      SignupUser.with({ id, email, password })
     )
 
     return isOk
