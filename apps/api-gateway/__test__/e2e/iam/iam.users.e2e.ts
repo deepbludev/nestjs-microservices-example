@@ -30,10 +30,7 @@ describe('IAM (e2e)', () => {
           .expect(HttpStatus.CREATED)
           .expect({
             data: {
-              user: {
-                id: 'cce2fded-90cd-4ec9-8806-842834e73e6c',
-                email: 'valid@email.com',
-              },
+              id: 'cce2fded-90cd-4ec9-8806-842834e73e6c',
             },
             message: 'User valid@email.com created',
             status: 201,

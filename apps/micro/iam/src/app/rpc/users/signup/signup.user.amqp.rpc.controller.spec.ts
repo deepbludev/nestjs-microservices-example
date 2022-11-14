@@ -15,7 +15,7 @@ describe(SignupUserAmqpRpcController, () => {
         const response = await ctrl.run(dto)
 
         expect(response).toEqual({
-          data: { user: { id: dto.id, email: dto.email } },
+          data: { id: dto.id },
           status: 201,
           message: `User ${dto.email} created`,
         })

@@ -11,7 +11,7 @@ export class SignupUserAmqpRpcController
   @iamAmqpRpc(RPC.iam.users.signup.command)
   async run({ id, email }: SignupUserDTO) {
     try {
-      const { data, isOk } = Result.ok({ user: { id, email } })
+      const { data, isOk } = Result.ok({ id })
 
       return isOk
         ? {
