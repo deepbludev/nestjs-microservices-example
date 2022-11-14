@@ -1,4 +1,4 @@
-import { amqpServiceMock } from '@obeya/shared/infra/comms'
+import { amqpServiceMock, Exchange, RPC } from '@obeya/shared/infra/comms'
 
 import { IamUsersPostController } from './iam.users.post.controller'
 
@@ -12,12 +12,19 @@ describe('IamController', () => {
 
   describe('POST /users/signup', () => {
     it('returns status 201 Created', async () => {
-      const message = `User ${dto.email} created`
-      ctrl.amqp.request = jest.fn().mockResolvedValue({ message })
+      const expected = 'foo'
+      ctrl.amqp.request = jest.fn().mockResolvedValue(expected)
+      const requestSpy = jest.spyOn(ctrl.amqp, 'request')
 
       const response = await ctrl.signup(dto)
 
-      expect(response).toEqual({ message })
+      expect(response).toEqual(expected)
+      expect(requestSpy).toHaveBeenCalledWith({
+        exchange: Exchange.IAM,
+        routingKey: RPC.iam.users.signup.command,
+        payload: dto,
+        timeout: RPC.timeout,
+      })
     })
   })
 })

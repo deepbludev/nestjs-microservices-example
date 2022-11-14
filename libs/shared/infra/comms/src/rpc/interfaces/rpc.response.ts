@@ -4,5 +4,5 @@ import { HttpStatus } from '@nestjs/common'
 export interface RpcResponse<D = void> {
   message: string
   status: HttpStatus
-  data: D | null
+  data: D
 }

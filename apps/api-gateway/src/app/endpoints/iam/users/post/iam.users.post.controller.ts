@@ -1,6 +1,7 @@
+import { Result } from '@deepblu/ddd'
 import { Body, Controller, Post } from '@nestjs/common'
 import { SignupUserDTO } from '@obeya/contexts/iam/domain'
-import { AmqpService, Exchange, rpc } from '@obeya/shared/infra/comms'
+import { AmqpService, Exchange, RPC } from '@obeya/shared/infra/comms'
 
 @Controller('/iam/users')
 export class IamUsersPostController {
@@ -8,11 +9,11 @@ export class IamUsersPostController {
 
   @Post('/signup')
   async signup(@Body() dto: SignupUserDTO) {
-    return await this.amqp.request({
+    return this.amqp.request<Result>({
       exchange: Exchange.IAM,
-      routingKey: rpc.iam.users.signup.command,
+      routingKey: RPC.iam.users.signup.command,
       payload: dto,
-      timeout: 10000,
+      timeout: RPC.timeout,
     })
   }
 }

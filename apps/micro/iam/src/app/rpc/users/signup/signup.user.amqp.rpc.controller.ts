@@ -1,17 +1,27 @@
 import { Result } from '@deepblu/ddd'
-import { RabbitRPC } from '@golevelup/nestjs-rabbitmq'
+import { HttpException, HttpStatus } from '@nestjs/common'
 import { SignupUserDTO } from '@obeya/contexts/iam/domain'
-import { rpc } from '@obeya/shared/infra/comms'
+import { RPC, RpcController } from '@obeya/shared/infra/comms'
 
 import { iamAmqpRpc } from '../../../utils/iam.amqp.rpc.decorator'
 
-export class SignupUserAmqpRpcController {
-  @iamAmqpRpc(rpc.iam.users.signup.command)
-  async run(dto: SignupUserDTO) {
-    const result = Result.ok({
-      message: `User ${dto.email} created`,
-    })
+export class SignupUserAmqpRpcController
+  implements RpcController<SignupUserDTO, { id: string }>
+{
+  @iamAmqpRpc(RPC.iam.users.signup.command)
+  async run({ id, email }: SignupUserDTO) {
+    try {
+      const { data, isOk } = Result.ok({ user: { id, email } })
 
-    return result.data
+      return isOk
+        ? {
+            data,
+            message: `User ${email} created`,
+            status: HttpStatus.CREATED,
+          }
+        : new HttpException('Invalid credentials', HttpStatus.FORBIDDEN)
+    } catch (error) {
+      return error
+    }
   }
 }

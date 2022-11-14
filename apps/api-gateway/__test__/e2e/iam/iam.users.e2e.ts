@@ -29,7 +29,14 @@ describe('IAM (e2e)', () => {
           .send(body)
           .expect(HttpStatus.CREATED)
           .expect({
-            message: `User ${body.email} created`,
+            data: {
+              user: {
+                id: 'cce2fded-90cd-4ec9-8806-842834e73e6c',
+                email: 'valid@email.com',
+              },
+            },
+            message: 'User valid@email.com created',
+            status: 201,
           })
       })
     })
