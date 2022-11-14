@@ -1,2 +1,2 @@
 export * from './cqrs/canonical.decorator'
-export * from './cqrs/command'
+export * from './cqrs/canonical-command'
