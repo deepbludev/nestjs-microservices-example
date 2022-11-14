@@ -1,4 +1,4 @@
-import { INestApplication, Type } from '@nestjs/common'
+import { INestApplication, Type, ValidationPipe } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import supertest from 'supertest'
 
@@ -16,8 +16,9 @@ export class TestEnvironment {
     }).compile()
 
     const app = module.createNestApplication()
-    const env = new TestEnvironment(app, module)
+    app.useGlobalPipes(new ValidationPipe())
 
+    const env = new TestEnvironment(app, module)
     await env.app.init()
     return env
   }
