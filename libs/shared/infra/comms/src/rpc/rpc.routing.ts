@@ -1,4 +1,5 @@
-export const rpc = {
+export const RPC = {
+  timeout: 10000,
   iam: {
     status: { query: 'query:iam.status' },
     users: {

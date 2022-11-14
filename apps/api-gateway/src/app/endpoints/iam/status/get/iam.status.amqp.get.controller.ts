@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common'
-import { AmqpService, Exchange, rpc } from '@obeya/shared/infra/comms'
+import { AmqpService, Exchange, RPC } from '@obeya/shared/infra/comms'
 
 @Controller('/iam')
 export class IamStatusAmqpGetController {
@@ -9,8 +9,8 @@ export class IamStatusAmqpGetController {
   async status() {
     const { message } = await this.amqp.request<{ message: string }>({
       exchange: Exchange.IAM,
-      routingKey: rpc.iam.status.query,
-      timeout: 10000,
+      routingKey: RPC.iam.status.query,
+      timeout: RPC.timeout,
     })
 
     return { message }
