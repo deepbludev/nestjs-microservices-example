@@ -1,5 +1,5 @@
-import { Result } from '@deepblu/ddd'
-import { HttpException, HttpStatus } from '@nestjs/common'
+import { ICommandBus } from '@deepblu/ddd'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { SignupUserDTO } from '@obeya/contexts/iam/domain'
 import {
   amqpRpc,
@@ -8,23 +8,25 @@ import {
   RpcController,
 } from '@obeya/shared/infra/comms'
 
+import { SignupUser } from './signup.user.command'
+
+@Injectable()
 export class SignupUserAmqpRpcController
   implements RpcController<SignupUserDTO, { id: string }>
 {
+  constructor(private readonly commandbus: ICommandBus) {}
   @amqpRpc(Exchange.IAM)({ routingKey: RPC.iam.users.signup.command })
   async run({ id, email }: SignupUserDTO) {
-    try {
-      const { data, isOk } = Result.ok({ id })
+    const { isOk } = await this.commandbus.dispatch(
+      SignupUser.with({ id, email })
+    )
 
-      return isOk
-        ? {
-            data,
-            message: `User ${email} created`,
-            status: HttpStatus.CREATED,
-          }
-        : new HttpException('Invalid credentials', HttpStatus.FORBIDDEN)
-    } catch (error) {
-      return error
-    }
+    return isOk
+      ? {
+          data: { id },
+          message: `User ${email} created`,
+          status: HttpStatus.CREATED,
+        }
+      : new HttpException('Invalid credentials', HttpStatus.FORBIDDEN)
   }
 }
