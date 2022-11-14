@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@obeya/contexts/iam/domain": ["libs/contexts/iam/domain/src/index.ts"],
+      "@obeya/shared/domain": ["libs/shared/domain/src/index.ts"],
       "@obeya/shared/infra/comms": ["libs/shared/infra/comms/src/index.ts"]
     }
   },

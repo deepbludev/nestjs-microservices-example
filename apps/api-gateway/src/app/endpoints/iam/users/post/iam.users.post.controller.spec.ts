@@ -1,3 +1,4 @@
+import { SignupUser } from '@obeya/contexts/iam/domain'
 import { amqpServiceMock, Exchange, RPC } from '@obeya/shared/infra/comms'
 
 import { IamUsersPostController } from './iam.users.post.controller'
@@ -21,7 +22,7 @@ describe('IamController', () => {
       expect(response).toEqual(expected)
       expect(requestSpy).toHaveBeenCalledWith({
         exchange: Exchange.IAM,
-        routingKey: RPC.iam.users.signup.command,
+        routingKey: SignupUser.canonical,
         payload: dto,
         timeout: RPC.timeout,
       })

@@ -1,1 +1,2 @@
-export * from './users/signup.user.dto'
+export * from './users/commands/signup/signup.user.command'
+export * from './users/commands/signup/signup.user.dto'
