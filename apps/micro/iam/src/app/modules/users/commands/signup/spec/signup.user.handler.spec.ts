@@ -5,6 +5,7 @@ import {
   User,
   UsersRepoMock,
 } from '@obeya/contexts/iam/domain'
+import { UserId } from '@obeya/shared/domain'
 import { CommandBus } from '@obeya/shared/infra/comms'
 
 import { SignupUserHandler } from '../signup.user.handler'
@@ -23,6 +24,7 @@ describe(SignupUserHandler, () => {
     describe('when email and password are valid', () => {
       const { id, email, password } = signupUserDTOStub()
       const command: SignupUser = SignupUser.with({ id, email, password })
+      let user: User
 
       let response: Awaited<CommandResponse>
       let saveSpy: jest.SpyInstance
@@ -33,14 +35,16 @@ describe(SignupUserHandler, () => {
         saveSpy = jest.spyOn(repo, 'save')
         createSpy = jest.spyOn(User, 'create')
         await handler.handle(command)
+
+        user = await repo.get(UserId.from(id).data)
       })
 
       it('should call User.create with the correct params', () => {
         expect(createSpy).toHaveBeenCalledWith({ id, email, password })
       })
 
-      it('delegates persistence to repo', () => {
-        expect(saveSpy).toHaveBeenCalledWith(User.create(command.payload).data)
+      it('delegates persistence to repo', async () => {
+        expect(saveSpy).toHaveBeenCalledWith(user)
       })
 
       it('returns Result.ok()', async () => {

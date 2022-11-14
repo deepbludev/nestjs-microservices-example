@@ -1,3 +1,3 @@
-import { UserSignedUpSubscriber } from './user-created/user.signedup.subscriber'
+import { UserSignedUpSubscriber } from './signed-up/user.signed-up.subscriber'
 
 export const userEventSubscribers = [UserSignedUpSubscriber]
