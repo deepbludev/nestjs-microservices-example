@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 
-import { SignupUserAmqpRpcController } from './signup.user.amqp.rpc.controller'
+import { SignupUserAmqpRpcController } from './commands/signup/signup.user.amqp.rpc.controller'
 
 @Module({
   providers: [SignupUserAmqpRpcController],

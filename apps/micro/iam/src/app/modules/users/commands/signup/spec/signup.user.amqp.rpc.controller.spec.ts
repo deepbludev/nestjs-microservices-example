@@ -1,4 +1,4 @@
-import { SignupUserAmqpRpcController } from './signup.user.amqp.rpc.controller'
+import { SignupUserAmqpRpcController } from '../signup.user.amqp.rpc.controller'
 
 describe(SignupUserAmqpRpcController, () => {
   const ctrl = new SignupUserAmqpRpcController()
