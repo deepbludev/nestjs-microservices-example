@@ -31,6 +31,10 @@ export class TestEnvironment {
     return Promise.all([this.app.close()])
   }
 
+  async clean() {
+    console.log('clearing database...')
+  }
+
   public logger: TestLogger = new TestLogger()
 
   useLogger(logger?: TestLogger) {

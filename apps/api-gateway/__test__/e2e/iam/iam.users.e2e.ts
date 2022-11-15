@@ -16,6 +16,7 @@ describe('IAM.users (e2e)', () => {
   })
 
   afterEach(async () => {
+    await api.clean()
     await api.close()
   })
 
@@ -30,6 +31,9 @@ describe('IAM.users (e2e)', () => {
 
     describe('POST', () => {
       describe('when email, id and password are valid', () => {
+        afterEach(async () => {
+          await api.clean()
+        })
         it('creates a valid user', () => {
           const user = signupUserDTOStub()
 
@@ -38,17 +42,17 @@ describe('IAM.users (e2e)', () => {
               id: user.id,
             },
             message: 'User valid@email.com created',
-            status: 201,
+            statusCode: 201,
           })
         })
 
         describe('when user already exists', () => {
-          it('fails with same User ID', () => {
+          it('fails with same User ID', async () => {
             const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
             const user = signupUserDTOStub({ id })
             const otherUserWithSameId = signupUserDTOStub({ id })
 
-            api.request().post('/iam/users/signup').send(user)
+            await api.request().post('/iam/users/signup').send(user)
 
             return expect(otherUserWithSameId, HttpStatus.CONFLICT, {
               message: UserIdAlreadyExistsError.with(id).message,
@@ -56,7 +60,7 @@ describe('IAM.users (e2e)', () => {
             })
           })
 
-          it('fails with same user email', () => {
+          it('fails with same user email', async () => {
             const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
             const otherId = '88cc384c-eb13-4eee-af43-9f64c36f9e99'
             const user = signupUserDTOStub({ id })
@@ -65,7 +69,7 @@ describe('IAM.users (e2e)', () => {
               email: user.email,
             })
 
-            api.request().post('/iam/users/signup').send(user)
+            await api.request().post('/iam/users/signup').send(user)
 
             return expect(otherUserWithSameEmail, HttpStatus.CONFLICT, {
               message: UserEmailAlreadyInUseError.with(user.email).message,

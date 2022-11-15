@@ -25,4 +25,8 @@ export class InMemoryUsersRepo extends UsersRepo {
     })
     return Promise.resolve(null)
   }
+
+  async clear(): Promise<void> {
+    this.users.clear()
+  }
 }
