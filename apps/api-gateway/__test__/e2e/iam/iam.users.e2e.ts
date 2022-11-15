@@ -39,22 +39,26 @@ describe('IAM.users (e2e)', () => {
         })
 
         describe('when user already exists', () => {
-          it('returns http status 409 Conflict', () => {
-            const user = signupUserDTOStub()
+          it('fails when user id exists', () => {
+            const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
+            const user = signupUserDTOStub({ id })
+            const otherUserWithSameId = signupUserDTOStub({ id })
 
             api.request().post('/iam/users/signup').send(user)
 
-            return expect(user, HttpStatus.CONFLICT, {
+            return expect(otherUserWithSameId, HttpStatus.CONFLICT, {
               data: null,
               message: 'User already exists',
               status: 409,
             })
           })
+
+          it.todo('fails when user email exists')
         })
       })
 
       describe('when id, email and password are invalid', () => {
-        it('returns an error', () => {
+        it('returns 400 BAD REQUEST error', () => {
           const user = signupUserDTOStub({
             id: 'invalid',
             email: 'invalid',
@@ -68,6 +72,24 @@ describe('IAM.users (e2e)', () => {
               'id must be a UUID',
               'email must be an email',
               'password must be longer than or equal to 10 characters',
+            ],
+          })
+        })
+      })
+
+      describe('when parameters are missing', () => {
+        it('returns 400 BAD REQUEST error', () => {
+          const user = {}
+
+          return expect(user, HttpStatus.BAD_REQUEST, {
+            statusCode: 400,
+            error: 'Bad Request',
+            message: [
+              'id must be a UUID',
+              'email must be an email',
+              'password must be shorter than or equal to 255 characters',
+              'password must be longer than or equal to 10 characters',
+              'password must be a string',
             ],
           })
         })
