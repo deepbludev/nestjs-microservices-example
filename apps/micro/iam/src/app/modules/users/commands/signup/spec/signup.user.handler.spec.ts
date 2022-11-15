@@ -64,12 +64,18 @@ describe(SignupUserHandler, () => {
       })
 
       it('fails with same User ID', async () => {
+        const expected = Result.fail(UserIdAlreadyExistsError.with(id))
+        UsersFactory.signup = jest.fn().mockReturnValue(expected)
+
         const result = await handler.handle(command)
 
-        expect(result).toEqual(Result.fail(UserIdAlreadyExistsError.with(id)))
+        expect(result).toEqual(expected)
       })
 
       it('fails with same User email', async () => {
+        const expected = Result.fail(UserEmailAlreadyInUseError.with(email))
+        UsersFactory.signup = jest.fn().mockReturnValue(expected)
+
         const result = await handler.handle(
           SignupUser.with({
             id: '9e48f43e-fd9b-4c31-9d39-7e17509bbfbb',
@@ -78,9 +84,7 @@ describe(SignupUserHandler, () => {
           })
         )
 
-        expect(result).toEqual(
-          Result.fail(UserEmailAlreadyInUseError.with(email))
-        )
+        expect(result).toEqual(expected)
       })
     })
   })
