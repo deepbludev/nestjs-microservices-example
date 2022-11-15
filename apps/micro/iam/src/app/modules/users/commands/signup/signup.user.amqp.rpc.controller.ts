@@ -19,8 +19,11 @@ export class SignupUserAmqpRpcController
       ? {
           data: { id },
           message: `User ${email} created`,
-          status: HttpStatus.CREATED,
+          statusCode: HttpStatus.CREATED,
         }
-      : new HttpException(error.message, HttpStatus.FORBIDDEN)
+      : {
+          message: error.message,
+          statusCode: (error as HttpException).getStatus(),
+        }
   }
 }

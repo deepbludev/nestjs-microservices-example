@@ -3,6 +3,6 @@ import { HttpStatus } from '@nestjs/common'
 
 export interface RpcResponse<D = void> {
   message: string
-  status: HttpStatus
-  data: D
+  statusCode: HttpStatus
+  data?: D
 }

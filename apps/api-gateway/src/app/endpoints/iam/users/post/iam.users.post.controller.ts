@@ -6,10 +6,10 @@ import {
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
 import {
-  AmqpResponse,
   AmqpService,
   Exchange,
   RPC,
+  RpcResponse,
 } from '@obeya/shared/infra/comms'
 
 @Controller('/iam/users')
@@ -18,7 +18,7 @@ export class IamUsersPostController {
 
   @Post('/signup')
   async signup(@Body() payload: SignupUserDTO) {
-    const response = await this.amqp.request<AmqpResponse<{ id: string }>>({
+    const response = await this.amqp.request<RpcResponse<{ id: string }>>({
       exchange: Exchange.IAM,
       routingKey: SignupUser.canonical,
       payload,
