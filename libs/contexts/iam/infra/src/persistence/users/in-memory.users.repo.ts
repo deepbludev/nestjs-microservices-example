@@ -18,4 +18,11 @@ export class InMemoryUsersRepo extends UsersRepo {
   protected async persist(user: User): Promise<void> {
     this.users.set(user.id, user)
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    this.users.forEach(user => {
+      if (user.email.value === email) return Promise.resolve(user)
+    })
+    return Promise.resolve(null)
+  }
 }

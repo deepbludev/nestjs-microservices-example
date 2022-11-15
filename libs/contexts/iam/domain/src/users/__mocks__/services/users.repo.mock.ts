@@ -5,4 +5,10 @@ import { UsersRepo } from '../../services/users.repo'
 
 export class UsersRepoMock
   extends AggregateRepoMock<User>
-  implements UsersRepo {}
+  implements UsersRepo
+{
+  findByEmail: (email: string) => Promise<User | null> = jest.fn()
+  clear() {
+    this.aggregates.clear()
+  }
+}
