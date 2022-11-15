@@ -60,7 +60,12 @@ describe(SignupUserHandler, () => {
       const command: SignupUser = SignupUser.with({ id, email, password })
 
       beforeAll(async () => {
-        await repo.save(UsersFactory.signup({ id, email, password }).data)
+        const { data: user } = await UsersFactory.signup({
+          id,
+          email,
+          password,
+        })
+        await repo.save(user)
       })
 
       it('fails with same User ID', async () => {

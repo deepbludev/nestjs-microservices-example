@@ -7,7 +7,7 @@ import { createProps, User } from '../model/user.aggregate'
 
 @Injectable()
 export class UsersFactory {
-  static signup({ id, ...props }: SignupUserDTO): Result<User> {
+  static async signup({ id, ...props }: SignupUserDTO): Promise<Result<User>> {
     const [userId, ...results] = createProps({ id, ...props })
 
     const result = Result.combine<User>([userId, ...results])
