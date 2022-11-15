@@ -39,7 +39,7 @@ describe('IAM.users (e2e)', () => {
         })
 
         describe('when user already exists', () => {
-          it('fails when user id exists', () => {
+          it('fails with same user id', () => {
             const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
             const user = signupUserDTOStub({ id })
             const otherUserWithSameId = signupUserDTOStub({ id })
@@ -53,7 +53,23 @@ describe('IAM.users (e2e)', () => {
             })
           })
 
-          it.todo('fails when user email exists')
+          it('fails with same user email', () => {
+            const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
+            const otherId = '88cc384c-eb13-4eee-af43-9f64c36f9e99'
+            const user = signupUserDTOStub({ id })
+            const otherUserWithSameEmail = signupUserDTOStub({
+              id: otherId,
+              email: user.email,
+            })
+
+            api.request().post('/iam/users/signup').send(user)
+
+            return expect(otherUserWithSameEmail, HttpStatus.CONFLICT, {
+              data: null,
+              message: 'User already exists',
+              status: 409,
+            })
+          })
         })
       })
 
