@@ -3,6 +3,9 @@ import {
   SignupUser,
   signupUserDTOStub,
   User,
+  UserEmailAlreadyInUseError,
+  UserIdAlreadyExistsError,
+  UsersFactory,
   UsersRepoMock,
 } from '@obeya/contexts/iam/domain'
 import { UserId } from '@obeya/shared/domain'
@@ -33,7 +36,7 @@ describe(SignupUserHandler, () => {
       beforeAll(async () => {
         response = await commandbus.dispatch(command)
         saveSpy = jest.spyOn(repo, 'save')
-        createSpy = jest.spyOn(User, 'signup')
+        createSpy = jest.spyOn(UsersFactory, 'signup')
         await handler.handle(command)
 
         user = await repo.get(UserId.from(id).data)
@@ -49,6 +52,35 @@ describe(SignupUserHandler, () => {
 
       it('returns Result.ok()', async () => {
         expect(response).toEqual(Result.ok())
+      })
+    })
+
+    describe('when user already exists', () => {
+      const { id, email, password } = signupUserDTOStub()
+      const command: SignupUser = SignupUser.with({ id, email, password })
+
+      beforeAll(async () => {
+        await repo.save(UsersFactory.signup({ id, email, password }).data)
+      })
+
+      it('fails with same User ID', async () => {
+        const result = await handler.handle(command)
+
+        expect(result).toEqual(Result.fail(UserIdAlreadyExistsError.with(id)))
+      })
+
+      it('fails with same User email', async () => {
+        const result = await handler.handle(
+          SignupUser.with({
+            id: '9e48f43e-fd9b-4c31-9d39-7e17509bbfbb',
+            email,
+            password,
+          })
+        )
+
+        expect(result).toEqual(
+          Result.fail(UserEmailAlreadyInUseError.with(email))
+        )
       })
     })
   })

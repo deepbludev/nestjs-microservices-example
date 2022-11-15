@@ -5,7 +5,7 @@ import {
   Result,
 } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
-import { SignupUser, User, UsersRepo } from '@obeya/contexts/iam/domain'
+import { SignupUser, UsersFactory, UsersRepo } from '@obeya/contexts/iam/domain'
 
 @Injectable()
 @commandHandler(SignupUser)
@@ -14,7 +14,7 @@ export class SignupUserHandler extends ICommandHandler<SignupUser> {
     super()
   }
   async handle(command: SignupUser): CommandResponse {
-    const { data: user, isFail, error } = User.signup(command.payload)
+    const { data: user, isFail, error } = UsersFactory.signup(command.payload)
 
     if (isFail) return Result.fail(error)
 
