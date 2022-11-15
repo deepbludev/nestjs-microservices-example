@@ -2,9 +2,9 @@ import { HttpStatus } from '@nestjs/common'
 import { signupUserDTOStub } from '@obeya/contexts/iam/domain'
 
 import { ApiGatewayModule } from '../../../src/app/api-gateway.module'
-import { TestEnvironment } from '../../utils/test-environment.util'
+import { TestEnvironment } from '../../utils'
 
-describe('IAM (e2e)', () => {
+describe('IAM.users (e2e)', () => {
   let api: TestEnvironment
 
   beforeEach(async () => {
@@ -15,48 +15,60 @@ describe('IAM (e2e)', () => {
     await api.close()
   })
 
-  describe('/users', () => {
+  describe('/users/signup', () => {
+    const expect = (user, httpStatusCode, expected) =>
+      api
+        .request()
+        .post('/iam/users/signup')
+        .send(user)
+        .expect(httpStatusCode)
+        .expect(expected)
+
     describe('POST', () => {
       describe('when email, id and password are valid', () => {
         it('creates a valid user', () => {
-          const body = signupUserDTOStub()
+          const user = signupUserDTOStub()
 
-          return api
-            .request()
-            .post('/iam/users/signup')
-            .send(body)
-            .expect(HttpStatus.CREATED)
-            .expect({
-              data: {
-                id: body.id,
-              },
-              message: 'User valid@email.com created',
-              status: 201,
-            })
+          return expect(user, HttpStatus.CREATED, {
+            data: {
+              id: user.id,
+            },
+            message: 'User valid@email.com created',
+            status: 201,
+          })
         })
 
-        describe('when id, email and password are invalid', () => {
-          it('returns an error', () => {
-            const body = signupUserDTOStub({
-              id: 'invalid',
-              email: 'invalid',
-              password: 'invalid',
-            })
+        describe('when user already exists', () => {
+          it('returns http status 409 Conflict', () => {
+            const user = signupUserDTOStub()
 
-            return api
-              .request()
-              .post('/iam/users/signup')
-              .send(body)
-              .expect(HttpStatus.BAD_REQUEST)
-              .expect({
-                statusCode: 400,
-                error: 'Bad Request',
-                message: [
-                  'id must be a UUID',
-                  'email must be an email',
-                  'password must be longer than or equal to 10 characters',
-                ],
-              })
+            api.request().post('/iam/users/signup').send(user)
+
+            return expect(user, HttpStatus.CONFLICT, {
+              data: null,
+              message: 'User already exists',
+              status: 409,
+            })
+          })
+        })
+      })
+
+      describe('when id, email and password are invalid', () => {
+        it('returns an error', () => {
+          const user = signupUserDTOStub({
+            id: 'invalid',
+            email: 'invalid',
+            password: 'invalid',
+          })
+
+          return expect(user, HttpStatus.BAD_REQUEST, {
+            statusCode: 400,
+            error: 'Bad Request',
+            message: [
+              'id must be a UUID',
+              'email must be an email',
+              'password must be longer than or equal to 10 characters',
+            ],
           })
         })
       })
