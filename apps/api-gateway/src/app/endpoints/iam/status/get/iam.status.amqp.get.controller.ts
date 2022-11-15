@@ -9,7 +9,7 @@ export class IamStatusAmqpGetController {
   async status() {
     const { message } = await this.amqp.request<{ message: string }>({
       exchange: Exchange.IAM,
-      routingKey: RPC.iam.status.query,
+      routingKey: RPC.status.iam,
       timeout: RPC.timeout,
     })
 
