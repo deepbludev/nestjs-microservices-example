@@ -1,10 +1,10 @@
 import { Constructor, ICommand, IQuery } from '@deepblu/ddd'
 import { RabbitRPC } from '@golevelup/nestjs-rabbitmq'
 
-import { Exchange } from '../comms.constants'
+import { Microservice } from '../comms.constants'
 
 export const amqpRpc =
-  (exchange: Exchange) => (opts: { routingKey: string; queue?: string }) =>
+  (exchange: Microservice) => (opts: { routingKey: string; queue?: string }) =>
     RabbitRPC({
       exchange,
       routingKey: opts.routingKey,
@@ -12,7 +12,7 @@ export const amqpRpc =
     })
 
 export const amqpHandler = (
-  exchange: Exchange,
+  exchange: Microservice,
   rpc: Constructor<ICommand | IQuery> & { canonical: string },
   queue?: string
 ) => amqpRpc(exchange)({ routingKey: rpc.canonical, queue })

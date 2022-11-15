@@ -1,13 +1,20 @@
 import { Test } from '@nestjs/testing'
+import { Microservice } from '@obeya/shared/infra/comms'
 
-import { MongoDbService } from './mongodb.service'
+import { MongoDbModule } from '../mongodb.module'
+import { MongoDbService } from '../mongodb.service'
 
 describe(MongoDbService, () => {
   let service: MongoDbService
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [MongoDbService],
+      imports: [
+        MongoDbModule.forRoot({
+          uri: 'mongodb://localhost:27017',
+          microservice: Microservice.IAM,
+        }),
+      ],
     }).compile()
 
     service = module.get(MongoDbService)

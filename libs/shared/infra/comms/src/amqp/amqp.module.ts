@@ -2,12 +2,12 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq'
 import { DynamicModule, Global, Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
-import { Exchange } from '../comms.constants'
+import { Microservice } from '../comms.constants'
 import { amqp } from './amqp.constants'
 import { AmqpService } from './amqp.service'
 
 interface AmqpModuleOptions {
-  exchanges: Exchange[]
+  exchanges: Microservice[]
 }
 
 @Global()

@@ -7,7 +7,7 @@ import {
 } from '@obeya/contexts/iam/domain'
 import {
   AmqpService,
-  Exchange,
+  Microservice,
   RPC,
   RpcResponse,
 } from '@obeya/shared/infra/comms'
@@ -19,7 +19,7 @@ export class IamUsersPostController {
   @Post('/signup')
   async signup(@Body() payload: SignupUserDTO) {
     const response = await this.amqp.request<RpcResponse<{ id: string }>>({
-      exchange: Exchange.IAM,
+      exchange: Microservice.IAM,
       routingKey: SignupUser.canonical,
       payload,
       timeout: RPC.timeout,

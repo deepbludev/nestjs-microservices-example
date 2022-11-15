@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { UsersInfraModule } from '@obeya/contexts/iam/infra'
-import { AmqpModule, CqrsModule, Exchange } from '@obeya/shared/infra/comms'
+import { AmqpModule, CqrsModule, Microservice } from '@obeya/shared/infra/comms'
 
 import { IamConfigModule } from './config/config.module'
 import { userCommandHandlers } from './modules/users/commands/users.command-handlers'
@@ -13,7 +13,7 @@ import { StatusAmqpRpcController } from './status/rpc/status.amqp.rpc.controller
   imports: [
     IamConfigModule,
     IamMicroserviceModule,
-    AmqpModule.forRoot({ exchanges: [Exchange.IAM] }),
+    AmqpModule.forRoot({ exchanges: [Microservice.IAM] }),
     CqrsModule.forRoot({
       imports: [UsersInfraModule],
       commandHandlers: [...userCommandHandlers],

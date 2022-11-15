@@ -1,7 +1,11 @@
 import { ICommandBus } from '@deepblu/ddd'
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { SignupUser, SignupUserDTO } from '@obeya/contexts/iam/domain'
-import { amqpHandler, Exchange, RpcController } from '@obeya/shared/infra/comms'
+import {
+  amqpHandler,
+  Microservice,
+  RpcController,
+} from '@obeya/shared/infra/comms'
 
 @Injectable()
 export class SignupUserAmqpRpcController
@@ -9,7 +13,7 @@ export class SignupUserAmqpRpcController
 {
   constructor(private readonly commandbus: ICommandBus) {}
 
-  @amqpHandler(Exchange.IAM, SignupUser)
+  @amqpHandler(Microservice.IAM, SignupUser)
   async run({ id, email, password }: SignupUserDTO) {
     const { isOk, error } = await this.commandbus.dispatch(
       SignupUser.with({ id, email, password })
