@@ -1,3 +1,9 @@
+import {
+  InvalidEmailError,
+  InvalidPasswordError,
+  InvalidPropError,
+} from '@deepblu/ddd'
+
 import { signupUserDTOStub } from '../../__mocks__/commands/signup/signup.user.dto.mock'
 import { User } from '../../model/user.aggregate'
 import { UsersFactory } from '../users.factory'
@@ -10,8 +16,8 @@ describe(UsersFactory, () => {
     const dto = signupUserDTOStub()
 
     describe('when email and password are valid', () => {
-      beforeAll(async () => {
-        const result = await factory.signup(dto)
+      beforeAll(() => {
+        const result = factory.signup(dto)
         user = result.data
         isOk = result.isOk
       })
@@ -25,24 +31,34 @@ describe(UsersFactory, () => {
       })
     })
 
-    // describe('when user already exists', () => {
-    //   it('fails with same User ID', async () => {
-    //     repo.exists = jest.fn().mockReturnValue(true)
+    describe('when inputs are invalid', () => {
+      it('fails with invalid id', () => {
+        const { isOk, error } = factory.signup(
+          signupUserDTOStub({ id: 'invalid' })
+        )
+        expect(isOk).toBe(false)
+        expect(error).toBeInstanceOf(InvalidPropError)
+      })
 
-    //     const { isFail, error } = await factory.signup(dto)
+      it('fails with invalid email', () => {
+        const { isOk, error } = factory.signup(
+          signupUserDTOStub({ email: 'invalid' })
+        )
+        expect(isOk).toBe(false)
+        expect(error).toEqual(InvalidEmailError.with('invalid'))
+      })
 
-    //     expect(isFail).toBe(true)
-    //     expect(error).toEqual(UserIdAlreadyExistsError.with(dto.id))
-    //   })
-
-    //   it('fails with same User email', async () => {
-    //     repo.findByEmail = jest.fn().mockReturnValue(user)
-
-    //     const { isFail, error } = await factory.signup(dto)
-
-    //     expect(isFail).toBe(true)
-    //     expect(error).toEqual(UserEmailAlreadyInUseError.with(dto.email))
-    //   })
-    // })
+      it('fails with invalid password', () => {
+        const { isOk, error } = factory.signup(
+          signupUserDTOStub({ password: 'invalid' })
+        )
+        expect(isOk).toBe(false)
+        expect(error).toEqual(
+          InvalidPasswordError.with(
+            'Password "invalid" is too short. It must be at least 10 characters long.'
+          )
+        )
+      })
+    })
   })
 })
