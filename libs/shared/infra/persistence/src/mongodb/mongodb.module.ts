@@ -1,10 +1,13 @@
 import { DynamicModule, Module } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { Microservice } from '@obeya/shared/infra/comms'
 
 import { MongoDbClient } from './mongodb.client'
+import { mongodb } from './mongodb.constants'
 import { MongoDbService } from './mongodb.service'
 
 interface MongoDbModuleOptions {
-  uri: string
+  microservice: Microservice
 }
 
 @Module({
@@ -19,7 +22,7 @@ export class MongoDbModule {
     await this.client.close()
   }
 
-  static forRoot({ uri }: MongoDbModuleOptions): DynamicModule {
+  static forRoot({ microservice }: MongoDbModuleOptions): DynamicModule {
     return {
       module: MongoDbModule,
       global: true,
@@ -27,8 +30,9 @@ export class MongoDbModule {
       providers: [
         {
           provide: MongoDbClient,
-          useFactory: async (): Promise<MongoDbClient> =>
-            MongoDbClient.connect(uri),
+          inject: [ConfigService],
+          useFactory: async (config: ConfigService): Promise<MongoDbClient> =>
+            MongoDbClient.connect(`${config.get(mongodb.uri)}/${microservice}`),
         },
       ],
       exports: [MongoDbService],

@@ -1,7 +1,10 @@
+import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
+import { Microservice } from '@obeya/shared/infra/comms'
 import { Db } from 'mongodb'
 
 import { MongoDbClient } from '../mongodb.client'
+import { mongodbConfig } from '../mongodb.config'
 import { MongoDbModule } from '../mongodb.module'
 import { MongoDbService } from '../mongodb.service'
 
@@ -11,9 +14,8 @@ describe(MongoDbService, () => {
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [
-        MongoDbModule.forRoot({
-          uri: 'mongodb://localhost:27017/testdb',
-        }),
+        ConfigModule.forRoot({ isGlobal: true, load: [mongodbConfig] }),
+        MongoDbModule.forRoot({ microservice: Microservice.API_GATEWAY }),
       ],
     }).compile()
 
