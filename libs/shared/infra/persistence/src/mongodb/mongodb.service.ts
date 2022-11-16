@@ -3,7 +3,13 @@ import { MongoClient } from 'mongodb'
 
 @Injectable()
 export class MongoDbService {
-  constructor(@Inject('MONGODB_CLIENT') readonly client: MongoClient) {
-    console.log(this.client)
+  constructor(@Inject('MONGODB_CLIENT') readonly client: MongoClient) {}
+
+  db(name?: string) {
+    return this.client.db(name)
+  }
+
+  collection<T>(name: string, dbName?: string) {
+    return this.db(dbName).collection<T>(name)
   }
 }
