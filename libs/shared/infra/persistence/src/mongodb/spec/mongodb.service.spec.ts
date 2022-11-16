@@ -36,12 +36,16 @@ describe(MongoDbService, () => {
   })
 
   it('writes and reads data', async () => {
-    const collection = service.collection('test_collection', 'testdb')
+    const collection = service.collection<{ name: string }>(
+      'test_collection',
+      'testdb'
+    )
 
     const data = { name: 'test' }
     await collection.insertOne(data)
 
     const result = await collection.findOne({ name: 'test' })
+    console.log(result)
     expect(result).toEqual(data)
 
     await collection.deleteOne({ name: 'test' })
