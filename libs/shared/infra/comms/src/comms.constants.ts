@@ -1,4 +1,5 @@
 export enum Microservice {
+  TEST = 'test',
   API_GATEWAY = 'api-gateway',
   IAM = 'iam',
   ADMIN = 'admin',

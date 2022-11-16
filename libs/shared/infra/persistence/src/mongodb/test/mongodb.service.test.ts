@@ -15,7 +15,7 @@ describe(MongoDbService, () => {
     const module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true, load: [mongodbConfig] }),
-        MongoDbModule.forRoot({ microservice: Microservice.API_GATEWAY }),
+        MongoDbModule.forRoot({ microservice: Microservice.TEST }),
       ],
     }).compile()
 
@@ -23,7 +23,7 @@ describe(MongoDbService, () => {
   })
 
   afterEach(async () => {
-    await service.db('testdb').dropDatabase()
+    await service.db().dropDatabase()
     await service.client.close()
   })
 

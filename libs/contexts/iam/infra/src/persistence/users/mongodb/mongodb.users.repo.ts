@@ -26,7 +26,7 @@ export class MongoDbUsersRepo extends UsersRepo {
     return User.fromDTO(doc)
   }
 
-  protected async persist(user: User): Promise<void> {
+  async persist(user: User): Promise<void> {
     const dto = user.dto
     const doc: UserDoc = { ...dto, _id: dto.id }
 
