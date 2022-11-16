@@ -12,7 +12,7 @@ describe(MongoDbService, () => {
     const module = await Test.createTestingModule({
       imports: [
         MongoDbModule.forRoot({
-          uri: 'mongodb://localhost:37017/test',
+          uri: 'mongodb://localhost:27017/testdb',
         }),
       ],
     }).compile()

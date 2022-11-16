@@ -22,7 +22,7 @@ import { StatusAmqpRpcController } from './status/rpc/status.amqp.rpc.controller
       eventSubscribers: [...userEventSubscribers],
     }),
     MongoDbModule.forRoot({
-      uri: `mongodb://localhost:37017/${Microservice.IAM}`,
+      uri: `mongodb://localhost:27017/${Microservice.IAM}`,
     }),
     UsersModule,
     WorkspacesModule,

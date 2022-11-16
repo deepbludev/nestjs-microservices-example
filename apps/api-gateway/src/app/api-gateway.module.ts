@@ -11,7 +11,7 @@ import { StatusModule } from './endpoints/status/status.module'
     ApiGatewayConfigModule,
     AmqpModule.forRoot({ exchanges: [Microservice.IAM] }),
     MongoDbModule.forRoot({
-      uri: `mongodb://localhost:37017`,
+      uri: `mongodb://localhost:27017`,
     }),
     IamModule,
     StatusModule,

@@ -10,7 +10,7 @@ services:
   mongodb:
     image: mongo:latest
     ports:
-      - 37017:27017
+      - 27017:27017
     volumes:
       - mongodb-data:/data/db
 
