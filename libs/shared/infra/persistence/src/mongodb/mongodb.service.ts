@@ -1,9 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { MongoClient } from 'mongodb'
+import { Injectable } from '@nestjs/common'
+
+import { MongoDbClient } from './mongodb.client'
 
 @Injectable()
 export class MongoDbService {
-  constructor(@Inject('MONGODB_CLIENT') readonly client: MongoClient) {}
+  constructor(readonly client: MongoDbClient) {}
 
   db(name?: string) {
     return this.client.db(name)

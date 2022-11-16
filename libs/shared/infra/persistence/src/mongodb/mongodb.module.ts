@@ -1,6 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common'
-import { MongoClient } from 'mongodb'
 
+import { MongoDbClient } from './mongodb.client'
 import { MongoDbService } from './mongodb.service'
 
 interface MongoDbModuleOptions {
@@ -20,9 +20,9 @@ export class MongoDbModule {
       imports: [],
       providers: [
         {
-          provide: 'MONGODB_CLIENT',
-          useFactory: async (): Promise<MongoClient> =>
-            MongoClient.connect(uri),
+          provide: MongoDbClient,
+          useFactory: async (): Promise<MongoDbClient> =>
+            MongoDbClient.connect(uri),
         },
       ],
       exports: [MongoDbService],

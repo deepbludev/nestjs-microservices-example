@@ -1,6 +1,7 @@
 import { Test } from '@nestjs/testing'
-import { Db, MongoClient } from 'mongodb'
+import { Db } from 'mongodb'
 
+import { MongoDbClient } from '../mongodb.client'
 import { MongoDbModule } from '../mongodb.module'
 import { MongoDbService } from '../mongodb.service'
 
@@ -26,7 +27,7 @@ describe(MongoDbService, () => {
 
   it('connects to mongodb', () => {
     expect(service).toBeDefined()
-    expect(service.client).toBeInstanceOf(MongoClient)
+    expect(service.client).toBeInstanceOf(MongoDbClient)
     expect(service.db()).toBeInstanceOf(Db)
   })
 
