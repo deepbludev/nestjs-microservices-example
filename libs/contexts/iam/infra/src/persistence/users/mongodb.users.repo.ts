@@ -1,11 +1,11 @@
 import { IEventBus } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
 import { User, UserDTO, UsersRepo } from '@obeya/contexts/iam/domain'
-import { UserId } from '@obeya/shared/domain'
-import { MongoDbService } from '@obeya/shared/infra'
+import { Nullable, UserId } from '@obeya/shared/domain'
+import { MongoDbService, MongoDoc } from '@obeya/shared/infra'
 import { Collection } from 'mongodb'
 
-export type UserDoc = UserDTO & { _id: string }
+export type UserDoc = MongoDoc<UserDTO>
 
 @Injectable()
 export class MongoDbUsersRepo extends UsersRepo {
@@ -20,8 +20,8 @@ export class MongoDbUsersRepo extends UsersRepo {
     return this.client.db().collection<UserDoc>('users')
   }
 
-  async get(id: UserId): Promise<User> {
-    const doc: UserDoc = await this.users.findOne<UserDoc>({ id: id.value })
+  async get(id: UserId): Promise<Nullable<User>> {
+    const doc: UserDoc = await this.users.findOne<UserDoc>({ _id: id.value })
     if (!doc) return null
     return User.fromDTO(doc)
   }
@@ -37,7 +37,7 @@ export class MongoDbUsersRepo extends UsersRepo {
     )
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<Nullable<User>> {
     const doc = await this.users.findOne<UserDoc>({ email })
     if (!doc) return null
     return User.fromDTO({ ...doc })
