@@ -1,5 +1,4 @@
 import { Test } from '@nestjs/testing'
-import { Microservice } from '@obeya/shared/infra/comms'
 
 import { MongoDbModule } from '../mongodb.module'
 import { MongoDbService } from '../mongodb.service'
@@ -11,8 +10,7 @@ describe(MongoDbService, () => {
     const module = await Test.createTestingModule({
       imports: [
         MongoDbModule.forRoot({
-          uri: 'mongodb://localhost:27017',
-          microservice: Microservice.IAM,
+          uri: 'mongodb://root:root@localhost:27017',
         }),
       ],
     }).compile()
@@ -20,7 +18,12 @@ describe(MongoDbService, () => {
     service = module.get(MongoDbService)
   })
 
+  afterAll(async () => {
+    await service.client.close()
+  })
+
   it('should be defined', () => {
     expect(service).toBeTruthy()
+    expect(service.client).toBeTruthy()
   })
 })
