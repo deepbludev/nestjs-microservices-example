@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { UsersInfraModule } from '@obeya/contexts/iam/infra'
+import { MongoDbModule } from '@obeya/shared/infra'
 import { AmqpModule, CqrsModule, Microservice } from '@obeya/shared/infra/comms'
 
 import { IamConfigModule } from './config/config.module'
@@ -19,6 +20,9 @@ import { StatusAmqpRpcController } from './status/rpc/status.amqp.rpc.controller
       commandHandlers: [...userCommandHandlers],
       queryHandlers: [],
       eventSubscribers: [...userEventSubscribers],
+    }),
+    MongoDbModule.forRoot({
+      uri: `mongodb://localhost:37017/${Microservice.IAM}`,
     }),
     UsersModule,
     WorkspacesModule,

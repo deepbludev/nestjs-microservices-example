@@ -1,10 +1,11 @@
-import { Body, Controller, HttpStatus, Post } from '@nestjs/common'
 import {
-  SignupUser,
-  SignupUserDTO,
-  UserEmailAlreadyInUseError,
-  UserIdAlreadyExistsError,
-} from '@obeya/contexts/iam/domain'
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common'
+import { SignupUser, SignupUserDTO } from '@obeya/contexts/iam/domain'
 import {
   AmqpService,
   Microservice,
@@ -25,10 +26,8 @@ export class IamUsersPostController {
       timeout: RPC.timeout,
     })
 
-    if (response.statusCode === HttpStatus.CONFLICT)
-      throw response.message.startsWith(UserIdAlreadyExistsError.name)
-        ? UserIdAlreadyExistsError.with(payload.id)
-        : UserEmailAlreadyInUseError.with(payload.email)
+    if (response.statusCode !== HttpStatus.CREATED)
+      throw new HttpException(response.message, response.statusCode)
 
     return response
   }

@@ -13,6 +13,12 @@ interface MongoDbModuleOptions {
   exports: [MongoDbService],
 })
 export class MongoDbModule {
+  constructor(private readonly client: MongoDbClient) {}
+
+  async onModuleDestroy() {
+    await this.client.close()
+  }
+
   static forRoot({ uri }: MongoDbModuleOptions): DynamicModule {
     return {
       module: MongoDbModule,

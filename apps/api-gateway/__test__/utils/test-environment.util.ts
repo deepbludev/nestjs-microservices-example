@@ -1,14 +1,19 @@
 import { INestApplication, Type, ValidationPipe } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
+import { MongoDbService } from '@obeya/shared/infra'
 import supertest from 'supertest'
 
 import { TestLogger } from './test-logger'
 
 export class TestEnvironment {
+  dbClient: MongoDbService
+
   private constructor(
     public readonly app: INestApplication,
     public readonly module: TestingModule
-  ) {}
+  ) {
+    this.dbClient = module.get(MongoDbService)
+  }
 
   static async init(microservice: Type) {
     const module: TestingModule = await Test.createTestingModule({
@@ -29,10 +34,6 @@ export class TestEnvironment {
 
   close() {
     return Promise.all([this.app.close()])
-  }
-
-  async clean() {
-    console.log('clearing database...')
   }
 
   public logger: TestLogger = new TestLogger()

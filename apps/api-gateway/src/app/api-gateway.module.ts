@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { MongoDbModule } from '@obeya/shared/infra'
 import { AmqpModule, Microservice } from '@obeya/shared/infra/comms'
 
 import { ApiGatewayConfigModule } from './config/config.module'
@@ -9,6 +10,9 @@ import { StatusModule } from './endpoints/status/status.module'
   imports: [
     ApiGatewayConfigModule,
     AmqpModule.forRoot({ exchanges: [Microservice.IAM] }),
+    MongoDbModule.forRoot({
+      uri: `mongodb://localhost:37017`,
+    }),
     IamModule,
     StatusModule,
   ],

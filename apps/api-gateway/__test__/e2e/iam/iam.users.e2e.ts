@@ -4,19 +4,28 @@ import {
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
+import { UserId } from '@obeya/shared/domain'
+import { MongoDbService } from '@obeya/shared/infra'
+import { Microservice } from '@obeya/shared/infra/comms'
 
 import { ApiGatewayModule } from '../../../src/app/api-gateway.module'
 import { TestEnvironment } from '../../utils'
 
 describe('IAM.users (e2e)', () => {
   let api: TestEnvironment
+  let dbService: MongoDbService
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     api = await TestEnvironment.init(ApiGatewayModule)
+    dbService = api.module.get(MongoDbService)
+    await dbService.db(Microservice.IAM).dropDatabase()
   })
 
   afterEach(async () => {
-    await api.clean()
+    await dbService.db(Microservice.IAM).dropDatabase()
+  })
+
+  afterAll(async () => {
     await api.close()
   })
 
@@ -31,9 +40,6 @@ describe('IAM.users (e2e)', () => {
 
     describe('POST', () => {
       describe('when email, id and password are valid', () => {
-        afterEach(async () => {
-          await api.clean()
-        })
         it('creates a valid user', () => {
           const user = signupUserDTOStub()
 
@@ -48,9 +54,16 @@ describe('IAM.users (e2e)', () => {
 
         describe('when user already exists', () => {
           it('fails with same User ID', async () => {
-            const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
-            const user = signupUserDTOStub({ id })
-            const otherUserWithSameId = signupUserDTOStub({ id })
+            const id = UserId.create().value
+            const user = signupUserDTOStub({
+              id,
+              email: 'other_email@email.com',
+            })
+
+            const otherUserWithSameId = signupUserDTOStub({
+              id,
+              email: 'other_email@email.com',
+            })
 
             await api.request().post('/iam/users/signup').send(user)
 

@@ -24,7 +24,6 @@ export class SignupUserHandler extends ICommandHandler<SignupUser> {
   }
   async handle(command: SignupUser): CommandResponse {
     const { data: user, isFail, error } = this.factory.create(command.payload)
-
     if (isFail) return Result.fail(error)
 
     if (await this.repo.exists(user.id))
