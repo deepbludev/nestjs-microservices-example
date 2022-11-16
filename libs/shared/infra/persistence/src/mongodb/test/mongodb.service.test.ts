@@ -23,7 +23,10 @@ describe(MongoDbService, () => {
   })
 
   afterEach(async () => {
-    await service.db().dropDatabase()
+    await Promise.all([
+      service.db().dropDatabase(),
+      service.db('testdb').dropDatabase(),
+    ])
     await service.client.close()
   })
 
