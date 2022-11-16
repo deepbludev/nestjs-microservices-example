@@ -1,5 +1,6 @@
 export * from './__mocks__/aggregate.repo.mock'
 export * from './__mocks__/event-bus.mock'
+export * from './core/aggregate-root'
 export * from './cqrs/canonical.decorator'
 export * from './cqrs/canonical-command'
 export * from './modules/user/user-id.vo'

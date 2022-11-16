@@ -17,7 +17,7 @@ describe(UsersFactory, () => {
 
     describe('when email and password are valid', () => {
       beforeAll(() => {
-        const result = factory.signup(dto)
+        const result = factory.create(dto)
         user = result.data
         isOk = result.isOk
       })
@@ -33,7 +33,7 @@ describe(UsersFactory, () => {
 
     describe('when inputs are invalid', () => {
       it('fails with invalid id', () => {
-        const { isOk, error } = factory.signup(
+        const { isOk, error } = factory.create(
           signupUserDTOStub({ id: 'invalid' })
         )
         expect(isOk).toBe(false)
@@ -41,7 +41,7 @@ describe(UsersFactory, () => {
       })
 
       it('fails with invalid email', () => {
-        const { isOk, error } = factory.signup(
+        const { isOk, error } = factory.create(
           signupUserDTOStub({ email: 'invalid' })
         )
         expect(isOk).toBe(false)
@@ -49,7 +49,7 @@ describe(UsersFactory, () => {
       })
 
       it('fails with invalid password', () => {
-        const { isOk, error } = factory.signup(
+        const { isOk, error } = factory.create(
           signupUserDTOStub({ password: 'invalid' })
         )
         expect(isOk).toBe(false)

@@ -7,7 +7,7 @@ import { User } from '../model/user.aggregate'
 
 @Injectable()
 export class UsersFactory {
-  signup({ id, ...props }: SignupUserDTO): Result<User> {
+  create({ id, ...props }: SignupUserDTO): Result<User> {
     const [userId, ...results] = User.createProps({ id, ...props })
 
     const result = Result.combine<User>([userId, ...results])
@@ -18,5 +18,9 @@ export class UsersFactory {
     user.apply(event)
 
     return Result.ok(user)
+  }
+
+  static create(dto: SignupUserDTO): Result<User> {
+    return new UsersFactory().create(dto)
   }
 }

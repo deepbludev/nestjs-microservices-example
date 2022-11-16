@@ -1,16 +1,19 @@
-import { Email, IAggregateRoot, Password } from '@deepblu/ddd'
-import { UserId } from '@obeya/shared/domain'
+import { Email, Password } from '@deepblu/ddd'
+import { AggregateRoot, UserId } from '@obeya/shared/domain'
 
 import { SignupUserDTO } from '../commands/signup/signup.user.dto'
 import { UserSignedUp } from '../events/user.signedup.event'
+import { UserDTO } from './user.dto'
 
 export class UserEmail extends Email {}
 export class UserPassword extends Password {}
 
-export class User extends IAggregateRoot<
-  UserId,
-  { email: UserEmail; password: UserPassword }
-> {
+export interface UserProps {
+  email: UserEmail
+  password: UserPassword
+}
+
+export class User extends AggregateRoot<UserId, UserProps, UserDTO> {
   /**
    * Utility function to create a transaction's props from a transaction DTO.
    * @param dto
@@ -43,5 +46,23 @@ export class User extends IAggregateRoot<
 
   get password() {
     return this.props.password
+  }
+
+  get dto(): UserDTO {
+    return {
+      id: this.id.value,
+      email: this.email.value,
+      password: this.password.value,
+    }
+  }
+
+  static fromDTO(dto: UserDTO): User {
+    const [id, email] = User.createProps(dto)
+    const user = User.createEmpty<User>()
+    user.id = id.data
+    user.props.email = email.data
+    user.props.password = UserPassword.fromEncrypted(dto.password)
+
+    return user
   }
 }

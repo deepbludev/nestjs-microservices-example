@@ -32,7 +32,7 @@ describe(SignupUserHandler, () => {
 
       beforeAll(async () => {
         response = await commandbus.dispatch(command)
-        createSpy = jest.spyOn(factory, 'signup')
+        createSpy = jest.spyOn(factory, 'create')
 
         await handler.handle(command)
       })
@@ -70,7 +70,7 @@ describe(SignupUserHandler, () => {
           email: 'other@email.com',
         })
 
-        const user = factory.signup(dto).data
+        const user = factory.create(dto).data
         repo.exists = jest.fn().mockReturnValue(false)
         repo.findByEmail = jest.fn().mockReturnValue(user)
 
