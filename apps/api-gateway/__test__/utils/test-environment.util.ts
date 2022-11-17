@@ -1,14 +1,19 @@
-import { INestApplication, Type } from '@nestjs/common'
+import { INestApplication, Type, ValidationPipe } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
+import { MongoDbService } from '@obeya/shared/infra/persistence'
 import supertest from 'supertest'
 
 import { TestLogger } from './test-logger'
 
 export class TestEnvironment {
+  dbClient: MongoDbService
+
   private constructor(
     public readonly app: INestApplication,
     public readonly module: TestingModule
-  ) {}
+  ) {
+    this.dbClient = module.get(MongoDbService)
+  }
 
   static async init(microservice: Type) {
     const module: TestingModule = await Test.createTestingModule({
@@ -16,8 +21,9 @@ export class TestEnvironment {
     }).compile()
 
     const app = module.createNestApplication()
-    const env = new TestEnvironment(app, module)
+    app.useGlobalPipes(new ValidationPipe())
 
+    const env = new TestEnvironment(app, module)
     await env.app.init()
     return env
   }
