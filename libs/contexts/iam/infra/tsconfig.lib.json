@@ -7,7 +7,12 @@
       "jest",
       "node"
     ],
-    "target": "es6"
+    "target": "es6",
+    "paths": {
+      "@obeya/shared/infra/persistence": [
+        "libs/shared/infra/persistence/src/index.ts"
+      ]
+    }
   },
   "include": [
     "**/*.ts"

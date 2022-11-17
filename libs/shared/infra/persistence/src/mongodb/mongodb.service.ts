@@ -14,3 +14,5 @@ export class MongoDbService {
     return this.db(dbName).collection<T>(name)
   }
 }
+
+export type MongoDoc<DTO> = DTO & { _id: string }
