@@ -23,7 +23,7 @@ export class MongoDbUsersRepo extends UsersRepo {
   async get(id: UserId): Promise<Nullable<User>> {
     const doc: UserDoc = await this.users.findOne<UserDoc>({ _id: id.value })
     if (!doc) return null
-    return User.fromDTO(doc)
+    return User.from(doc)
   }
 
   async persist(user: User): Promise<void> {
@@ -40,7 +40,7 @@ export class MongoDbUsersRepo extends UsersRepo {
   async findByEmail(email: string): Promise<Nullable<User>> {
     const doc = await this.users.findOne<UserDoc>({ email })
     if (!doc) return null
-    return User.fromDTO({ ...doc })
+    return User.from({ ...doc })
   }
 
   async clear(): Promise<void> {

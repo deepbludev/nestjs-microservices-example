@@ -9,14 +9,14 @@ import {
   MongoDbService,
 } from '@obeya/shared/infra/persistence'
 
-import { MongoDbUsersRepo } from './mongodb.users.repo'
+import { MongoDbUsersRepo } from '../mongodb.users.repo'
 
 describe(MongoDbUsersRepo, () => {
   let service: MongoDbService
   let repo: MongoDbUsersRepo
 
   const dto = signupUserDTOStub()
-  const user = User.fromDTO(dto)
+  const user = User.from(dto)
 
   const eventbus: IEventBus = { publish: jest.fn(), register: jest.fn() }
 
@@ -31,7 +31,7 @@ describe(MongoDbUsersRepo, () => {
     service = module.get(MongoDbService)
     repo = new MongoDbUsersRepo(service, eventbus)
 
-    const user = User.fromDTO(dto)
+    const user = User.from(dto)
     await repo.persist(user)
   })
 

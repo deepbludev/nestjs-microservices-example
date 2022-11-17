@@ -13,9 +13,9 @@ describe(User, () => {
     })
   })
 
-  describe('#fromDTO', () => {
+  describe('#from', () => {
     user.commit()
-    const userFromDTO = User.fromDTO(dto)
+    const userFromDTO = User.from(dto)
 
     it('returns a User generated from the DTO', () => {
       expect(userFromDTO).toEqual(user)

@@ -56,7 +56,7 @@ export class User extends AggregateRoot<UserId, UserProps, UserDTO> {
     }
   }
 
-  static fromDTO(dto: UserDTO): User {
+  static from(dto: UserDTO): User {
     const [id, email] = User.createProps(dto)
     const user = User.createEmpty<User>()
     user.id = id.data
