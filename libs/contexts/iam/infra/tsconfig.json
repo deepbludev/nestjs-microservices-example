@@ -2,11 +2,6 @@
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
     "module": "commonjs",
-    "paths": {
-      "@obeya/shared/infra/persistence": [
-        "libs/shared/infra/persistence/src/index.ts"
-      ],
-    }
   },
   "files": [],
   "include": [],
