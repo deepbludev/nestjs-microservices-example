@@ -2,12 +2,12 @@ import { IEventBus } from '@deepblu/ddd'
 import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
 import { signupUserDTOStub, User } from '@obeya/contexts/iam/domain'
+import { Context } from '@obeya/shared/domain'
 import {
   mongodbConfig,
   MongoDbModule,
   MongoDbService,
-} from '@obeya/shared/infra'
-import { Microservice } from '@obeya/shared/infra/comms'
+} from '@obeya/shared/infra/persistence'
 
 import { MongoDbUsersRepo } from './mongodb.users.repo'
 
@@ -24,7 +24,7 @@ describe(MongoDbUsersRepo, () => {
     const module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true, load: [mongodbConfig] }),
-        MongoDbModule.forRoot({ microservice: Microservice.TEST }),
+        MongoDbModule.forRoot({ microservice: Context.TEST }),
       ],
     }).compile()
 

@@ -1,6 +1,6 @@
 import { ConfigModule } from '@nestjs/config'
-import { mongodbConfig } from '@obeya/shared/infra'
 import { amqpConfig } from '@obeya/shared/infra/comms'
+import { mongodbConfig } from '@obeya/shared/infra/persistence'
 
 import { portsConfig } from './ports.config'
 

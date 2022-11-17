@@ -2,7 +2,7 @@ import { IEventBus } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
 import { User, UserDTO, UsersRepo } from '@obeya/contexts/iam/domain'
 import { Nullable, UserId } from '@obeya/shared/domain'
-import { MongoDbService, MongoDoc } from '@obeya/shared/infra'
+import { MongoDbService, MongoDoc } from '@obeya/shared/infra/persistence'
 import { Collection } from 'mongodb'
 
 export type UserDoc = MongoDoc<UserDTO>

@@ -1,4 +1,4 @@
-import { amqpRpc, Microservice } from '@obeya/shared/infra/comms'
+import { amqpRpc, Context } from '@obeya/shared/infra/comms'
 
 export const iamAmqpRpc = (routingKey: string, queue?: string) =>
-  amqpRpc(Microservice.IAM)({ routingKey, queue })
+  amqpRpc(Context.IAM)({ routingKey, queue })

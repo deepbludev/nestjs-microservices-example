@@ -6,12 +6,8 @@ import {
   Post,
 } from '@nestjs/common'
 import { SignupUser, SignupUserDTO } from '@obeya/contexts/iam/domain'
-import {
-  AmqpService,
-  Microservice,
-  RPC,
-  RpcResponse,
-} from '@obeya/shared/infra/comms'
+import { Context } from '@obeya/shared/domain'
+import { AmqpService, RPC, RpcResponse } from '@obeya/shared/infra/comms'
 
 @Controller('/iam/users')
 export class IamUsersPostController {
@@ -20,7 +16,7 @@ export class IamUsersPostController {
   @Post('/signup')
   async signup(@Body() payload: SignupUserDTO) {
     const response = await this.amqp.request<RpcResponse<{ id: string }>>({
-      exchange: Microservice.IAM,
+      exchange: Context.IAM,
       routingKey: SignupUser.canonical,
       payload,
       timeout: RPC.timeout,

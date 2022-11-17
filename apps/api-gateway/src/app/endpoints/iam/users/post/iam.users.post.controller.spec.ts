@@ -4,12 +4,8 @@ import {
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
-import {
-  amqpServiceMock,
-  Microservice,
-  RPC,
-  RpcResponse,
-} from '@obeya/shared/infra/comms'
+import { Context } from '@obeya/shared/domain'
+import { amqpServiceMock, RPC, RpcResponse } from '@obeya/shared/infra/comms'
 
 import { IamUsersPostController } from './iam.users.post.controller'
 
@@ -35,7 +31,7 @@ describe(IamUsersPostController, () => {
 
         expect(response).toEqual(expected)
         expect(requestSpy).toHaveBeenCalledWith({
-          exchange: Microservice.IAM,
+          exchange: Context.IAM,
           routingKey: SignupUser.canonical,
           payload: dto,
           timeout: RPC.timeout,

@@ -13,6 +13,5 @@
     "**/*.test.ts",
     "**/*.spec.ts",
     "**/*.d.ts",
-    "src/persistence/users/mongodb/spec/mongodb.users.repo.ts"
   ]
 }

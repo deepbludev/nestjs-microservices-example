@@ -1,6 +1,6 @@
 import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
-import { Microservice } from '@obeya/shared/infra/comms'
+import { Context } from '@obeya/shared/domain'
 import { Db } from 'mongodb'
 
 import { MongoDbClient } from '../mongodb.client'
@@ -15,7 +15,7 @@ describe(MongoDbService, () => {
     const module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true, load: [mongodbConfig] }),
-        MongoDbModule.forRoot({ microservice: Microservice.TEST }),
+        MongoDbModule.forRoot({ microservice: Context.TEST }),
       ],
     }).compile()
 
@@ -50,7 +50,6 @@ describe(MongoDbService, () => {
     await collection.insertOne(data)
 
     const result = await collection.findOne({ name: 'test' })
-    console.log(result)
     expect(result).toEqual(data)
 
     await collection.deleteOne({ name: 'test' })

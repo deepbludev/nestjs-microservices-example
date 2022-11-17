@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
-import { MongoDbModule } from '@obeya/shared/infra'
-import { AmqpModule, Microservice } from '@obeya/shared/infra/comms'
+import { Context } from '@obeya/shared/domain'
+import { AmqpModule } from '@obeya/shared/infra/comms'
+import { MongoDbModule } from '@obeya/shared/infra/persistence'
 
 import { ApiGatewayConfigModule } from './config/config.module'
 import { IamModule } from './endpoints/iam/iam.module'
@@ -9,8 +10,8 @@ import { StatusModule } from './endpoints/status/status.module'
 @Module({
   imports: [
     ApiGatewayConfigModule,
-    AmqpModule.forRoot({ exchanges: [Microservice.IAM] }),
-    MongoDbModule.forRoot({ microservice: Microservice.API_GATEWAY }),
+    AmqpModule.forRoot({ exchanges: [Context.IAM] }),
+    MongoDbModule.forRoot({ microservice: Context.API_GATEWAY }),
     IamModule,
     StatusModule,
   ],

@@ -1,4 +1,4 @@
-export enum Microservice {
+export enum Context {
   TEST = 'test',
   API_GATEWAY = 'api-gateway',
   IAM = 'iam',

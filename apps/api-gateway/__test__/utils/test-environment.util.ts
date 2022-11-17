@@ -1,6 +1,6 @@
 import { INestApplication, Type, ValidationPipe } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { MongoDbService } from '@obeya/shared/infra'
+import { MongoDbService } from '@obeya/shared/infra/persistence'
 import supertest from 'supertest'
 
 import { TestLogger } from './test-logger'

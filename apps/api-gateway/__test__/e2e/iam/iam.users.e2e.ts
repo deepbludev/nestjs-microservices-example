@@ -5,8 +5,8 @@ import {
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
 import { UserId } from '@obeya/shared/domain'
-import { MongoDbService } from '@obeya/shared/infra'
-import { Microservice } from '@obeya/shared/infra/comms'
+import { Context } from '@obeya/shared/domain'
+import { MongoDbService } from '@obeya/shared/infra/persistence'
 
 import { ApiGatewayModule } from '../../../src/app/api-gateway.module'
 import { TestEnvironment } from '../../utils'
@@ -18,11 +18,11 @@ describe('IAM.users (e2e)', () => {
   beforeAll(async () => {
     api = await TestEnvironment.init(ApiGatewayModule)
     dbService = api.module.get(MongoDbService)
-    await dbService.db(Microservice.IAM).dropDatabase()
+    await dbService.db(Context.IAM).dropDatabase()
   })
 
   afterEach(async () => {
-    await dbService.db(Microservice.IAM).dropDatabase()
+    await dbService.db(Context.IAM).dropDatabase()
   })
 
   afterAll(async () => {

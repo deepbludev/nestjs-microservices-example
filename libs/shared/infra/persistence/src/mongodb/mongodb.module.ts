@@ -1,13 +1,13 @@
 import { DynamicModule, Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { Microservice } from '@obeya/shared/infra/comms'
+import { Context } from '@obeya/shared/domain'
 
 import { MongoDbClient } from './mongodb.client'
 import { mongodb } from './mongodb.constants'
 import { MongoDbService } from './mongodb.service'
 
 interface MongoDbModuleOptions {
-  microservice: Microservice
+  microservice: Context
 }
 
 @Module({
