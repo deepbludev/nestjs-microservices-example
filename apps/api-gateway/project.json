@@ -9,7 +9,7 @@
       "options": {
         "commands": [
           "nx build api-gateway --configuration=production --with-deps",
-          "docker build . -t nocodeapp_api-gateway:production --target production --build-arg SERVICE_NAME=api-gateway"
+          "docker build . -t obeya_api-gateway:production --target production --build-arg SERVICE_NAME=api-gateway"
         ]
       }
     },
