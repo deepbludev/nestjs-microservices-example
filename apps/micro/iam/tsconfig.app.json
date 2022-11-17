@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../dist/out-tsc",
+    "module": "commonjs",
+    "types": [
+      "node",
+      "jest"
+    ],
+    "emitDecoratorMetadata": true,
+    "target": "es2015"
+  },
+  "exclude": [
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.e2e.ts",
+    "**/__mocks__/**/*.ts",
+  ],
+  "include": [
+    "**/*.ts"
+  ]
+}

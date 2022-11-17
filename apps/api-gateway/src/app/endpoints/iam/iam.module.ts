@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 
-import { IamController } from './iam.controller'
+import { IamStatusModule } from './status/iam.status.module'
+import { IamUsersModule } from './users/iam.users.module'
 
 @Module({
-  imports: [],
-  controllers: [IamController],
+  imports: [IamStatusModule, IamUsersModule],
 })
 export class IamModule {}
