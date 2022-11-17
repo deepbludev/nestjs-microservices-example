@@ -1,4 +1,4 @@
-import { IEventBus } from '@deepblu/ddd'
+import { IEventBus, IEventPublisherRepo } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
 import { User, UserDTO, UsersRepo } from '@obeya/contexts/iam/domain'
 import { Nullable, UserId } from '@obeya/shared/domain'
@@ -8,7 +8,10 @@ import { Collection } from 'mongodb'
 export type UserDoc = MongoDoc<UserDTO>
 
 @Injectable()
-export class MongoDbUsersRepo extends UsersRepo {
+export class MongoDbUsersRepo
+  extends IEventPublisherRepo<User>
+  implements UsersRepo
+{
   constructor(
     protected readonly client: MongoDbService,
     readonly eventbus: IEventBus
