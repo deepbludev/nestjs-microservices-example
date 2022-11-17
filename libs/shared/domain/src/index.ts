@@ -1,5 +1,4 @@
 export * from './__mocks__/aggregate.repo.mock'
-export * from './__mocks__/event-bus.mock'
 export * from './core/aggregate-root'
 export * from './core/domain.constants'
 export * from './core/types/nullable.type'
