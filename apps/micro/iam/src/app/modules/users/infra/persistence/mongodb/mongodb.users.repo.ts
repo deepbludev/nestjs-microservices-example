@@ -1,4 +1,4 @@
-import { IEventBus, IEventPublisherRepo } from '@deepblu/ddd'
+import { IEventBus } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
 import { User, UserDTO, UsersRepo } from '@obeya/contexts/iam/domain'
 import { Nullable, UserId } from '@obeya/shared/domain'
@@ -8,10 +8,7 @@ import { Collection } from 'mongodb'
 export type UserDoc = MongoDoc<UserDTO>
 
 @Injectable()
-export class MongoDbUsersRepo
-  extends IEventPublisherRepo<User>
-  implements UsersRepo
-{
+export class MongoDbUsersRepo extends UsersRepo {
   constructor(
     protected readonly client: MongoDbService,
     readonly eventbus: IEventBus
@@ -30,8 +27,7 @@ export class MongoDbUsersRepo
   }
 
   async persist(user: User): Promise<void> {
-    const dto = user.dto
-    const doc: UserDoc = { ...dto, _id: dto.id }
+    const doc: UserDoc = { ...user.dto, _id: user.id.value }
 
     await this.users.updateOne(
       { _id: doc._id },
