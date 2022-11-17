@@ -1,9 +1,8 @@
-import { Global, Module } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { UsersFactory } from '@obeya/contexts/iam/domain'
 
-import { UsersPersistenceModule } from './persistence/users/users.persistence.module'
+import { UsersPersistenceModule } from './persistence/users.persistence.module'
 
-@Global()
 @Module({
   imports: [UsersPersistenceModule],
   providers: [UsersFactory],

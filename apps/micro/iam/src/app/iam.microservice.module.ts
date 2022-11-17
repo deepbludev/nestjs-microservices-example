@@ -5,7 +5,6 @@ import { MongoDbModule } from '@obeya/shared/infra/persistence'
 
 import { IamConfigModule } from './config/config.module'
 import { userCommandHandlers } from './modules/users/commands/users.command-handlers'
-import { UsersInfraModule } from './modules/users/persistence/users.infra.module'
 import { userEventSubscribers } from './modules/users/subscribers/users.event-subscribers'
 import { UsersModule } from './modules/users/users.module'
 import { WorkspacesModule } from './modules/workspaces/workspaces.module'
@@ -17,7 +16,7 @@ import { StatusAmqpRpcController } from './status/rpc/status.amqp.rpc.controller
     IamMicroserviceModule,
     AmqpModule.forRoot({ exchanges: [Context.IAM] }),
     CqrsModule.forRoot({
-      imports: [UsersInfraModule],
+      imports: [UsersModule],
       commandHandlers: [...userCommandHandlers],
       queryHandlers: [],
       eventSubscribers: [...userEventSubscribers],
