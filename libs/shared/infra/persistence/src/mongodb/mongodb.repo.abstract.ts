@@ -11,7 +11,7 @@ export type Filter<DTO extends MongoDTO> = Partial<DTO>
 
 @Injectable()
 export abstract class MongoDbRepo<
-  A extends AggregateRoot,
+  A extends AggregateRoot<DTO>,
   DTO extends MongoDTO
 > extends IEventPublisherRepo<A> {
   abstract readonly aggregate: string
@@ -36,7 +36,7 @@ export abstract class MongoDbRepo<
   }
 
   async persist(aggregate: A): Promise<void> {
-    const dto: DTO = aggregate.dto as DTO
+    const { dto } = aggregate
     await this.collection.updateOne(
       { _id: new Binary(dto.id) },
       { $set: dto },

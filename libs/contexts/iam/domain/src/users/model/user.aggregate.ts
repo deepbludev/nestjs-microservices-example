@@ -13,7 +13,7 @@ export interface UserProps {
   password: UserPassword
 }
 
-export class User extends AggregateRoot<UserId, UserProps, UserDTO> {
+export class User extends AggregateRoot<UserDTO, UserId, UserProps> {
   /**
    * Utility function to create a transaction's props from a transaction DTO.
    * @param dto
