@@ -57,6 +57,7 @@
     "@swc/jest": "0.2.20",
     "@testing-library/react": "13.4.0",
     "@types/jest": "28.1.1",
+    "@types/mongodb": "^4.0.7",
     "@types/node": "18.7.18",
     "@types/passport-jwt": "^3.0.7",
     "@types/passport-local": "^1.0.34",
