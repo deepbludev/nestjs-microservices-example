@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common'
 import { User, UserDTO, UsersRepo } from '@obeya/contexts/iam/domain'
 import { Nullable, UserId } from '@obeya/shared/domain'
 import { MongoDbService, MongoDoc } from '@obeya/shared/infra/persistence'
-import { Collection } from 'mongodb'
+import { Binary, Collection } from 'mongodb'
 
 export type UserDoc = MongoDoc<UserDTO>
 
@@ -21,13 +21,15 @@ export class MongoDbUsersRepo extends UsersRepo {
   }
 
   async get(id: UserId): Promise<Nullable<User>> {
-    const doc: UserDoc = await this.users.findOne<UserDoc>({ _id: id.value })
+    const doc: UserDoc = await this.users.findOne<UserDoc>({
+      _id: new Binary(id.value),
+    })
     if (!doc) return null
     return User.from(doc)
   }
 
   async persist(user: User): Promise<void> {
-    const doc: UserDoc = { ...user.dto, _id: user.id.value }
+    const doc: UserDoc = { ...user.dto, _id: new Binary(user.id.value) }
 
     await this.users.updateOne(
       { _id: doc._id },
