@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { Binary } from 'mongodb'
 
 import { MongoDbClient } from './mongodb.client'
 
@@ -15,4 +16,4 @@ export class MongoDbService {
   }
 }
 
-export type MongoDoc<DTO> = DTO & { _id: string }
+export type MongoDoc<DTO> = DTO & { _id: Binary }
