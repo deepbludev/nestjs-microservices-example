@@ -15,7 +15,7 @@ export abstract class MongoDbRepo<
   DTO extends MongoDTO
 > extends IEventPublisherRepo<A> {
   abstract readonly aggregate: string
-  abstract readonly mapper: (dto: DTO) => A
+  abstract mapper(dto: DTO): A
 
   constructor(
     protected readonly client: MongoDbService,

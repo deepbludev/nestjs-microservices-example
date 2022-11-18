@@ -11,7 +11,7 @@ export class MongoDbUsersRepo
   implements UsersRepo
 {
   aggregate = User.name
-  mapper = (dto: UserDTO) => User.from(dto)
+  mapper = User.from
 
   async findByEmail(email: string): Promise<Nullable<User>> {
     return this.findBy({ email })
