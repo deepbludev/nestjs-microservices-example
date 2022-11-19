@@ -1,6 +1,6 @@
 import { AggregateRoot, UserId } from '@obeya/shared/domain'
 
-import { SignupUserDTO } from '../commands/signup/signup.user.dto'
+import { SignupUserRequestDTO } from '../commands/signup/signup.user.dto'
 import { UserSignedUp } from '../events/user.signedup.event'
 import { UserDTO } from './user.dto'
 import { UserEmail } from './user.email.vo'
@@ -12,7 +12,7 @@ export interface UserProps {
 }
 
 export class User extends AggregateRoot<UserDTO, UserId, UserProps> {
-  static createProps(dto: SignupUserDTO) {
+  static createProps(dto: SignupUserRequestDTO) {
     const { id, email, password } = dto
     const results = [
       UserId.from<UserId>(id),

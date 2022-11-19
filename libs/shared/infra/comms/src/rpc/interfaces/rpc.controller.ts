@@ -5,7 +5,7 @@ import { RpcResponse } from './rpc.response'
 
 export interface RpcController<
   R = {},
-  D = void,
+  D = null,
   E extends HttpException = HttpException
 > {
   run(dto: R): Promise<RpcResponse<D> | E>
