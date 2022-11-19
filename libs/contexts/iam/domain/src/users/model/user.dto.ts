@@ -1,16 +1,12 @@
-import {
-  IsEmail,
-  IsString,
-  IsUUID,
-  MaxLength,
-  MinLength,
-} from 'class-validator'
+import { IsString, IsUUID, MaxLength, MinLength } from 'class-validator'
+
+import { IsUserEmail, UserEmail } from './user.email.vo'
 
 export class UserDTO {
   @IsUUID()
   id: string
 
-  @IsEmail()
+  @IsUserEmail({ message: UserEmail.invalidMessage })
   email: string
 
   @IsString()

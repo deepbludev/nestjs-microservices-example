@@ -105,7 +105,7 @@ describe('IAM.users (e2e)', () => {
             error: 'Bad Request',
             message: [
               'id must be a UUID',
-              'email must be an email',
+              'email is not valid',
               'password must be longer than or equal to 10 characters',
             ],
           })
@@ -121,7 +121,7 @@ describe('IAM.users (e2e)', () => {
             error: 'Bad Request',
             message: [
               'id must be a UUID',
-              'email must be an email',
+              'email is not valid',
               'password must be shorter than or equal to 255 characters',
               'password must be longer than or equal to 10 characters',
               'password must be a string',
