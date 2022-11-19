@@ -29,10 +29,19 @@ export abstract class MongoDbRepo<
   }
 
   async get(id: A['id']): Promise<Nullable<A>> {
-    const doc: MongoDoc<DTO> = await this.collection.findOne<MongoDoc<DTO>>({
+    const dto = await this.getDTO(id)
+    return dto ? this.mapper(dto) : null
+  }
+
+  async getDTO(id: A['id']): Promise<Nullable<DTO>> {
+    const dto = await this.collection.findOne<MongoDoc<DTO>>({
       _id: new Binary(id.value),
     })
-    return doc ? this.mapper(doc) : null
+
+    if (!dto) return null
+
+    Reflect.deleteProperty(dto, '_id')
+    return dto
   }
 
   async persist(aggregate: A): Promise<void> {
