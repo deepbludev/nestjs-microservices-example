@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { registerDecorator, ValidationOptions } from 'class-validator'
 
-export function validator(name: string, validator: (value: any) => boolean) {
+export function validator(name: string, validate: (value: any) => boolean) {
   return function (validationOptions?: ValidationOptions) {
     return function (object: unknown, propertyName: string) {
       registerDecorator({
@@ -10,8 +10,14 @@ export function validator(name: string, validator: (value: any) => boolean) {
         propertyName: propertyName,
         constraints: [],
         options: validationOptions,
-        validator: { validate: value => validator(value) },
+        validator: { validate: value => validate(value) },
       })
     }
   }
 }
+
+export const is = (
+  name: string,
+  validate: (value: any) => boolean,
+  validationOptions: ValidationOptions
+) => validator(name, validate)(validationOptions)
