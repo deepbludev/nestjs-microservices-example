@@ -1,5 +1,6 @@
 export * from './__mocks__/aggregate.repo.mock'
 export * from './core/aggregate-root'
+export * from './core/decorators/validator.decorator'
 export * from './core/domain.constants'
 export * from './core/types/nullable.type'
 export * from './cqrs/canonical.decorator'
