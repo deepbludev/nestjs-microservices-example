@@ -17,6 +17,7 @@ export function Index() {
               <span> Hello there, </span>
               Welcome obeya 👋
             </h1>
+            <p className="text-red-600 font-bold">Hello, world!</p>
           </div>
           <Button text={'Hello, obeya!'} />
         </div>
