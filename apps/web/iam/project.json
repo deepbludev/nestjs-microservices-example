@@ -1,7 +1,7 @@
 {
-  "name": "web-obeya",
+  "name": "web-iam",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/web/obeya",
+  "sourceRoot": "apps/web/iam",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,12 +9,12 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "root": "apps/web/obeya",
-        "outputPath": "dist/apps/web/obeya"
+        "root": "apps/web/iam",
+        "outputPath": "dist/apps/web/iam"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/web/obeya"
+          "outputPath": "apps/web/iam"
         },
         "production": {}
       }
@@ -23,16 +23,16 @@
       "executor": "@nrwl/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "web-obeya:build",
+        "buildTarget": "web-iam:build",
         "dev": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "web-obeya:build:development",
+          "buildTarget": "web-iam:build:development",
           "dev": true
         },
         "production": {
-          "buildTarget": "web-obeya:build:production",
+          "buildTarget": "web-iam:build:production",
           "dev": false
         }
       }
@@ -40,14 +40,14 @@
     "export": {
       "executor": "@nrwl/next:export",
       "options": {
-        "buildTarget": "web-obeya:build:production"
+        "buildTarget": "web-iam:build:production"
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/web/obeya/jest.config.ts",
+        "jestConfig": "apps/web/iam/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -55,7 +55,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/web/obeya/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/web/iam/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },

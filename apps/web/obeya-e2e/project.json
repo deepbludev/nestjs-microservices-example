@@ -8,12 +8,12 @@
       "executor": "@nrwl/cypress:cypress",
       "options": {
         "cypressConfig": "apps/web/obeya-e2e/cypress.config.ts",
-        "devServerTarget": "web-obeya:serve:development",
+        "devServerTarget": "web-iam:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "web-obeya:serve:production"
+          "devServerTarget": "web-iam:serve:production"
         }
       }
     },
@@ -26,5 +26,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": ["web-obeya"]
+  "implicitDependencies": ["web-iam"]
 }
