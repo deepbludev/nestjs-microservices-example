@@ -1,20 +1,32 @@
 import '.tailwind/tailwind.css'
-import './styles.css'
 
+import { MantineProvider } from '@mantine/core'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
-function CustomApp({ Component, pageProps }: AppProps) {
+export default function App(props: AppProps) {
+  const { Component, pageProps } = props
+
   return (
     <>
       <Head>
-        <title>Welcome to obeya!</title>
+        <title>Welcome to Obeya!</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
       </Head>
-      <main className="app">
+
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          /** Put your mantine theme override here */
+          colorScheme: 'light',
+        }}
+      >
         <Component {...pageProps} />
-      </main>
+      </MantineProvider>
     </>
   )
 }
-
-export default CustomApp

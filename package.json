@@ -10,7 +10,12 @@
   "private": true,
   "dependencies": {
     "@deepblu/ddd": "^1.1.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
     "@golevelup/nestjs-rabbitmq": "^3.4.0",
+    "@mantine/core": "^5.8.2",
+    "@mantine/hooks": "^5.8.2",
+    "@mantine/next": "^5.8.2",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",

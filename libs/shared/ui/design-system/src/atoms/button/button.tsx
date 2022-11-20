@@ -1,24 +1,25 @@
+import {
+  Button as MantineButton,
+  ButtonProps as MantineButtonProps,
+} from '@mantine/core'
 import { clsx } from 'clsx'
 
 const buttonColor = (color: ButtonProps['color']) =>
   `bg-${color}-500 hover:bg-${color}-700`
-export interface ButtonProps {
-  text: string
+export interface ButtonProps extends MantineButtonProps {
   color?: 'red' | 'blue'
 }
 
-export function Button({ text, color }: ButtonProps) {
+export function Button({ color, ...buttonProps }: ButtonProps) {
   return (
-    <div
+    <MantineButton
       className={clsx(
         buttonColor(color ?? 'blue'),
         'rounded-md max-w-sm',
-        'p-4 m-4',
         'text-xl text-white text-center'
       )}
-    >
-      <h1>{text}</h1>
-    </div>
+      {...buttonProps}
+    />
   )
 }
 
