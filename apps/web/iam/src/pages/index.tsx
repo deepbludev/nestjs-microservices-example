@@ -19,7 +19,7 @@ export function Index() {
             </h1>
             <p className="text-red-600 font-bold">Hello, world!</p>
           </div>
-          <Button text={'Hello, obeya!'} />
+          <Button text={'Hello, obeya!'} color="red" />
         </div>
       </div>
     </div>
