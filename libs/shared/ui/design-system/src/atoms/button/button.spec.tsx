@@ -22,5 +22,6 @@ describe('Button', () => {
 
   it('contains correct text', () => {
     expect(button).toHaveTextContent('Hello, obeya!')
+    expect(buttonWithDefaultColor).toHaveTextContent('Hello, obeya!')
   })
 })
