@@ -11,7 +11,7 @@ export function Index() {
         </Title>
         <p className="text-red-600 font-bold">Hello, world!</p>
       </div>
-      <ExampleButton color="green" size="xl">
+      <ExampleButton color="primary" size="xl">
         Click me
       </ExampleButton>
     </>

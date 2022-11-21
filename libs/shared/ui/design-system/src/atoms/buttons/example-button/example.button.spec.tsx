@@ -6,18 +6,20 @@ describe(ExampleButton, () => {
   const text = 'Hello, obeya!'
   const {
     container: { firstChild: button },
-  } = render(<ExampleButton color="red">{text}</ExampleButton>)
+  } = render(<ExampleButton color="green">{text}</ExampleButton>)
 
   const {
     container: { firstChild: buttonWithDefaultColor },
   } = render(<ExampleButton>{text}</ExampleButton>)
 
   it('contains correct color classes', () => {
-    expect(button).toHaveClass('bg-red-600 hover:bg-red-500')
+    expect(button).toHaveClass('bg-green-600 hover:bg-green-500')
   })
 
   it('renders with default color when no color is provided', () => {
-    expect(buttonWithDefaultColor).toHaveClass('bg-blue-600 hover:bg-blue-500')
+    expect(buttonWithDefaultColor).toHaveClass(
+      'bg-primary-600 hover:bg-primary-500'
+    )
   })
 
   it('contains correct text', () => {
