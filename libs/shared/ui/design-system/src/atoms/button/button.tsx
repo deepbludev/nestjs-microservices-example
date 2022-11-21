@@ -5,18 +5,18 @@ import { Props } from '../../utils/types/props.type.util'
 
 type MatineButtonProps = Props<typeof MantineButton>
 
-const buttonColor = (color: MatineButtonProps['color']) =>
-  `bg-${color}-500 hover:bg-${color}-700`
-
-export type ButtonProps = MatineButtonProps & {
+export type ButtonProps = {
   color?: 'red' | 'blue' | 'green' | 'yellow' | 'gray' | 'cyan'
-}
+} & Omit<MatineButtonProps, 'color'>
+
+const buttonColor = (color: ButtonProps['color'] = 'blue') =>
+  `bg-${color}-500 hover:bg-${color}-700`
 
 export function Button({ color, ...buttonProps }: ButtonProps) {
   return (
     <MantineButton
       className={clsx(
-        buttonColor(color ?? 'blue'),
+        buttonColor(color),
         'rounded-md max-w-sm',
         'text-xl text-white text-center'
       )}
@@ -24,5 +24,3 @@ export function Button({ color, ...buttonProps }: ButtonProps) {
     />
   )
 }
-
-export default Button
