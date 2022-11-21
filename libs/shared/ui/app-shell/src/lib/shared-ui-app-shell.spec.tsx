@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react'
 
-import SharedUiAppShell from './shared-ui-app-shell'
+import { AppShell } from './shared-ui-app-shell'
 
-describe('SharedUiAppShell', () => {
+describe(AppShell, () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<SharedUiAppShell />)
+    const { baseElement } = render(<AppShell />)
     expect(baseElement).toBeTruthy()
   })
 })
