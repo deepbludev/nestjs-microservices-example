@@ -1,1 +1,1 @@
-export * from './lib/shared-ui-app-shell'
+export * from './presenters/web.app-shell.presenter'

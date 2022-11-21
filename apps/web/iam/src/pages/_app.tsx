@@ -1,6 +1,6 @@
 import '.tailwind/tailwind.css'
 
-import { MantineProvider } from '@mantine/core'
+import { WebAppShell } from '@obeya/shared/ui/app-shell'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
@@ -17,16 +17,9 @@ export default function App(props: AppProps) {
         />
       </Head>
 
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          /** Put your mantine theme override here */
-          colorScheme: 'light',
-        }}
-      >
+      <WebAppShell>
         <Component {...pageProps} />
-      </MantineProvider>
+      </WebAppShell>
     </>
   )
 }

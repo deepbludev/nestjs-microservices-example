@@ -19,9 +19,8 @@ export function Index() {
             </h1>
             <p className="text-red-600 font-bold">Hello, world!</p>
           </div>
-          <Button color="red" size="xl">
-            {' '}
-            Click me{' '}
+          <Button color="cyan" size="xl">
+            Click me
           </Button>
         </div>
       </div>
