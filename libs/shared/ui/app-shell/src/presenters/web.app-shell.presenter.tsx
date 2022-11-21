@@ -1,5 +1,5 @@
-import NotificationsProvider from '../providers/notifications.provider'
-import UiFrameworkProvider from '../providers/ui-framework.provider'
+import { NotificationsProvider } from '../providers/notifications.provider'
+import { UiFrameworkProvider } from '../providers/ui-framework.provider'
 
 export interface WebAppShellProps {
   children: React.ReactNode

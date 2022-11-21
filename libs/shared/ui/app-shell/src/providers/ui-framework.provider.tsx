@@ -1,17 +1,21 @@
-import { MantineProvider, MantineThemeOverride } from '@mantine/core'
+import { MantineProvider } from '@mantine/core'
 
-import { baseTheme } from './base.theme'
+import { ObeyaTheme, obeyaTheme } from './obeya.theme'
 
 interface UIFrameworkProviderProps {
   children: React.ReactNode
-  theme?: MantineThemeOverride
+  theme?: ObeyaTheme
 }
 
 export const UiFrameworkProvider = ({
   children,
   theme,
 }: UIFrameworkProviderProps) => (
-  <MantineProvider withGlobalStyles withNormalizeCSS theme={theme ?? baseTheme}>
+  <MantineProvider
+    withGlobalStyles
+    withNormalizeCSS
+    theme={theme ?? obeyaTheme}
+  >
     {children}
   </MantineProvider>
 )
