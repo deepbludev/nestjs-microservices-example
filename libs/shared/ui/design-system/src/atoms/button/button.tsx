@@ -1,13 +1,15 @@
-import {
-  Button as MantineButton,
-  ButtonProps as MantineButtonProps,
-} from '@mantine/core'
+import { Button as MantineButton } from '@mantine/core'
 import { clsx } from 'clsx'
 
-const buttonColor = (color: ButtonProps['color']) =>
+import { Props } from '../../utils/types/props.type.util'
+
+type MatineButtonProps = Props<typeof MantineButton>
+
+const buttonColor = (color: MatineButtonProps['color']) =>
   `bg-${color}-500 hover:bg-${color}-700`
-export interface ButtonProps extends MantineButtonProps {
-  color?: 'red' | 'blue'
+
+export type ButtonProps = MatineButtonProps & {
+  color?: 'red' | 'blue' | 'green' | 'yellow' | 'gray' | 'cyan'
 }
 
 export function Button({ color, ...buttonProps }: ButtonProps) {
