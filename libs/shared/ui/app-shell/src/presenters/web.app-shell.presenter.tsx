@@ -1,4 +1,5 @@
-import { MantineProvider } from '@mantine/core'
+import NotificationsProvider from '../providers/notifications.provider'
+import UiFrameworkProvider from '../providers/ui-framework.provider'
 
 export interface WebAppShellProps {
   children: React.ReactNode
@@ -6,16 +7,9 @@ export interface WebAppShellProps {
 
 export function WebAppShell({ children }: WebAppShellProps) {
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        /** Put your mantine theme override here */
-        colorScheme: 'light',
-      }}
-    >
-      {children}
-    </MantineProvider>
+    <UiFrameworkProvider>
+      <NotificationsProvider>{children}</NotificationsProvider>
+    </UiFrameworkProvider>
   )
 }
 

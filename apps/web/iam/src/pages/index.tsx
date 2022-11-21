@@ -19,7 +19,7 @@ export function Index() {
             </h1>
             <p className="text-red-600 font-bold">Hello, world!</p>
           </div>
-          <ExampleButton color="teal" size="xl">
+          <ExampleButton color="green" size="xl">
             Click me
           </ExampleButton>
         </div>

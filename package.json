@@ -16,6 +16,7 @@
     "@mantine/core": "^5.8.2",
     "@mantine/hooks": "^5.8.2",
     "@mantine/next": "^5.8.2",
+    "@mantine/notifications": "^5.8.2",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",

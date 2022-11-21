@@ -34,7 +34,6 @@ export function ExampleButton({
     <MantineButton
       className={clsx(
         buttonColor[color],
-        'bg-',
         'rounded-md max-w-sm',
         'text-xl text-white text-center'
       )}
