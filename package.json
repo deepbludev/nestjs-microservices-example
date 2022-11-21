@@ -45,11 +45,14 @@
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rxjs": "^7.0.0",
+    "storybook-svgr-react-component": "^1.0.1",
     "tailwindcss": "^3.2.4",
     "tslib": "^2.3.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@babel/core": "7.12.13",
+    "@babel/preset-typescript": "7.12.13",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@nrwl/cli": "15.1.1",
@@ -62,8 +65,16 @@
     "@nrwl/node": "15.1.1",
     "@nrwl/nx-cloud": "15.0.2",
     "@nrwl/react": "15.2.1",
+    "@nrwl/storybook": "15.2.1",
     "@nrwl/web": "15.2.1",
     "@nrwl/workspace": "15.1.1",
+    "@storybook/addon-essentials": "~6.5.9",
+    "@storybook/builder-webpack5": "~6.5.9",
+    "@storybook/core-server": "~6.5.9",
+    "@storybook/manager-webpack5": "~6.5.9",
+    "@storybook/react": "~6.5.9",
+    "@storybook/test-runner": "^0.7.2",
+    "@svgr/webpack": "^6.5.1",
     "@swc/core": "^1.2.173",
     "@swc/jest": "0.2.20",
     "@testing-library/jest-dom": "^5.16.5",
@@ -79,6 +90,7 @@
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "babel-jest": "28.1.1",
+    "babel-loader": "8.1.0",
     "cypress": "^11.0.0",
     "eslint": "~8.15.0",
     "eslint-config-next": "13.0.0",
@@ -94,9 +106,11 @@
     "nx": "15.1.1",
     "prettier": "^2.6.2",
     "react-test-renderer": "18.2.0",
+    "storybook-addon-swc": "^1.1.7",
     "supertest": "^6.3.1",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
-    "typescript": "~4.8.2"
+    "typescript": "~4.8.2",
+    "url-loader": "^3.0.0"
   }
 }

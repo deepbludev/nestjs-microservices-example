@@ -1,5 +1,5 @@
 import { createGetInitialProps } from '@mantine/next'
-import { FontsProvider } from '@obeya/shared/ui/app-shell'
+import { FontsProvider } from '@obeya/shared/ui/design-system'
 import { Head, Html, Main, NextScript } from 'next/document'
 
 export const Document = () => (

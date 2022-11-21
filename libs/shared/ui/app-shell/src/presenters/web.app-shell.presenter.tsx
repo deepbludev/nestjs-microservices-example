@@ -1,5 +1,7 @@
-import { NotificationsProvider } from '../providers/notifications.provider'
-import { UiFrameworkProvider } from '../providers/ui-framework.provider'
+import {
+  NotificationsProvider,
+  UiFrameworkProvider,
+} from '@obeya/shared/ui/design-system'
 
 export interface WebAppShellProps {
   children: React.ReactNode
