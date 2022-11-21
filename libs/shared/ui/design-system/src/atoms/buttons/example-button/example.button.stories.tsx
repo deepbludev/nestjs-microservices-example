@@ -8,8 +8,8 @@ export default {
 } as ComponentMeta<typeof ExampleButton>
 
 const Template: ComponentStory<typeof ExampleButton> = args => (
-  <ExampleButton {...args} />
+  <ExampleButton {...args}>Example Button </ExampleButton>
 )
 
 export const Primary = Template.bind({})
-Primary.args = { children: 'Example Button', color: 'red' }
+Primary.args = { color: 'red', size: 'md' }
