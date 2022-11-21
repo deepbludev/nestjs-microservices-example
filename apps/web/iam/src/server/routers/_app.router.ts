@@ -3,15 +3,17 @@ import { z } from 'zod'
 import { procedure, router } from '../trpc'
 
 export const appRouter = router({
-  hello: procedure
+  status: procedure
     .input(
       z.object({
-        text: z.string(),
+        text: z.string().optional(),
+        date: z.date().optional(),
       })
     )
     .query(({ input }) => {
       return {
-        greeting: `hello ${input.text}`,
+        greeting: `hello ${input.text ?? 'world'}`,
+        date: input.date ?? 'no date',
       }
     }),
 })

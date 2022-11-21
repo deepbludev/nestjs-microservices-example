@@ -4,7 +4,10 @@ import { ExampleButton } from '@obeya/shared/ui/design-system'
 import { trpc } from '../utils/trpc'
 
 export function Index() {
-  const hello = trpc.hello.useQuery({ text: 'obeya, from trpc' })
+  const hello = trpc.status.useQuery({
+    text: 'obeya! from react query',
+    date: new Date(),
+  })
   if (!hello.data) {
     return <div>Loading...</div>
   }
@@ -19,6 +22,7 @@ export function Index() {
         <p className="text-red-600 font-bold">Hello, world!</p>
       </div>
       <p>{hello.data.greeting}</p>
+      <p>{hello.data.date.toString()}</p>
       <ExampleButton color="primary" size="xl">
         Click me
       </ExampleButton>
