@@ -1,17 +1,23 @@
 import { Button as MantineButton } from '@mantine/core'
 import { clsx } from 'clsx'
 
-import { Props } from '../../utils/types/props.type.util'
+import { Props } from '../../../utils/types/props.type.util'
 
 type MatineButtonProps = Props<typeof MantineButton>
 
-export type ButtonColor = 'red' | 'orange' | 'blue' | 'green' | 'teal' | 'cyan'
+export type ExampleButtonColor =
+  | 'red'
+  | 'orange'
+  | 'blue'
+  | 'green'
+  | 'teal'
+  | 'cyan'
 
-export type ButtonProps = {
-  color?: ButtonColor
+export type ExampleButtonProps = {
+  color?: ExampleButtonColor
 } & Omit<MatineButtonProps, 'color'>
 
-const buttonColor: { [key in ButtonColor]: string } = {
+const buttonColor: { [key in ExampleButtonColor]: string } = {
   red: 'bg-red-600 hover:bg-red-500',
   orange: 'bg-orange-600 hover:bg-orange-500',
   blue: 'bg-blue-600 hover:bg-blue-500',
@@ -20,7 +26,10 @@ const buttonColor: { [key in ButtonColor]: string } = {
   cyan: 'bg-cyan-600 hover:bg-cyan-500',
 }
 
-export function Button({ color = 'blue', ...buttonProps }: ButtonProps) {
+export function ExampleButton({
+  color = 'blue',
+  ...buttonProps
+}: ExampleButtonProps) {
   return (
     <MantineButton
       className={clsx(

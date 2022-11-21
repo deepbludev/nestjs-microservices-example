@@ -1,4 +1,4 @@
-import { Button } from '@obeya/shared/ui/design-system'
+import { ExampleButton } from '@obeya/shared/ui/design-system'
 
 import styles from './index.module.css'
 
@@ -19,9 +19,9 @@ export function Index() {
             </h1>
             <p className="text-red-600 font-bold">Hello, world!</p>
           </div>
-          <Button color="cyan" size="xl">
+          <ExampleButton color="teal" size="xl">
             Click me
-          </Button>
+          </ExampleButton>
         </div>
       </div>
     </div>
