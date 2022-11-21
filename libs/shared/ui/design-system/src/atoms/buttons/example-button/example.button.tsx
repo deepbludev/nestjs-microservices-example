@@ -35,7 +35,7 @@ export function ExampleButton({
       className={clsx(
         buttonColor[color],
         'rounded-md max-w-sm',
-        'text-xl text-white text-center'
+        'text-white text-center'
       )}
       {...buttonProps}
     />
