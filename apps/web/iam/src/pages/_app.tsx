@@ -4,7 +4,9 @@ import { WebAppShell } from '@obeya/shared/ui/app-shell'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
-export default function App(props: AppProps) {
+import { trpc } from '../utils/trpc'
+
+function App(props: AppProps) {
   const { Component, pageProps } = props
 
   return (
@@ -23,3 +25,5 @@ export default function App(props: AppProps) {
     </>
   )
 }
+
+export default trpc.withTRPC(App)

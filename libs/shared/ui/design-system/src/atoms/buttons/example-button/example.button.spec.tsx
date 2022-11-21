@@ -13,12 +13,12 @@ describe(ExampleButton, () => {
   } = render(<ExampleButton>{text}</ExampleButton>)
 
   it('contains correct color classes', () => {
-    expect(button).toHaveClass('bg-green-600 hover:bg-green-500')
+    expect(button).toHaveClass('bg-green-900 hover:bg-green-400')
   })
 
   it('renders with default color when no color is provided', () => {
     expect(buttonWithDefaultColor).toHaveClass(
-      'bg-primary-600 hover:bg-primary-500'
+      'bg-primary-900 hover:bg-primary-400'
     )
   })
 
