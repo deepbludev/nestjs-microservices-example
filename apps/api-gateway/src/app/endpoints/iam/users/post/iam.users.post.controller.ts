@@ -13,11 +13,11 @@ import {
 import { Context } from '@obeya/shared/domain'
 import { AmqpService, RPC, RpcResponse } from '@obeya/shared/infra/comms'
 
-@Controller('/iam/users')
+@Controller()
 export class IamUsersPostController {
   constructor(readonly amqp: AmqpService) {}
 
-  @Post('/signup')
+  @Post(SignupUser.path())
   async signup(
     @Body() payload: SignupUserRequestDTO
   ): Promise<RpcResponse<SignupUserResponseDTO>> {
