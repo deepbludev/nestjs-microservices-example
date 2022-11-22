@@ -1,4 +1,4 @@
-import { Title } from '@mantine/core'
+import { Button, Title } from '@mantine/core'
 import { ExampleButton } from '@obeya/shared/ui/design-system'
 
 import { trpc } from '../infra/trpc/trpc.config'
@@ -17,16 +17,14 @@ export function Index() {
     <>
       <div id="welcome">
         <Title>
-          <span> Hello there, </span>
-          Welcome obeya 👋
+          <span> Hello, obeya! 👋</span>
         </Title>
-        <p className="text-red-600 font-bold">Hello, world!</p>
+        <p className="text-action-80 bg-bnw-90 font-bold">Hello, world!</p>
       </div>
       <p>{hello.data.greeting}</p>
       <p>{hello.data.date.toString()}</p>
-      <ExampleButton color="primary" size="xl">
-        Click me
-      </ExampleButton>
+      <ExampleButton color="action">Click me</ExampleButton>
+      <Button>Hey</Button>
     </>
   )
 }

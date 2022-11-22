@@ -1,13 +1,13 @@
 {
-  "name": "web-.e2e-design-system-e2e",
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/web/.e2e/design-system-e2e/src",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "web-e2e-design-system",
+  "sourceRoot": "apps/web-e2e/design-system/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/web/.e2e/design-system-e2e/cypress.config.ts",
+        "cypressConfig": "apps/web-e2e/design-system/cypress.config.ts",
         "devServerTarget": "shared-ui-design-system:storybook",
         "testingType": "e2e"
       },
@@ -21,7 +21,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/web/.e2e/design-system-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/web-e2e/design-system/**/*.{js,ts}"]
       }
     }
   },
