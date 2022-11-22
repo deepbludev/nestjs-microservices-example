@@ -10,10 +10,16 @@ export const appRouter = router({
         date: z.date().optional(),
       })
     )
-    .query(({ input }) => {
+    .output(
+      z.object({
+        greeting: z.string(),
+        date: z.date(),
+      })
+    )
+    .query(({ input: { text, date } }) => {
       return {
-        greeting: `hello ${input.text ?? 'world'}`,
-        date: input.date ?? 'no date',
+        greeting: `hello ${text ?? 'world'}`,
+        date: date ?? new Date(),
       }
     }),
 })

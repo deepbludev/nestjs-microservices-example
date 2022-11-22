@@ -1,12 +1,13 @@
 import { Title } from '@mantine/core'
 import { ExampleButton } from '@obeya/shared/ui/design-system'
 
-import { trpc } from '../utils/trpc'
+import { trpc } from '../infra/trpc/trpc.config'
+const date = new Date()
 
 export function Index() {
   const hello = trpc.status.useQuery({
     text: 'obeya! from react query',
-    date: new Date(),
+    date,
   })
   if (!hello.data) {
     return <div>Loading...</div>
