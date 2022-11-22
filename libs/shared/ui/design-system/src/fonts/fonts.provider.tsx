@@ -9,3 +9,8 @@ export function FontsProvider() {
     </>
   )
 }
+
+export const ObeyaFont = {
+  TEXT: '"Roboto", sans-serif',
+  HEADING: '"Ubuntu", sans-serif',
+} as const
