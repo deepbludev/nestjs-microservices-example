@@ -17,8 +17,7 @@ export function Index() {
     <>
       <div id="welcome">
         <Title>
-          <span> Hello there, </span>
-          Welcome obeya 👋
+          <span> Hello, obeya! 👋</span>
         </Title>
         <p className="text-action-80 bg-bnw-90 font-bold">Hello, world!</p>
       </div>
