@@ -2,8 +2,8 @@ import 'dayjs/locale/es'
 
 import { MantineThemeOverride } from '@mantine/core'
 
-import { ObeyaColors } from '../colors/obeya.colors'
-import { ObeyaFont } from '../fonts/fonts.provider'
+import { ObeyaColors } from '../../colors/obeya.colors'
+import { ObeyaFont } from '../../fonts/fonts.provider'
 import { extract } from './theme.utils'
 
 export type ObeyaTheme = Pick<

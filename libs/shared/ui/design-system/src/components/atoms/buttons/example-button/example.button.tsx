@@ -1,7 +1,7 @@
 import { Button as MantineButton } from '@mantine/core'
 import { clsx } from 'clsx'
 
-import { Props } from '../../../../utils/types/props.type.util'
+import { Props } from '../../../../types/props.type.util'
 
 type MatineButtonProps = Props<typeof MantineButton>
 

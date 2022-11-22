@@ -9,5 +9,3 @@ export const NotificationsProvider = ({
 }: NotificationsProviderProps) => (
   <MantineNotificationsProvider>{children}</MantineNotificationsProvider>
 )
-
-export default NotificationsProvider

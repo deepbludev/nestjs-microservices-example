@@ -1,6 +1,6 @@
 import { MantineProvider } from '@mantine/core'
 
-import { ObeyaTheme, obeyaTheme } from '../themes/obeya.theme'
+import { ObeyaTheme, obeyaTheme } from './themes/obeya.theme'
 
 interface UIFrameworkProviderProps {
   children: React.ReactNode
