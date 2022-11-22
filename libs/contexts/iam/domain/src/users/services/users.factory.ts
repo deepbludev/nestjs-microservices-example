@@ -1,13 +1,13 @@
 import { Result } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
 
-import { SignupUserDTO } from '../commands/signup/signup.user.dto'
+import { SignupUserRequestDTO } from '../commands/signup/signup.user.dto'
 import { UserSignedUp } from '../events/user.signedup.event'
 import { User } from '../model/user.aggregate'
 
 @Injectable()
 export class UsersFactory {
-  create({ id, ...props }: SignupUserDTO): Result<User> {
+  create({ id, ...props }: SignupUserRequestDTO): Result<User> {
     const [userId, ...results] = User.createProps({ id, ...props })
 
     const result = Result.combine<User>([userId, ...results])
@@ -20,7 +20,7 @@ export class UsersFactory {
     return Result.ok(user)
   }
 
-  static create(dto: SignupUserDTO): Result<User> {
+  static create(dto: SignupUserRequestDTO): Result<User> {
     return new UsersFactory().create(dto)
   }
 }

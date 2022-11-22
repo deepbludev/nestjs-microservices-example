@@ -1,25 +1,18 @@
-import { Email, Password } from '@deepblu/ddd'
 import { AggregateRoot, UserId } from '@obeya/shared/domain'
 
-import { SignupUserDTO } from '../commands/signup/signup.user.dto'
+import { SignupUserRequestDTO } from '../commands/signup/signup.user.dto'
 import { UserSignedUp } from '../events/user.signedup.event'
 import { UserDTO } from './user.dto'
-
-export class UserEmail extends Email {}
-export class UserPassword extends Password {}
+import { UserEmail } from './user.email.vo'
+import { UserPassword } from './user.password.vo'
 
 export interface UserProps {
   email: UserEmail
   password: UserPassword
 }
 
-export class User extends AggregateRoot<UserId, UserProps, UserDTO> {
-  /**
-   * Utility function to create a transaction's props from a transaction DTO.
-   * @param dto
-   * @returns an array of Result value objects
-   */
-  static createProps(dto: SignupUserDTO) {
+export class User extends AggregateRoot<UserDTO, UserId, UserProps> {
+  static createProps(dto: SignupUserRequestDTO) {
     const { id, email, password } = dto
     const results = [
       UserId.from<UserId>(id),

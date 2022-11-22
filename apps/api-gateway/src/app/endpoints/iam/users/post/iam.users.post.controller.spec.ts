@@ -1,6 +1,7 @@
 import { HttpStatus } from '@nestjs/common'
 import {
   SignupUser,
+  SignupUserResponseDTO,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
@@ -20,7 +21,8 @@ describe(IamUsersPostController, () => {
   describe('POST /users/signup', () => {
     describe('when email and password are valid', () => {
       it('returns status 201 Created', async () => {
-        const expected: RpcResponse = {
+        const expected: RpcResponse<SignupUserResponseDTO> = {
+          data: { id: dto.id },
           message: 'foo',
           statusCode: HttpStatus.CREATED,
         }
@@ -44,6 +46,7 @@ describe(IamUsersPostController, () => {
         const error = UserIdAlreadyExistsError.with(dto.id)
 
         ctrl.amqp.request = jest.fn().mockResolvedValue({
+          data: null,
           message: error.message,
           statusCode: HttpStatus.CONFLICT,
         })
@@ -55,6 +58,7 @@ describe(IamUsersPostController, () => {
         const error = UserEmailAlreadyInUseError.with(dto.email)
 
         ctrl.amqp.request = jest.fn().mockResolvedValue({
+          data: null,
           message: error.message,
           statusCode: HttpStatus.CONFLICT,
         })

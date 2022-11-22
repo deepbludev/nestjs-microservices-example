@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 export default {
   displayName: 'shared-ui-design-system',
   preset: '../../../../jest.preset.js',
@@ -10,4 +11,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/shared/ui/design-system',
+  setupFilesAfterEnv: ['<rootDir>/jest-dom.config.ts'],
 }

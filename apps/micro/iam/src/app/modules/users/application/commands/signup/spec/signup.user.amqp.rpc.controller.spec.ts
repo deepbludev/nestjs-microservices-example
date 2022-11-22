@@ -41,6 +41,7 @@ describe(SignupUserAmqpRpcController, () => {
         const response = await ctrl.run(dto)
 
         expect(response).toEqual({
+          data: null,
           message: error.message,
           statusCode: 409,
         })
@@ -54,6 +55,7 @@ describe(SignupUserAmqpRpcController, () => {
         const response = await ctrl.run(dto)
 
         expect(response).toEqual({
+          data: null,
           message: error.message,
           statusCode: 409,
         })

@@ -1,20 +1,15 @@
-import {
-  IsEmail,
-  IsString,
-  IsUUID,
-  MaxLength,
-  MinLength,
-} from 'class-validator'
+import { UserId } from '@obeya/shared/domain'
+
+import { UserEmail } from './user.email.vo'
+import { UserPassword } from './user.password.vo'
 
 export class UserDTO {
-  @IsUUID()
+  @UserId.is
   id: string
 
-  @IsEmail()
+  @UserEmail.is
   email: string
 
-  @IsString()
-  @MinLength(10)
-  @MaxLength(255)
+  @UserPassword.is
   password: string
 }
