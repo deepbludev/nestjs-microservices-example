@@ -5,17 +5,17 @@ import { Props } from '../../../utils/types/props.type.util'
 
 type MatineButtonProps = Props<typeof MantineButton>
 
-export type ExampleButtonColor = 'primary' | 'green' | 'brown' | 'gray'
+export type ExampleButtonColor = 'primary' | 'action' | 'background' | 'bnw'
 
 export type ExampleButtonProps = {
   color?: ExampleButtonColor
 } & Omit<MatineButtonProps, 'color'>
 
-const buttonColor: { [key in ExampleButtonColor]: string } = {
-  primary: 'bg-primary-900 hover:bg-primary-400',
-  green: 'bg-green-900 hover:bg-green-400',
-  brown: 'bg-brown-900 hover:bg-brown-400',
-  gray: 'bg-gray-900 hover:bg-gray-400',
+export const buttonColor: { [key in ExampleButtonColor]: string } = {
+  primary: 'bg-primary-100 hover:bg-primary-80',
+  action: 'bg-action-100 hover:bg-action-80',
+  background: 'bg-background-100 hover:bg-background-80',
+  bnw: 'bg-bnw-100 hover:bg-bnw-80',
 }
 
 export function ExampleButton({

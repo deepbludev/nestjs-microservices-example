@@ -20,11 +20,11 @@ export function Index() {
           <span> Hello there, </span>
           Welcome obeya 👋
         </Title>
-        <p className="text-red-600 font-bold">Hello, world!</p>
+        <p className="text-action-80 bg-bnw-90 font-bold">Hello, world!</p>
       </div>
       <p>{hello.data.greeting}</p>
       <p>{hello.data.date.toString()}</p>
-      <ExampleButton color="primary" size="xl">
+      <ExampleButton color="action" size="xl">
         Click me
       </ExampleButton>
     </>
