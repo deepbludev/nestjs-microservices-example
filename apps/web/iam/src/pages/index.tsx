@@ -4,31 +4,29 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
 export type CommandEndpoint = {
-  verb: 'post'
-  path: string
+  command: string
 }
 
 export type QueryEndpoint = {
-  verb: 'get'
-  path: string
+  query: string
 }
 
 export const API = {
-  status: { verb: 'get', path: 'api/status' },
+  status: { query: 'api/status' },
   iam: {
     users: {
-      signup: { verb: 'post', path: 'api/iam/users/signup' },
-      login: { verb: 'post', path: 'api/iam/users/login' },
+      signup: { command: 'api/iam/users/signup' },
+      login: { command: 'api/iam/users/login' },
     },
   },
 } as const
 
 export function query<T>(endpoint: QueryEndpoint) {
-  return () => axios.get<T>(endpoint.path).then(res => res.data)
+  return () => axios.get<T>(endpoint.query).then(res => res.data)
 }
 
-export function command<T>(endpoint: QueryEndpoint) {
-  return () => axios.post<T>(endpoint.path).then(res => res.data)
+export function command<T>(endpoint: CommandEndpoint) {
+  return () => axios.post<T>(endpoint.command).then(res => res.data)
 }
 
 type Response = { message: string }
