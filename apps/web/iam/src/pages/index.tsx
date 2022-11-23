@@ -1,5 +1,8 @@
 import { Button, Title } from '@mantine/core'
-import { SignupUser } from '@obeya/contexts/iam/domain'
+import {
+  SignupUser,
+  SignupUserResponseDTOSchema,
+} from '@obeya/contexts/iam/domain'
 import { ExampleButton } from '@obeya/shared/ui/design-system'
 import { useCommand, useQuery } from '@obeya/shared/ui/utils'
 import { useQuery as useReactQuery } from '@tanstack/react-query'
@@ -19,15 +22,19 @@ export function Index() {
       axios.get<{ message: string }>('api/status').then(res => res.data),
   })
 
-  const command = useCommand(
-    SignupUser.with<SignupUser>({ id: '', email: '', password: '' })
+  const { data: result } = useCommand<SignupUser, SignupUserResponseDTOSchema>(
+    SignupUser.with({
+      id: 'id-1234',
+      email: 'valid@email.com',
+      password: 'valid_password',
+    })
   )
-  console.log(command)
+  console.log(result?.id)
 
   console.log({ useCommand, useQuery })
 
-  if (isLoading) return 'loading...'
-  if (isError) return `error: ${error}`
+  if (isLoading) return <div>loading...</div>
+  if (isError) return <div>{`error: ${error}`}</div>
 
   return (
     <>
