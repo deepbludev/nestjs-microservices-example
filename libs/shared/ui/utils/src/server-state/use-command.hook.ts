@@ -1,6 +1,7 @@
 import { Command } from '@obeya/shared/domain'
-import { sendCommand } from '@obeya/shared/infra/comms'
 import { useQuery as useReactQuery } from '@tanstack/react-query'
+
+import { sendCommand } from '../http/send-command.http'
 
 export function useCommand<D, C extends Command = Command>(
   command: C,
