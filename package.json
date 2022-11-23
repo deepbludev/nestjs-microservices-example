@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "start:backend": "nx run-many --target=serve --projects=api-gateway,micro-iam",
+    "start:frontend": "nx run-many --target=serve --projects=web-iam",
     "build": "nx build",
     "test": "nx test"
   },
