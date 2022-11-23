@@ -25,7 +25,8 @@
       "@obeya/shared/ui/app-shell": ["libs/shared/ui/app-shell/src/index.ts"],
       "@obeya/shared/ui/design-system": [
         "libs/shared/ui/design-system/src/index.ts"
-      ]
+      ],
+      "@obeya/shared/ui/utils": ["libs/shared/ui/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
