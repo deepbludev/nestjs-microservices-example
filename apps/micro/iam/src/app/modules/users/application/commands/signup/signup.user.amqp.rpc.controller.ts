@@ -1,10 +1,10 @@
 import { ICommandBus } from '@deepblu/ddd'
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import {
-  SignupUser,
   SignupUserRequestDTOSchema,
   SignupUserResponseDTOSchema,
-} from '@obeya/contexts/iam/domain'
+} from '@obeya/contexts/iam/application'
+import { SignupUser } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
 import { amqpHandler, RpcController } from '@obeya/shared/infra/comms'
 

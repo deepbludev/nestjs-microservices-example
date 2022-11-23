@@ -1,6 +1,6 @@
 import { PickType } from '@nestjs/swagger'
 
-import { UserDTOSchema } from '../../model/user.schema'
+import { UserDTOSchema } from '../user.schema'
 
 export class SignupUserRequestDTOSchema extends PickType(UserDTOSchema, [
   'id',

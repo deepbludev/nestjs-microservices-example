@@ -1,7 +1,7 @@
 import { HttpStatus } from '@nestjs/common'
+import { SignupUserResponseDTOSchema } from '@obeya/contexts/iam/application'
 import {
   SignupUser,
-  SignupUserResponseDTOSchema,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'

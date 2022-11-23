@@ -1,9 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Command } from '@obeya/shared/domain'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
-export async function sendCommand<C extends Command, D = any>(command: C) {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export async function sendCommand<C extends Command, D = {}>(command: C) {
   return axios
-    .post<D>(`api/${command.path}`, command.payload)
-    .then(res => res.data)
+    .post<AxiosResponse<D>>(
+      `http://localhost:3000${command.path}`,
+      command.payload
+    )
+    .then(res => res.data.data)
 }

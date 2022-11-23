@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Command } from '@obeya/shared/domain'
-import { useQuery as useReactQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import { sendCommand } from '../http/send-command.http'
 
-export function useCommand<C extends Command = Command, D = any>(
+export function useCommand<D, C extends Command = Command>(
   command: C,
-  options?: Omit<Parameters<typeof useReactQuery>, 'queryKey' | 'queryFn'>
+  options?: Omit<Parameters<typeof useMutation>, 'mutationKey' | 'mutationFn'>
 ) {
-  return useReactQuery([command], {
+  return useMutation([command.path, command.payload], {
     ...options,
-    queryFn: () => sendCommand<C, D>(command),
+    mutationFn: () => sendCommand<C, D>(command),
   })
 }

@@ -6,10 +6,10 @@ import {
   Post,
 } from '@nestjs/common'
 import {
-  SignupUser,
   SignupUserRequestDTOSchema,
   SignupUserResponseDTOSchema,
-} from '@obeya/contexts/iam/domain'
+} from '@obeya/contexts/iam/application'
+import { SignupUser } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
 import { AmqpService, RPC, RpcResponse } from '@obeya/shared/infra/comms'
 

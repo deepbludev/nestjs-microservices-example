@@ -7,7 +7,7 @@ export function useQuery<D, Q extends Query>(
   query: Q,
   options?: Omit<Parameters<typeof useReactQuery>, 'queryKey' | 'queryFn'>
 ) {
-  return useReactQuery([query], {
+  return useReactQuery([query.path, query.payload], {
     ...options,
     queryFn: () => getQuery<D, Q>(query),
   })
