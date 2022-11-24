@@ -6,7 +6,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export async function sendCommand<C extends Command, T = any>(
   command: C,
-  config?: Omit<AxiosRequestConfig, 'data'>
+  config?: AxiosRequestConfig
 ): Promise<RpcResponse<T>> {
   const response = await axios
     .post<RpcResponse<T>, AxiosResponse<RpcResponse<T>>, Payload<C>>(
