@@ -4,12 +4,15 @@ import { useMutation } from '@tanstack/react-query'
 
 import { sendCommand } from '../http/send-command.http'
 
-export function useCommand<D, C extends Command = Command>(
+export function useCommand<T, C extends Command = Command>(
   command: C,
-  options?: Omit<Parameters<typeof useMutation>, 'mutationKey' | 'mutationFn'>
+  opts?: {
+    options?: Omit<Parameters<typeof useMutation>, 'mutationKey' | 'mutationFn'>
+    config?: Parameters<typeof sendCommand>[1]
+  }
 ) {
   return useMutation([command.path, command.payload], {
-    ...options,
-    mutationFn: () => sendCommand<C, D>(command),
+    mutationFn: () => sendCommand<C, T>(command, opts?.config),
+    ...opts?.options,
   })
 }

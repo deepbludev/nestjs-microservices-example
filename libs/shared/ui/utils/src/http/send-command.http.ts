@@ -1,12 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Payload } from '@deepblu/ddd'
 import { Command } from '@obeya/shared/domain'
-import axios, { AxiosResponse } from 'axios'
+import { RpcResponse } from '@obeya/shared/infra/comms'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export async function sendCommand<C extends Command, D = {}>(command: C) {
-  return axios
-    .post<AxiosResponse<D>>(
+export async function sendCommand<C extends Command, T = any>(
+  command: C,
+  config?: Omit<AxiosRequestConfig, 'data'>
+): Promise<RpcResponse<T>> {
+  const response = await axios
+    .post<RpcResponse<T>, AxiosResponse<RpcResponse<T>>, Payload<C>>(
       `http://localhost:3000${command.path}`,
-      command.payload
+      command.payload,
+      config
     )
-    .then(res => res.data.data)
+    .then(res => res.data)
+
+  return response
 }

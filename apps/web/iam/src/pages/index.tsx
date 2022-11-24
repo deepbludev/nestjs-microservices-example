@@ -4,26 +4,20 @@ import { SignupUser, SignupUserResponseDTO } from '@obeya/contexts/iam/domain'
 import { ExampleButton } from '@obeya/shared/ui/design-system'
 import { useCommand } from '@obeya/shared/ui/utils'
 
-export type CommandEndpoint = {
-  command: string
-}
-
-export type QueryEndpoint = {
-  query: string
-}
-
-const user = () => ({
+const createUser = () => ({
   id: UUID.create().value,
   email: `${Date.now()}@example.com`,
   password: 'valid_password',
 })
 
 export function Index() {
-  const { isLoading, isError, error, data, mutate } =
-    useCommand<SignupUserResponseDTO>(SignupUser.with(user()))
+  const user = createUser()
+  const response = useCommand<SignupUserResponseDTO>(SignupUser.with(user), {
+    config: { headers: { 'X-Request-ID': '123' } },
+  })
 
-  if (isLoading) return <div>loading...</div>
-  if (isError) return <div>{`error: ${error}`}</div>
+  const { isLoading, isError, error, mutate } = response
+  const { data, message, statusCode } = response.data || {}
 
   return (
     <>
@@ -31,14 +25,22 @@ export function Index() {
         <Title>
           <span> Hello, obeya! 👋</span>
         </Title>
-
         <p className="text-action-80 bg-bnw-90 font-bold">Hello, world!</p>
-        <p>{data?.id}</p>
+        {isLoading ? (
+          <div>loading...</div>
+        ) : (
+          <>
+            <p>{data?.id}</p>
+            <p>
+              {statusCode}: {message}
+            </p>
+          </>
+        )}
       </div>
 
       <ExampleButton color="action">Click me</ExampleButton>
-      <Button onClick={() => mutate()}>Hey</Button>
-      {isLoading && <div>loading...</div>}
+      <Button onClick={() => mutate()}>Create random user</Button>
+
       {isError && <div>{`error: ${error}`}</div>}
     </>
   )
