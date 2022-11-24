@@ -1,3 +1,5 @@
+import { ObeyaColor, ObeyaColors } from '../../colors/obeya.colors'
+
 export type ColorTuple = [
   string,
   string,
@@ -11,7 +13,9 @@ export type ColorTuple = [
   string
 ]
 
-export function extract(color: Record<number, string>): ColorTuple {
+export function toColorTuple(
+  color: typeof ObeyaColors[ObeyaColor]
+): ColorTuple {
   const original = Object.values(color)
   return [
     'FFFFFF',
