@@ -3,15 +3,19 @@ import {
   UiFrameworkProvider,
 } from '@obeya/shared/ui/design-system'
 
+import { QueryClientProvider } from '../infra/query-client.provider'
+
 export interface WebAppShellProps {
   children: React.ReactNode
 }
 
 export function WebAppShell({ children }: WebAppShellProps) {
   return (
-    <UiFrameworkProvider>
-      <NotificationsProvider>{children}</NotificationsProvider>
-    </UiFrameworkProvider>
+    <QueryClientProvider>
+      <UiFrameworkProvider>
+        <NotificationsProvider>{children}</NotificationsProvider>
+      </UiFrameworkProvider>
+    </QueryClientProvider>
   )
 }
 

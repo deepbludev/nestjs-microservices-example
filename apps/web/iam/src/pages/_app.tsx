@@ -4,9 +4,7 @@ import { WebAppShell } from '@obeya/shared/ui/app-shell'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
-import { trpc } from '../infra/trpc/trpc.config'
-
-function App(props: AppProps) {
+function IamModuleApp(props: AppProps) {
   const { Component, pageProps } = props
 
   return (
@@ -26,4 +24,4 @@ function App(props: AppProps) {
   )
 }
 
-export default trpc.withTRPC(App)
+export default IamModuleApp

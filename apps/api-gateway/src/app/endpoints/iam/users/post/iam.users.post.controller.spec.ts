@@ -1,7 +1,7 @@
 import { HttpStatus } from '@nestjs/common'
+import { SignupUserResponseDTOSchema } from '@obeya/contexts/iam/application'
 import {
   SignupUser,
-  SignupUserResponseDTO,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
@@ -21,7 +21,7 @@ describe(IamUsersPostController, () => {
   describe('POST /users/signup', () => {
     describe('when email and password are valid', () => {
       it('returns status 201 Created', async () => {
-        const expected: RpcResponse<SignupUserResponseDTO> = {
+        const expected: RpcResponse<SignupUserResponseDTOSchema> = {
           data: { id: dto.id },
           message: 'foo',
           statusCode: HttpStatus.CREATED,
