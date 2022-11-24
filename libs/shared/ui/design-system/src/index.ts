@@ -1,4 +1,4 @@
-export * from './components/atoms/buttons/example-button/example.button'
+export * from './components/atoms/button/button'
 export * from './fonts/fonts.provider'
 export * from './types/props.type.util'
 export * from './ui-framework/notifications.provider'

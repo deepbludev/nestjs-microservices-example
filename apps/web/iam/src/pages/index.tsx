@@ -1,7 +1,7 @@
 import { UUID } from '@deepblu/ddd'
-import { Button, Title } from '@mantine/core'
+import { Title } from '@mantine/core'
 import { SignupUser, SignupUserResponseDTO } from '@obeya/contexts/iam/domain'
-import { ExampleButton } from '@obeya/shared/ui/design-system'
+import { Button } from '@obeya/shared/ui/design-system'
 import { useCommand } from '@obeya/shared/ui/utils'
 
 const createUser = () => ({
@@ -34,8 +34,10 @@ export function Index() {
         )}
       </div>
 
-      <ExampleButton color="action">Click me</ExampleButton>
-      <Button onClick={() => mutate()}>Create random user</Button>
+      <Button color="light">Click me</Button>
+      <Button color="bnw" onClick={() => mutate()}>
+        Create random user
+      </Button>
 
       {isError && <div>{`error: ${error}`}</div>}
     </>

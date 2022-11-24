@@ -47,7 +47,7 @@ export const ObeyaColors = {
     90: '#F3F3F3',
     100: '#F2F2F2',
   },
-  background: {
+  light: {
     80: '#F5F5F5',
     100: '#F2F2F2',
   },
