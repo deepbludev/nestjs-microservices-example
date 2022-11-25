@@ -12,7 +12,7 @@ import { MongoDbService } from '@obeya/shared/infra/persistence'
 import { ApiGatewayModule } from '../../../../src/app/api-gateway.module'
 import { TestEnvironment } from '../../../utils'
 
-describe('IAM.users (e2e)', () => {
+describe('POST /iam/users/signup (e2e)', () => {
   let api: TestEnvironment
   let dbService: MongoDbService
 
@@ -30,7 +30,7 @@ describe('IAM.users (e2e)', () => {
     await api.close()
   })
 
-  describe('/users/signup', () => {
+  describe('IAM Users Commands', () => {
     const errorMessages = [
       'user id must be a valid UUID',
       'email is not valid',
@@ -49,7 +49,7 @@ describe('IAM.users (e2e)', () => {
         .expect(httpStatusCode)
         .expect(expected)
 
-    describe('POST', () => {
+    describe('POST /iam/users/signup', () => {
       describe('when email, id and password are valid', () => {
         it('creates a valid user', () => {
           const user = fakeSignupUserDTO()

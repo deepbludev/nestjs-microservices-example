@@ -12,7 +12,7 @@ import { MongoDbService } from '@obeya/shared/infra/persistence'
 import { ApiGatewayModule } from '../../../../src/app/api-gateway.module'
 import { TestEnvironment } from '../../../utils'
 
-describe('IAM.workspaces (e2e)', () => {
+describe('IAM Workspaces Commands (e2e)', () => {
   let api: TestEnvironment
   let dbService: MongoDbService
 
@@ -30,7 +30,7 @@ describe('IAM.workspaces (e2e)', () => {
     await api.close()
   })
 
-  describe('/workspaces', () => {
+  describe('POST /iam/workspaces/create', () => {
     const expect = (
       workspace: CreateWorkspaceRequestDTO,
       httpStatusCode: HttpStatus,
@@ -38,7 +38,7 @@ describe('IAM.workspaces (e2e)', () => {
     ) =>
       api
         .request()
-        .post('/iam/workspaces')
+        .post('/iam/workspaces/create')
         .send(workspace)
         .expect(httpStatusCode)
         .expect(expected)
@@ -51,7 +51,7 @@ describe('IAM.workspaces (e2e)', () => {
       ]
 
       describe('when name and slug are valid', () => {
-        it.skip('creates a valid workspace', () => {
+        it('creates a valid workspace', () => {
           const workspace = fakeCreateWorkspaceDTO()
 
           return expect(workspace, HttpStatus.CREATED, {
@@ -76,7 +76,7 @@ describe('IAM.workspaces (e2e)', () => {
               slug: 'other-workspace',
             })
 
-            await api.request().post('/iam/workspaces').send(workspace)
+            await api.request().post('/iam/workspaces/create').send(workspace)
 
             return expect(otherWorkspaceWithSameId, HttpStatus.CONFLICT, {
               message: WorkspaceIdAlreadyExistsError.with(id).message,
@@ -93,7 +93,7 @@ describe('IAM.workspaces (e2e)', () => {
               slug: workspace.slug,
             })
 
-            await api.request().post('/iam/workspaces').send(workspace)
+            await api.request().post('/iam/workspaces/create').send(workspace)
 
             return expect(otherWorkspaceWithSameSlug, HttpStatus.CONFLICT, {
               message: WorkspaceSlugAlreadyInUseError.with(workspace.slug)
