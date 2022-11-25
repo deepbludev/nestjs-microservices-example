@@ -4,7 +4,7 @@ import { MantineThemeOverride } from '@mantine/core'
 
 import { ObeyaColors } from '../../colors/obeya.colors'
 import { ObeyaFont } from '../../fonts/fonts.provider'
-import { extract } from './theme.utils'
+import { toColorTuple } from './theme.utils'
 
 export type ObeyaTheme = Pick<
   MantineThemeOverride,
@@ -33,10 +33,10 @@ export type ObeyaTheme = Pick<
 export const obeyaTheme: ObeyaTheme = {
   /** Colors */
   colors: {
-    'dark-green': extract(ObeyaColors['dark-green']),
-    'light-green': extract(ObeyaColors['light-green']),
-    'light-gray': extract(ObeyaColors['light-gray']),
-    grayscale: extract(ObeyaColors.grayscale),
+    'dark-green': toColorTuple(ObeyaColors['dark-green']),
+    'light-green': toColorTuple(ObeyaColors['light-green']),
+    'light-gray': toColorTuple(ObeyaColors['light-gray']),
+    grayscale: toColorTuple(ObeyaColors.grayscale),
   },
   primaryColor: 'dark-green',
 

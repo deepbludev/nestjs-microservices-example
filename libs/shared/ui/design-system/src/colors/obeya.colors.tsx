@@ -1,5 +1,4 @@
-export type ObeyaColor = 'primary' | 'action' | 'background' | 'bnw'
-
+export type ObeyaColor = 'primary' | 'action' | 'light' | 'bnw'
 export const ObeyaColors = {
   'dark-green': {
     20: '#E3EBE5',
@@ -47,7 +46,7 @@ export const ObeyaColors = {
     90: '#F3F3F3',
     100: '#F2F2F2',
   },
-  background: {
+  light: {
     80: '#F5F5F5',
     100: '#F2F2F2',
   },

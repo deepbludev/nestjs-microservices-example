@@ -1,7 +1,7 @@
 import { UUID } from '@deepblu/ddd'
-import { Button, Title } from '@mantine/core'
+import { Title } from '@mantine/core'
 import { SignupUser, SignupUserResponseDTO } from '@obeya/contexts/iam/domain'
-import { ExampleButton } from '@obeya/shared/ui/design-system'
+import { Button } from '@obeya/shared/ui/design-system'
 import { useCommand } from '@obeya/shared/ui/utils'
 
 const createUser = () => ({
@@ -12,12 +12,10 @@ const createUser = () => ({
 
 export function Index() {
   const user = createUser()
-  const response = useCommand<SignupUserResponseDTO>(SignupUser.with(user), {
-    config: { headers: { 'X-Request-ID': '123' } },
-  })
+  const response = useCommand<SignupUserResponseDTO>(SignupUser.with(user))
 
   const { isLoading, isError, error, mutate } = response
-  const { data, message, statusCode } = response.data || {}
+  const { data, message } = response.data || {}
 
   return (
     <>
@@ -31,15 +29,15 @@ export function Index() {
         ) : (
           <>
             <p>{data?.id}</p>
-            <p>
-              {statusCode}: {message}
-            </p>
+            <p>{message}</p>
           </>
         )}
       </div>
 
-      <ExampleButton color="action">Click me</ExampleButton>
-      <Button onClick={() => mutate()}>Create random user</Button>
+      <Button color="light">Click me</Button>
+      <Button color="bnw" onClick={() => mutate()}>
+        Create random user
+      </Button>
 
       {isError && <div>{`error: ${error}`}</div>}
     </>

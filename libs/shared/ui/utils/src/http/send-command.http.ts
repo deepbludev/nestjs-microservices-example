@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Payload } from '@deepblu/ddd'
 import { Command } from '@obeya/shared/domain'
-import { RpcResponse } from '@obeya/shared/infra/comms'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+
+import { HttpResponse } from './http.response'
 
 export async function sendCommand<C extends Command, T = any>(
   command: C,
   config?: AxiosRequestConfig
-): Promise<RpcResponse<T>> {
+): Promise<HttpResponse<T>> {
   const response = await axios
-    .post<RpcResponse<T>, AxiosResponse<RpcResponse<T>>, Payload<C>>(
+    .post<HttpResponse<T>, AxiosResponse<HttpResponse<T>>, Payload<C>>(
       `http://localhost:3000${command.path}`,
       command.payload,
       config

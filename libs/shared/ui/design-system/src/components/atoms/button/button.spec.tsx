@@ -1,24 +1,24 @@
 import { render } from '@testing-library/react'
 
-import { ExampleButton } from './example.button'
+import { Button } from './button'
 
-describe(ExampleButton, () => {
+describe(Button, () => {
   const text = 'Hello, obeya!'
   const {
     container: { firstChild: button },
-  } = render(<ExampleButton color="action">{text}</ExampleButton>)
+  } = render(<Button color="light">{text}</Button>)
 
   const {
     container: { firstChild: buttonWithDefaultColor },
-  } = render(<ExampleButton>{text}</ExampleButton>)
+  } = render(<Button>{text}</Button>)
 
   it('contains correct color classes', () => {
-    expect(button).toHaveClass('bg-action-100 hover:bg-action-80')
+    expect(button).toHaveClass('bg-light-100 hover:bg-light-80 text-bnw-60')
   })
 
   it('renders with default color when no color is provided', () => {
     expect(buttonWithDefaultColor).toHaveClass(
-      'bg-primary-100 hover:bg-primary-80'
+      'bg-primary-100 hover:bg-primary-80 text-white'
     )
   })
 
