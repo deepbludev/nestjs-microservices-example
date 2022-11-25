@@ -1,6 +1,7 @@
 import { HttpStatus } from '@nestjs/common'
 import {
-  signupUserDTOStub,
+  fakeSignupUserDTO,
+  SignupUserRequestDTO,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
@@ -8,8 +9,8 @@ import { UserId } from '@obeya/shared/domain'
 import { Context } from '@obeya/shared/domain'
 import { MongoDbService } from '@obeya/shared/infra/persistence'
 
-import { ApiGatewayModule } from '../../../src/app/api-gateway.module'
-import { TestEnvironment } from '../../utils'
+import { ApiGatewayModule } from '../../../../src/app/api-gateway.module'
+import { TestEnvironment } from '../../../utils'
 
 describe('IAM.users (e2e)', () => {
   let api: TestEnvironment
@@ -30,7 +31,17 @@ describe('IAM.users (e2e)', () => {
   })
 
   describe('/users/signup', () => {
-    const expect = (user, httpStatusCode, expected) =>
+    const errorMessages = [
+      'user id must be a valid UUID',
+      'email is not valid',
+      'password must be at least 10 characters long',
+    ]
+
+    const expect = (
+      user: SignupUserRequestDTO,
+      httpStatusCode: HttpStatus,
+      expected
+    ) =>
       api
         .request()
         .post('/iam/users/signup')
@@ -41,7 +52,7 @@ describe('IAM.users (e2e)', () => {
     describe('POST', () => {
       describe('when email, id and password are valid', () => {
         it('creates a valid user', () => {
-          const user = signupUserDTOStub()
+          const user = fakeSignupUserDTO()
 
           return expect(user, HttpStatus.CREATED, {
             data: {
@@ -55,12 +66,12 @@ describe('IAM.users (e2e)', () => {
         describe('when user already exists', () => {
           it('fails with same User ID', async () => {
             const id = UserId.create().value
-            const user = signupUserDTOStub({
+            const user = fakeSignupUserDTO({
               id,
               email: 'other_email@email.com',
             })
 
-            const otherUserWithSameId = signupUserDTOStub({
+            const otherUserWithSameId = fakeSignupUserDTO({
               id,
               email: 'other_email@email.com',
             })
@@ -76,8 +87,8 @@ describe('IAM.users (e2e)', () => {
           it('fails with same user email', async () => {
             const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
             const otherId = '88cc384c-eb13-4eee-af43-9f64c36f9e99'
-            const user = signupUserDTOStub({ id })
-            const otherUserWithSameEmail = signupUserDTOStub({
+            const user = fakeSignupUserDTO({ id })
+            const otherUserWithSameEmail = fakeSignupUserDTO({
               id: otherId,
               email: user.email,
             })
@@ -94,7 +105,7 @@ describe('IAM.users (e2e)', () => {
 
       describe('when id, email and password are invalid', () => {
         it('returns 400 BAD REQUEST error', () => {
-          const user = signupUserDTOStub({
+          const user = fakeSignupUserDTO({
             id: 'invalid',
             email: 'invalid',
             password: 'invalid',
@@ -103,27 +114,19 @@ describe('IAM.users (e2e)', () => {
           return expect(user, HttpStatus.BAD_REQUEST, {
             statusCode: 400,
             error: 'Bad Request',
-            message: [
-              'user id must be a valid UUID',
-              'email is not valid',
-              'password must be at least 10 characters long',
-            ],
+            message: errorMessages,
           })
         })
       })
 
       describe('when parameters are missing', () => {
         it('returns 400 BAD REQUEST error', () => {
-          const user = {}
+          const user = {} as SignupUserRequestDTO
 
           return expect(user, HttpStatus.BAD_REQUEST, {
             statusCode: 400,
             error: 'Bad Request',
-            message: [
-              'user id must be a valid UUID',
-              'email is not valid',
-              'password must be at least 10 characters long',
-            ],
+            message: errorMessages,
           })
         })
       })

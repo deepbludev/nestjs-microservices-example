@@ -1,9 +1,9 @@
-import { signupUserDTOStub } from '../../__mocks__/commands/signup/signup.user.dto.mock'
+import { fakeSignupUserDTO } from '../../__mocks__/commands/signup/signup.user.dto.fake'
 import { UsersFactory } from '../../services/users.factory'
 import { User } from '../user.aggregate'
 
 describe(User, () => {
-  const original = signupUserDTOStub()
+  const original = fakeSignupUserDTO()
   const { data: user } = UsersFactory.create(original)
   const dto = { ...original, password: user.password.value }
 

@@ -4,7 +4,7 @@ import {
   InvalidPropError,
 } from '@deepblu/ddd'
 
-import { signupUserDTOStub } from '../../__mocks__/commands/signup/signup.user.dto.mock'
+import { fakeSignupUserDTO } from '../../__mocks__/commands/signup/signup.user.dto.fake'
 import { User } from '../../model/user.aggregate'
 import { UsersFactory } from '../users.factory'
 
@@ -13,7 +13,7 @@ describe(UsersFactory, () => {
     const factory = new UsersFactory()
     let user: User
     let isOk: boolean
-    const dto = signupUserDTOStub()
+    const dto = fakeSignupUserDTO()
 
     describe('when email and password are valid', () => {
       beforeAll(() => {
@@ -34,7 +34,7 @@ describe(UsersFactory, () => {
     describe('when inputs are invalid', () => {
       it('fails with invalid id', () => {
         const { isOk, error } = factory.create(
-          signupUserDTOStub({ id: 'invalid' })
+          fakeSignupUserDTO({ id: 'invalid' })
         )
         expect(isOk).toBe(false)
         expect(error).toBeInstanceOf(InvalidPropError)
@@ -42,7 +42,7 @@ describe(UsersFactory, () => {
 
       it('fails with invalid email', () => {
         const { isOk, error } = factory.create(
-          signupUserDTOStub({ email: 'invalid' })
+          fakeSignupUserDTO({ email: 'invalid' })
         )
         expect(isOk).toBe(false)
         expect(error).toEqual(InvalidEmailError.with('invalid'))
@@ -50,7 +50,7 @@ describe(UsersFactory, () => {
 
       it('fails with invalid password', () => {
         const { isOk, error } = factory.create(
-          signupUserDTOStub({ password: 'invalid' })
+          fakeSignupUserDTO({ password: 'invalid' })
         )
         expect(isOk).toBe(false)
         expect(error).toEqual(

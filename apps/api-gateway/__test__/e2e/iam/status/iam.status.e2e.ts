@@ -1,7 +1,7 @@
 import { HttpStatus } from '@nestjs/common'
 
-import { ApiGatewayModule } from '../../../src/app/api-gateway.module'
-import { TestEnvironment } from '../../utils/test-environment.util'
+import { ApiGatewayModule } from '../../../../src/app/api-gateway.module'
+import { TestEnvironment } from '../../../utils/test-environment.util'
 
 describe('IAM.status (e2e)', () => {
   let api: TestEnvironment
