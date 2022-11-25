@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Command } from '@obeya/shared/domain'
+import { sendCommand } from '@obeya/shared/infra/http'
 import { useMutation } from '@tanstack/react-query'
-
-import { sendCommand } from '../http/send-command.http'
 
 export function useCommand<T, C extends Command = Command>(
   command: C,

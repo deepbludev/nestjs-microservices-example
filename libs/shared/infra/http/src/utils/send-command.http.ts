@@ -3,7 +3,7 @@ import { Payload } from '@deepblu/ddd'
 import { Command } from '@obeya/shared/domain'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-import { HttpResponse } from './http.response'
+import { HttpResponse } from '../protocols/http.response'
 
 export async function sendCommand<C extends Command, T = any>(
   command: C,

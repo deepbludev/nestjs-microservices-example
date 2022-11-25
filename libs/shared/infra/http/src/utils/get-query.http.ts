@@ -2,7 +2,7 @@
 import { Query } from '@obeya/shared/domain'
 import axios, { AxiosRequestConfig } from 'axios'
 
-import { HttpResponse } from './http.response'
+import { HttpResponse } from '../protocols/http.response'
 
 export async function getQuery<Q extends Query = Query, T = any>(
   query: Q,

@@ -1,7 +1,6 @@
 import { Query } from '@obeya/shared/domain'
+import { getQuery } from '@obeya/shared/infra/http'
 import { useQuery as useReactQuery } from '@tanstack/react-query'
-
-import { getQuery } from '../http/get-query.http'
 
 export function useQuery<T, Q extends Query>(
   query: Q,
