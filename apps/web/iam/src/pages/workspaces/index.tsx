@@ -1,10 +1,10 @@
-import { ListWorkspacesPage as ListWorkspacesPageBase } from '@obeya/contexts/iam/ui/workspaces'
+import { ListWorkspacesPage } from '@obeya/contexts/iam/ui/workspaces'
 
 /* eslint-disable-next-line */
-export interface ListWorkspacesPageProps {}
+export interface ListWorkspacesNextPageProps {}
 
-export function ListWorkspacesPage(props: ListWorkspacesPageProps) {
-  return <ListWorkspacesPageBase {...props} />
+export default function ListWorkspacesNextPage(
+  props: ListWorkspacesNextPageProps
+) {
+  return <ListWorkspacesPage {...props} />
 }
-
-export default ListWorkspacesPage

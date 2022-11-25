@@ -1,1 +1,2 @@
-export * from './pages/list/list-workspaces.base.page'
+export * from './pages/detail/detail.workspace.page'
+export * from './pages/list/list.workspace.page'

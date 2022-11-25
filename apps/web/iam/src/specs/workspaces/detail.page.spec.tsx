@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import WorkspaceDetailPage from '../../pages/workspaces/[slug]'
+import WorkspaceDetailNextPage from '../../pages/workspaces/[slug]'
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -13,12 +13,10 @@ jest.mock('next/router', () => ({
   },
 }))
 
-describe(WorkspaceDetailPage, () => {
+describe(WorkspaceDetailNextPage, () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<WorkspaceDetailPage />)
+    const { baseElement } = render(<WorkspaceDetailNextPage />)
     expect(baseElement).toBeTruthy()
-    expect(
-      screen.getByText('Hello, World! from WorkspaceDetail test view')
-    ).toBeTruthy()
+    expect(screen.getByText(/test/)).toBeTruthy()
   })
 })
