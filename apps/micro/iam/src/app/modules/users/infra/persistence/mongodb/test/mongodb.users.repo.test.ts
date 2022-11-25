@@ -1,7 +1,7 @@
 import { IEventBus } from '@deepblu/ddd'
 import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
-import { signupUserDTOStub, User } from '@obeya/contexts/iam/domain'
+import { fakeSignupUserDTO, User } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
 import {
   mongodbConfig,
@@ -15,7 +15,7 @@ describe(MongoDbUsersRepo, () => {
   let service: MongoDbService
   let repo: MongoDbUsersRepo
 
-  const dto = signupUserDTOStub()
+  const dto = fakeSignupUserDTO()
   const user = User.from(dto)
 
   const eventbus: IEventBus = { publish: jest.fn(), register: jest.fn() }

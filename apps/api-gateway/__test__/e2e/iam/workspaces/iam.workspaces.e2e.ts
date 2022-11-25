@@ -51,7 +51,7 @@ describe('IAM.workspaces (e2e)', () => {
       ]
 
       describe('when name and slug are valid', () => {
-        it('creates a valid workspace', () => {
+        it.skip('creates a valid workspace', () => {
           const workspace = fakeCreateWorkspaceDTO()
 
           return expect(workspace, HttpStatus.CREATED, {
@@ -64,7 +64,7 @@ describe('IAM.workspaces (e2e)', () => {
         })
 
         describe('when slug already exists', () => {
-          it('fails with same Workspace ID', async () => {
+          it.skip('fails with same Workspace ID', async () => {
             const id = WorkspaceId.create().value
             const workspace = fakeCreateWorkspaceDTO({
               id,
@@ -84,7 +84,7 @@ describe('IAM.workspaces (e2e)', () => {
             })
           })
 
-          it('fails with same slug', async () => {
+          it.skip('fails with same slug', async () => {
             const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
             const otherId = '88cc384c-eb13-4eee-af43-9f64c36f9e99'
             const workspace = fakeCreateWorkspaceDTO({ id })
@@ -105,7 +105,7 @@ describe('IAM.workspaces (e2e)', () => {
       })
 
       describe('when id, name and slug are invalid', () => {
-        it('returns 400 BAD REQUEST error', () => {
+        it.skip('returns 400 BAD REQUEST error', () => {
           const workspace = fakeCreateWorkspaceDTO({
             id: 'invalid',
             name: '',
@@ -121,7 +121,7 @@ describe('IAM.workspaces (e2e)', () => {
       })
 
       describe('when parameters are missing', () => {
-        it('returns 400 BAD REQUEST error', () => {
+        it.skip('returns 400 BAD REQUEST error', () => {
           const workspace = {} as CreateWorkspaceRequestDTO
 
           return expect(workspace, HttpStatus.BAD_REQUEST, {

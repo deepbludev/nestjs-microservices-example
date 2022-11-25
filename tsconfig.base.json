@@ -11,10 +11,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2022",
-      "dom"
-    ],
+    "lib": ["es2022", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -22,34 +19,22 @@
       "@obeya/contexts/iam/application": [
         "libs/contexts/iam/application/src/index.ts"
       ],
-      "@obeya/contexts/iam/domain": [
-        "libs/contexts/iam/domain/src/index.ts"
-      ],
+      "@obeya/contexts/iam/domain": ["libs/contexts/iam/domain/src/index.ts"],
       "@obeya/contexts/iam/ui/workspaces": [
         "libs/contexts/iam/ui/workspaces/src/index.ts"
       ],
-      "@obeya/shared/domain": [
-        "libs/shared/domain/src/index.ts"
-      ],
-      "@obeya/shared/infra/comms": [
-        "libs/shared/infra/comms/src/index.ts"
-      ],
+      "@obeya/shared/domain": ["libs/shared/domain/src/index.ts"],
+      "@obeya/shared/infra/comms": ["libs/shared/infra/comms/src/index.ts"],
+      "@obeya/shared/infra/http": ["libs/shared/infra/http/src/index.ts"],
       "@obeya/shared/infra/persistence": [
         "libs/shared/infra/persistence/src/index.ts"
       ],
-      "@obeya/shared/ui/app-shell": [
-        "libs/shared/ui/app-shell/src/index.ts"
-      ],
+      "@obeya/shared/ui/app-shell": ["libs/shared/ui/app-shell/src/index.ts"],
       "@obeya/shared/ui/design-system": [
         "libs/shared/ui/design-system/src/index.ts"
       ],
-      "@obeya/shared/ui/utils": [
-        "libs/shared/ui/utils/src/index.ts"
-      ]
+      "@obeya/shared/ui/utils": ["libs/shared/ui/utils/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

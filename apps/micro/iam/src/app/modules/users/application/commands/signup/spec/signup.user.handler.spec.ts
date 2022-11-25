@@ -1,7 +1,7 @@
 import { CommandResponse, Result } from '@deepblu/ddd'
 import {
+  fakeSignupUserDTO,
   SignupUser,
-  signupUserDTOStub,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
   UsersFactory,
@@ -23,7 +23,7 @@ describe(SignupUserHandler, () => {
   const commandbus = new CommandBus([handler])
 
   describe('#handle', () => {
-    const { id, email, password } = signupUserDTOStub()
+    const { id, email, password } = fakeSignupUserDTO()
     const command: SignupUser = SignupUser.with({ id, email, password })
 
     describe('when email and password are valid', () => {
@@ -65,7 +65,7 @@ describe(SignupUserHandler, () => {
       })
 
       it('fails with same User email', async () => {
-        const dto = signupUserDTOStub({
+        const dto = fakeSignupUserDTO({
           id: '9e48f43e-fd9b-4c31-9d39-7e17509bbfbb',
           email: 'other@email.com',
         })
