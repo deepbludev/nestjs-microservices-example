@@ -12697,6 +12697,11 @@ joi@^17.3.0:
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
 
+jotai@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.10.0.tgz#50c5224789282eca1cdc907a51e316d8d94c5976"
+  integrity sha512-3Q8kQU3Ktds+80Ku4dVcvnwSXEcK0Fg0b6mC1+4wz3rmF64lOGNUySKXQ4njvYCWodR8bw2HygOKYSYkHxQQmA==
+
 js-string-escape@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/js-string-escape/-/js-string-escape-1.0.1.tgz#e2625badbc0d67c7533e9edc1068c587ae4137ef"
@@ -18988,6 +18993,13 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zustand@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.1.4.tgz#b0286da4cc9edd35e91c96414fa54bfa4652a54d"
+  integrity sha512-k2jVOlWo8p4R83mQ+/uyB8ILPO2PCJOf+QVjcL+1PbMCk1w5OoPYpAIxy9zd93FSfmJqoH6lGdwzzjwqJIRU5A==
+  dependencies:
+    use-sync-external-store "1.2.0"
 
 zwitch@^1.0.0:
   version "1.0.5"
