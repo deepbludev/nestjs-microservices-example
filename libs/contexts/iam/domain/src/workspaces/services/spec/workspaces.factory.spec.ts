@@ -22,7 +22,6 @@ describe(WorkspacesFactory, () => {
         expect(isOk).toBe(true)
         expect(workspace.id.value).toEqual(dto.id)
         expect(workspace.name.value).toEqual(dto.name)
-
         expect(workspace.slug.value).toEqual(dto.slug)
       })
     })

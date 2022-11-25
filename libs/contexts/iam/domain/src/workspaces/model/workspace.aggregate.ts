@@ -27,7 +27,7 @@ export class Workspace extends AggregateRoot<
     return results
   }
 
-  protected onWorkspaceCreatedWorkspaceCreated(event: WorkspaceCreated) {
+  protected onWorkspaceCreated(event: WorkspaceCreated) {
     const [id, name, slug] = Workspace.createProps({
       ...event.payload,
       id: event.aggregateId,
