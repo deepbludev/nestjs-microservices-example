@@ -33,12 +33,10 @@ export function Index() {
           </>
         )}
       </div>
-
       <Button color="light">Click me</Button>
       <Button color="bnw" onClick={() => mutate()}>
         Create random user
       </Button>
-
       {isError && <div>{`error: ${error}`}</div>}
     </>
   )
