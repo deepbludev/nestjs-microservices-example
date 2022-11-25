@@ -122,7 +122,7 @@ describe('IAM.workspaces (e2e)', () => {
 
       describe('when parameters are missing', () => {
         it('returns 400 BAD REQUEST error', () => {
-          const workspace = {}
+          const workspace = {} as CreateWorkspaceRequestDTO
 
           return expect(workspace, HttpStatus.BAD_REQUEST, {
             statusCode: 400,
