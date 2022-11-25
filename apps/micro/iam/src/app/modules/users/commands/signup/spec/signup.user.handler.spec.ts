@@ -37,7 +37,7 @@ describe(SignupUserHandler, () => {
         await handler.handle(command)
       })
 
-      it('should call User.create with the correct params', () => {
+      it('should call UsersFactory with the correct params', () => {
         expect(createSpy).toHaveBeenCalledWith({ id, email, password })
       })
 
