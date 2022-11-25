@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-import ListWorkspacesPage from './index'
+import ListWorkspacesPage from '../../pages/workspaces'
 
 describe(ListWorkspacesPage, () => {
   it('should render successfully', () => {
