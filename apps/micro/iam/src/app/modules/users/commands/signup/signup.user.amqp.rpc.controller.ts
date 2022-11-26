@@ -1,5 +1,5 @@
 import { ICommandBus } from '@deepblu/ddd'
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import {
   SignupUserRequestDTOSchema,
   SignupUserResponseDTOSchema,
@@ -7,6 +7,7 @@ import {
 import { SignupUser } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
 import { amqpHandler, RpcController } from '@obeya/shared/infra/comms'
+import { HttpError, HttpStatusCode } from '@obeya/shared/infra/http'
 
 @Injectable()
 export class SignupUserAmqpRpcController
@@ -25,12 +26,8 @@ export class SignupUserAmqpRpcController
       ? {
           data: { id },
           message: `User ${email} created`,
-          statusCode: HttpStatus.CREATED,
+          statusCode: HttpStatusCode.CREATED,
         }
-      : {
-          data: null,
-          message: error.message,
-          statusCode: (error as HttpException).getStatus(),
-        }
+      : HttpError.response(error)
   }
 }
