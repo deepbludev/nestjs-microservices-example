@@ -39,7 +39,9 @@ export function Index() {
       <Button color="bnw" onClick={() => mutate()}>
         Create random user
       </Button>
-      {isError && <div>{`error: ${error.response?.data.message}`}</div>}
+      {isError && (
+        <div>{`Error ${error.response?.data.statusCode}: ${error.response?.data.message}`}</div>
+      )}
     </>
   )
 }
