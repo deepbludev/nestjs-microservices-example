@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '@obeya/shared/infra/http'
+import { HttpStatusCode } from './status-code.http'
 
 export interface HttpResponse<D = void> {
   message: string

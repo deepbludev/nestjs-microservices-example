@@ -12,10 +12,10 @@ const createUser = () => ({
 
 export function Index() {
   const user = createUser()
-  const response = useCommand<SignupUserResponseDTO>(SignupUser.with(user))
+  const { isLoading, isError, error, mutate, result } =
+    useCommand<SignupUserResponseDTO>(SignupUser.with(user))
 
-  const { isLoading, isError, error, mutate } = response
-  const { data, message } = response.data || {}
+  const { data, message, statusCode } = result || {}
 
   return (
     <>
@@ -29,7 +29,9 @@ export function Index() {
         ) : (
           <>
             <p>{data?.id}</p>
-            <p>{message}</p>
+            <p>
+              {statusCode}:{message}
+            </p>
           </>
         )}
       </div>

@@ -9,8 +9,9 @@ export function useQuery<T, Q extends Query>(
     config?: Parameters<typeof getQuery>[1]
   }
 ) {
-  return useReactQuery([query.path, query.payload], {
+  const { data: result, ...rest } = useReactQuery([query.path, query.payload], {
     queryFn: () => getQuery<Q, T>(query),
     ...opts?.options,
   })
+  return { result, ...rest }
 }
