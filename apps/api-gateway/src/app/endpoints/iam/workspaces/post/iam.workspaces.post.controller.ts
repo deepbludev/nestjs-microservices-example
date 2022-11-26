@@ -1,17 +1,16 @@
-import {
-  Body,
-  Controller,
-  HttpException,
-  HttpStatus,
-  Post,
-} from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 import { CreateWorkspaceRequestDTOSchema } from '@obeya/contexts/iam/application'
 import {
   CreateWorkspace,
   CreateWorkspaceResponseDTO,
 } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
-import { AmqpService, RPC, RpcResponse } from '@obeya/shared/infra/comms'
+import { AmqpService, RPC } from '@obeya/shared/infra/comms'
+import {
+  HttpError,
+  HttpResponse,
+  HttpStatusCode,
+} from '@obeya/shared/infra/http'
 
 @Controller()
 export class IamWorkspacesPostController {
@@ -20,9 +19,9 @@ export class IamWorkspacesPostController {
   @Post(CreateWorkspace.path())
   async create(
     @Body() payload: CreateWorkspaceRequestDTOSchema
-  ): Promise<RpcResponse<CreateWorkspaceResponseDTO>> {
+  ): Promise<HttpResponse<CreateWorkspaceResponseDTO>> {
     const response = await this.amqp.request<
-      RpcResponse<CreateWorkspaceResponseDTO>
+      HttpResponse<CreateWorkspaceResponseDTO>
     >({
       exchange: Context.IAM,
       routingKey: CreateWorkspace.canonical,
@@ -30,9 +29,13 @@ export class IamWorkspacesPostController {
       timeout: RPC.timeout,
     })
 
-    if (response.statusCode !== HttpStatus.CREATED)
-      throw new HttpException(response.message, response.statusCode)
-
-    return response
+    switch (response.statusCode) {
+      case HttpStatusCode.CREATED:
+        return response
+      case HttpStatusCode.CONFLICT:
+        throw HttpError.with(response)
+      default:
+        throw HttpError.server(response.message)
+    }
   }
 }

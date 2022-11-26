@@ -1,4 +1,3 @@
-import { HttpStatus } from '@nestjs/common'
 import {
   CreateWorkspace,
   CreateWorkspaceRequestDTO,
@@ -8,7 +7,8 @@ import {
   WorkspaceSlugAlreadyInUseError,
 } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
-import { amqpServiceMock, RPC, RpcResponse } from '@obeya/shared/infra/comms'
+import { amqpServiceMock, RPC } from '@obeya/shared/infra/comms'
+import { HttpResponse, HttpStatusCode } from '@obeya/shared/infra/http'
 
 import { IamWorkspacesPostController } from './iam.workspaces.post.controller'
 
@@ -19,10 +19,10 @@ describe(IamWorkspacesPostController, () => {
   describe('POST /workspaces', () => {
     describe('when email and password are valid', () => {
       it('returns status 201 Created', async () => {
-        const expected: RpcResponse<CreateWorkspaceResponseDTO> = {
+        const expected: HttpResponse<CreateWorkspaceResponseDTO> = {
           data: { id: dto.id },
           message: 'foo',
-          statusCode: HttpStatus.CREATED,
+          statusCode: HttpStatusCode.CREATED,
         }
         ctrl.amqp.request = jest.fn().mockResolvedValue(expected)
         const requestSpy = jest.spyOn(ctrl.amqp, 'request')
@@ -46,7 +46,7 @@ describe(IamWorkspacesPostController, () => {
         ctrl.amqp.request = jest.fn().mockResolvedValue({
           data: null,
           message: error.message,
-          statusCode: HttpStatus.CONFLICT,
+          statusCode: HttpStatusCode.CONFLICT,
         })
 
         await expect(() => ctrl.create(dto)).rejects.toThrow(error)
@@ -58,7 +58,7 @@ describe(IamWorkspacesPostController, () => {
         ctrl.amqp.request = jest.fn().mockResolvedValue({
           data: null,
           message: error.message,
-          statusCode: HttpStatus.CONFLICT,
+          statusCode: HttpStatusCode.CONFLICT,
         })
 
         await expect(() => ctrl.create(dto)).rejects.toThrow(error)

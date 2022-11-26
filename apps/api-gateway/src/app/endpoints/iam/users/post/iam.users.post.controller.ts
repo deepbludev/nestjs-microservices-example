@@ -1,17 +1,16 @@
-import {
-  Body,
-  Controller,
-  HttpException,
-  HttpStatus,
-  Post,
-} from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 import {
   SignupUserRequestDTOSchema,
   SignupUserResponseDTOSchema,
 } from '@obeya/contexts/iam/application'
 import { SignupUser } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
-import { AmqpService, RPC, RpcResponse } from '@obeya/shared/infra/comms'
+import { AmqpService, RPC } from '@obeya/shared/infra/comms'
+import {
+  HttpError,
+  HttpResponse,
+  HttpStatusCode,
+} from '@obeya/shared/infra/http'
 
 @Controller()
 export class IamUsersPostController {
@@ -20,9 +19,9 @@ export class IamUsersPostController {
   @Post(SignupUser.path())
   async signup(
     @Body() payload: SignupUserRequestDTOSchema
-  ): Promise<RpcResponse<SignupUserResponseDTOSchema>> {
+  ): Promise<HttpResponse<SignupUserResponseDTOSchema>> {
     const response = await this.amqp.request<
-      RpcResponse<SignupUserResponseDTOSchema>
+      HttpResponse<SignupUserResponseDTOSchema>
     >({
       exchange: Context.IAM,
       routingKey: SignupUser.canonical,
@@ -30,9 +29,13 @@ export class IamUsersPostController {
       timeout: RPC.timeout,
     })
 
-    if (response.statusCode !== HttpStatus.CREATED)
-      throw new HttpException(response.message, response.statusCode)
-
-    return response
+    switch (response.statusCode) {
+      case HttpStatusCode.CREATED:
+        return response
+      case HttpStatusCode.CONFLICT:
+        throw HttpError.with(response)
+      default:
+        throw HttpError.server(response.message)
+    }
   }
 }

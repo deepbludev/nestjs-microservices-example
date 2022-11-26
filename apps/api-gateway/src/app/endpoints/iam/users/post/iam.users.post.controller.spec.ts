@@ -1,4 +1,3 @@
-import { HttpStatus } from '@nestjs/common'
 import { SignupUserResponseDTOSchema } from '@obeya/contexts/iam/application'
 import {
   SignupUser,
@@ -6,7 +5,8 @@ import {
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
-import { amqpServiceMock, RPC, RpcResponse } from '@obeya/shared/infra/comms'
+import { amqpServiceMock, RPC } from '@obeya/shared/infra/comms'
+import { HttpResponse, HttpStatusCode } from '@obeya/shared/infra/http'
 
 import { IamUsersPostController } from './iam.users.post.controller'
 
@@ -21,10 +21,10 @@ describe(IamUsersPostController, () => {
   describe('POST /users/signup', () => {
     describe('when email and password are valid', () => {
       it('returns status 201 Created', async () => {
-        const expected: RpcResponse<SignupUserResponseDTOSchema> = {
+        const expected: HttpResponse<SignupUserResponseDTOSchema> = {
           data: { id: dto.id },
           message: 'foo',
-          statusCode: HttpStatus.CREATED,
+          statusCode: HttpStatusCode.CREATED,
         }
         ctrl.amqp.request = jest.fn().mockResolvedValue(expected)
         const requestSpy = jest.spyOn(ctrl.amqp, 'request')
@@ -48,7 +48,7 @@ describe(IamUsersPostController, () => {
         ctrl.amqp.request = jest.fn().mockResolvedValue({
           data: null,
           message: error.message,
-          statusCode: HttpStatus.CONFLICT,
+          statusCode: HttpStatusCode.CONFLICT,
         })
 
         await expect(() => ctrl.signup(dto)).rejects.toThrow(error)
@@ -60,7 +60,7 @@ describe(IamUsersPostController, () => {
         ctrl.amqp.request = jest.fn().mockResolvedValue({
           data: null,
           message: error.message,
-          statusCode: HttpStatus.CONFLICT,
+          statusCode: HttpStatusCode.CONFLICT,
         })
 
         await expect(() => ctrl.signup(dto)).rejects.toThrow(error)
