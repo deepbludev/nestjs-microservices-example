@@ -1,8 +1,7 @@
-import { CustomString } from '@deepblu/ddd'
-import { is } from '@obeya/shared/domain'
+import { is, Slug } from '@obeya/shared/domain'
 
-export class WorkspaceSlug extends CustomString {
+export class WorkspaceSlug extends Slug {
   static readonly is = is(this.name, this.validate, {
-    message: 'slug is not valid',
+    message: 'workspace slug is not valid',
   })
 }

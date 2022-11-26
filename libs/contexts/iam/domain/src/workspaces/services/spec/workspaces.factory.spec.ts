@@ -40,7 +40,7 @@ describe(WorkspacesFactory, () => {
           fakeCreateWorkspaceDTO({ name: '' })
         )
         expect(isOk).toBe(false)
-        expect(error).toEqual(InvalidStringError)
+        expect(error).toBeInstanceOf(InvalidStringError)
       })
 
       it('fails with invalid password', () => {
@@ -48,9 +48,7 @@ describe(WorkspacesFactory, () => {
           fakeCreateWorkspaceDTO({ slug: 'invalid_Slug' })
         )
         expect(isOk).toBe(false)
-        expect(error).toEqual(
-          expect(error).toEqual(InvalidStringError.with('invalid_Slug'))
-        )
+        expect(error.message).toEqual('Slug must be alphanumeric kebab-case.')
       })
     })
   })

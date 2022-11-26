@@ -1,9 +1,7 @@
-export class InvalidSlugError extends Error {
-  constructor(slug: string) {
-    super(`Slug ${slug} is not kebab-case.`)
-  }
+import { InvalidStringError } from '@deepblu/ddd'
 
-  static with(slug: string) {
-    return new InvalidSlugError(slug)
+export class InvalidSlugError extends InvalidStringError {
+  static withSlug(slug: string) {
+    return this.with(`Slug "${slug}" is invalid. It must be kebab-case.`)
   }
 }
