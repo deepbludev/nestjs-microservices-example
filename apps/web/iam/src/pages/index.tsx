@@ -10,8 +10,8 @@ const createUser = () => ({
   password: 'valid_password',
 })
 
+const user = createUser()
 export function Index() {
-  const user = createUser()
   const { isLoading, isError, error, mutate, result } =
     useCommand<SignupUserResponseDTO>(SignupUser.with(user))
 
@@ -39,7 +39,7 @@ export function Index() {
       <Button color="bnw" onClick={() => mutate()}>
         Create random user
       </Button>
-      {isError && <div>{`error: ${error}`}</div>}
+      {isError && <div>{`error: ${error.response?.data.message}`}</div>}
     </>
   )
 }
