@@ -1,10 +1,10 @@
-import { Result } from '@deepblu/ddd'
 import {
   fakeSignupUserDTO,
   SignupUser,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
+import { Result } from '@obeya/shared/core'
 import { CommandBus } from '@obeya/shared/infra/comms'
 
 import { SignupUserAmqpRpcController } from '../signup.user.amqp.rpc.controller'

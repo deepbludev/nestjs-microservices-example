@@ -1,16 +1,17 @@
-import { UUID } from '@deepblu/ddd'
 import { Title } from '@mantine/core'
 import { SignupUser, SignupUserResponseDTO } from '@obeya/contexts/iam/domain'
+import { uuid } from '@obeya/shared/core'
 import { Button } from '@obeya/shared/ui/design-system'
 import { useCommand } from '@obeya/shared/ui/utils'
 
 const createUser = () => ({
-  id: UUID.create().value,
+  id: uuid.create(),
   email: `${Date.now()}@example.com`,
   password: 'valid_password',
 })
 
 const user = createUser()
+
 export function Index() {
   const { isLoading, isError, error, mutate, result } =
     useCommand<SignupUserResponseDTO>(SignupUser.with(user))

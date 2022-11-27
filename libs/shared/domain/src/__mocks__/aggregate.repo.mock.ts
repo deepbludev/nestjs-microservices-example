@@ -1,4 +1,8 @@
-import { IAggregateRoot, IEventPublisherRepo, IUniqueID } from '@deepblu/ddd'
+import {
+  IAggregateRoot,
+  IEventPublisherRepo,
+  IUniqueID,
+} from '@obeya/shared/core'
 
 export class AggregateRepoMock<
   A extends IAggregateRoot

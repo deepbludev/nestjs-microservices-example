@@ -1,5 +1,5 @@
+export * from './gateways/get-query.http'
+export * from './gateways/send-command.http'
 export * from './protocols/http.errors'
 export * from './protocols/http.response'
 export * from './protocols/status-code.http'
-export * from './utils/get-query.http'
-export * from './utils/send-command.http'

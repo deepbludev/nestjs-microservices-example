@@ -1,4 +1,4 @@
-import { InvalidStringError } from '@deepblu/ddd'
+import { InvalidStringError } from '@obeya/shared/core'
 
 export class InvalidSlugError extends InvalidStringError {
   static withSlug(slug: string) {

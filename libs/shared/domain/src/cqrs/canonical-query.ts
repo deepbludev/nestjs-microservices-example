@@ -1,4 +1,4 @@
-import { IPayload, Query as BaseQuery, textUtils } from '@deepblu/ddd'
+import { IPayload, Query as BaseQuery, textUtils } from '@obeya/shared/core'
 
 export type CanonicalQuery = `query:${string}`
 

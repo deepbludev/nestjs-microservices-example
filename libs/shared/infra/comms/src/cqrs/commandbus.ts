@@ -1,5 +1,5 @@
-import { ICommandHandler, InMemoryCommandBus } from '@deepblu/ddd'
 import { Inject, Injectable } from '@nestjs/common'
+import { ICommandHandler, InMemoryCommandBus } from '@obeya/shared/core'
 
 import { CQRS } from './cqrs.tokens'
 

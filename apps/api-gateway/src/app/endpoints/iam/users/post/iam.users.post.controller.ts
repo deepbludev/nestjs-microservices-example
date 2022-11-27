@@ -1,9 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import {
-  SignupUserRequestDTOSchema,
-  SignupUserResponseDTOSchema,
-} from '@obeya/contexts/iam/application'
-import { SignupUser } from '@obeya/contexts/iam/domain'
+import { SignupUserRequestDTOSchema } from '@obeya/contexts/iam/application'
+import { SignupUser, SignupUserResponseDTO } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
 import { AmqpService, RPC } from '@obeya/shared/infra/comms'
 import {
@@ -19,9 +16,9 @@ export class IamUsersPostController {
   @Post(SignupUser.path())
   async signup(
     @Body() payload: SignupUserRequestDTOSchema
-  ): Promise<HttpResponse<SignupUserResponseDTOSchema>> {
+  ): Promise<HttpResponse<SignupUserResponseDTO>> {
     const response = await this.amqp.request<
-      HttpResponse<SignupUserResponseDTOSchema>
+      HttpResponse<SignupUserResponseDTO>
     >({
       exchange: Context.IAM,
       routingKey: SignupUser.canonical,

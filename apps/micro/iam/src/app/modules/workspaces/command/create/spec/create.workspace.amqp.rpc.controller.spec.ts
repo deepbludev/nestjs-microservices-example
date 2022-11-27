@@ -1,10 +1,10 @@
-import { Result } from '@deepblu/ddd'
 import {
   CreateWorkspace,
   fakeCreateWorkspaceDTO,
   WorkspaceIdAlreadyExistsError,
   WorkspaceSlugAlreadyInUseError,
 } from '@obeya/contexts/iam/domain'
+import { Result } from '@obeya/shared/core'
 import { CommandBus } from '@obeya/shared/infra/comms'
 
 import { CreateWorkspaceAmqpRpcController } from '../create.workspace.amqp.rpc.controller'

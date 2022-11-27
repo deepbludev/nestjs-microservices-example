@@ -1,5 +1,5 @@
-import { Result } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
+import { Result } from '@obeya/shared/core'
 
 import { CreateWorkspaceRequestDTO } from '../commands/create/create.workspace.dto'
 import { WorkspaceCreated } from '../events/workspace.created.event'

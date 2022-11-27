@@ -1,4 +1,4 @@
-import { UUID } from '@deepblu/ddd'
+import { UUID } from '@obeya/shared/core'
 
 import { is } from '../../core/decorators/validator.decorator'
 

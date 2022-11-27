@@ -1,4 +1,4 @@
-import { IDomainEvent, IEventBus, IEventSubscriber } from '@deepblu/ddd'
+import { IDomainEvent, IEventBus, IEventSubscriber } from '@obeya/shared/core'
 
 export class EventBusMock implements IEventBus {
   private _registerMock: jest.Mock = jest.fn()

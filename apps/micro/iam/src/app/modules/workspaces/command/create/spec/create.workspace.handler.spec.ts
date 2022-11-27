@@ -1,4 +1,3 @@
-import { CommandResponse, Result } from '@deepblu/ddd'
 import {
   CreateWorkspace,
   fakeCreateWorkspaceDTO,
@@ -7,6 +6,7 @@ import {
   WorkspaceSlugAlreadyInUseError,
   WorkspacesRepoMock,
 } from '@obeya/contexts/iam/domain'
+import { CommandResponse, Result } from '@obeya/shared/core'
 import { WorkspaceId } from '@obeya/shared/domain'
 import { CommandBus } from '@obeya/shared/infra/comms'
 

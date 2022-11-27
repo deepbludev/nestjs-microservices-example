@@ -1,4 +1,4 @@
-import { InvalidPropError, InvalidStringError } from '@deepblu/ddd'
+import { InvalidPropError, InvalidStringError } from '@obeya/shared/core'
 
 import { fakeCreateWorkspaceDTO } from '../../__mocks__/commands/create/create.workspace.dto.fake'
 import { Workspace } from '../../model/workspace.aggregate'

@@ -1,10 +1,10 @@
-import { ICommandBus } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
 import {
   CreateWorkspaceRequestDTOSchema,
   CreateWorkspaceResponseDTOSchema,
 } from '@obeya/contexts/iam/application'
 import { CreateWorkspace } from '@obeya/contexts/iam/domain'
+import { ICommandBus } from '@obeya/shared/core'
 import { Context } from '@obeya/shared/domain'
 import { amqpHandler, RpcController } from '@obeya/shared/infra/comms'
 import { HttpError, HttpStatusCode } from '@obeya/shared/infra/http'

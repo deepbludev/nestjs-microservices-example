@@ -1,4 +1,4 @@
-import { Result } from '@deepblu/ddd'
+import { Result } from '@obeya/shared/core'
 import { is, Slug } from '@obeya/shared/domain'
 
 export class WorkspaceSlug extends Slug {

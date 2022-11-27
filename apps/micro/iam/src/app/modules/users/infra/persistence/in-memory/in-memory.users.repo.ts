@@ -1,6 +1,6 @@
-import { IEventBus, IUniqueID } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
 import { User, UsersRepo } from '@obeya/contexts/iam/domain'
+import { IEventBus, IUniqueID } from '@obeya/shared/core'
 import { UserId } from '@obeya/shared/domain'
 
 @Injectable()
