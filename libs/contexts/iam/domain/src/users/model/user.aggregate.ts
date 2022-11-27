@@ -23,16 +23,6 @@ export class User extends AggregateRoot<UserDTO, UserId, UserProps> {
     return results
   }
 
-  protected onUserSignedUp(event: UserSignedUp) {
-    const [id, email, password] = User.createProps({
-      ...event.payload,
-      id: event.aggregateId,
-    })
-    this.id = id.data
-    this.props.email = email.data
-    this.props.password = password.data
-  }
-
   get email() {
     return this.props.email
   }
@@ -57,5 +47,15 @@ export class User extends AggregateRoot<UserDTO, UserId, UserProps> {
     user.props.password = UserPassword.fromEncrypted(dto.password)
 
     return user
+  }
+
+  protected onUserSignedUp(event: UserSignedUp) {
+    const [id, email, password] = User.createProps({
+      ...event.payload,
+      id: event.aggregateId,
+    })
+    this.id = id.data
+    this.props.email = email.data
+    this.props.password = password.data
   }
 }

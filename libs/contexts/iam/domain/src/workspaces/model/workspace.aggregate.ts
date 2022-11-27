@@ -27,16 +27,6 @@ export class Workspace extends AggregateRoot<
     return results
   }
 
-  protected onWorkspaceCreated(event: WorkspaceCreated) {
-    const [id, name, slug] = Workspace.createProps({
-      ...event.payload,
-      id: event.aggregateId,
-    })
-    this.id = id.data
-    this.props.name = name.data
-    this.props.slug = slug.data
-  }
-
   get name() {
     return this.props.name
   }
@@ -61,5 +51,15 @@ export class Workspace extends AggregateRoot<
     workspace.props.slug = slug.data
 
     return workspace
+  }
+
+  protected onWorkspaceCreated(event: WorkspaceCreated) {
+    const [id, name, slug] = Workspace.createProps({
+      ...event.payload,
+      id: event.aggregateId,
+    })
+    this.id = id.data
+    this.props.name = name.data
+    this.props.slug = slug.data
   }
 }
