@@ -4,8 +4,15 @@ import { User } from '../user.aggregate'
 
 describe(User, () => {
   const original = fakeSignupUserDTO()
+
   const { data: user } = UsersFactory.create(original)
-  const dto = { ...original, password: user.password.value }
+  user.commit()
+
+  const dto = {
+    ...original,
+    version: user.version,
+    password: user.password.value,
+  }
 
   describe('#dto', () => {
     it('returns a DTO version of the user', () => {
@@ -14,7 +21,6 @@ describe(User, () => {
   })
 
   describe('#from', () => {
-    user.commit()
     const userFromDTO = User.from(dto)
 
     it('returns a User generated from the DTO', () => {

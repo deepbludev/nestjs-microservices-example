@@ -31,8 +31,8 @@ export abstract class IAggregateRoot<
 > extends IEntity<I, P> {
   public override readonly domType: DomainObjectType =
     DomainObjects.AGGREGATE_ROOT
-  private _version = -1
-  private _changes: IDomainEvent[] = []
+  protected _version = -1
+  protected _changes: IDomainEvent[] = []
 
   protected constructor(props: P, id?: I) {
     super(props, id)
@@ -48,6 +48,7 @@ export abstract class IAggregateRoot<
   commit(): IDomainEvent[] {
     const commited: IDomainEvent[] = [...this._changes]
     this._changes = []
+    this._version += commited.length
     return commited
   }
 

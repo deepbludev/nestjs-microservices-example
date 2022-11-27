@@ -40,6 +40,7 @@ export class Workspace extends AggregateRoot<
       id: this.id.value,
       name: this.name.value,
       slug: this.slug.value,
+      version: this.version,
     }
   }
 
@@ -47,6 +48,7 @@ export class Workspace extends AggregateRoot<
     const [id, name, slug] = Workspace.createProps(dto)
     const workspace = Workspace.createEmpty<Workspace>()
     workspace.id = id.data
+    workspace._version = dto.version
     workspace.props.name = name.data
     workspace.props.slug = slug.data
 

@@ -36,6 +36,7 @@ export class User extends AggregateRoot<UserDTO, UserId, UserProps> {
       id: this.id.value,
       email: this.email.value,
       password: this.password.value,
+      version: this.version,
     }
   }
 
@@ -43,6 +44,7 @@ export class User extends AggregateRoot<UserDTO, UserId, UserProps> {
     const [id, email] = User.createProps(dto)
     const user = User.createEmpty<User>()
     user.id = id.data
+    user._version = dto.version
     user.props.email = email.data
     user.props.password = UserPassword.fromEncrypted(dto.password)
 

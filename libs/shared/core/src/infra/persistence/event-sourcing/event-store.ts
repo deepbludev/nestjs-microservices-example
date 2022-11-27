@@ -18,19 +18,17 @@ export abstract class EventStore<
 > extends IEventPublisherRepo<A> {
   protected aggregateClass: AggregateType<A> = IAggregateRoot
 
-  constructor(protected readonly stream: IEventStream<A>, eventbus: IEventBus) {
+  constructor(readonly stream: IEventStream<A>, eventbus: IEventBus) {
     super(eventbus)
   }
 
-  protected async persist(
-    aggregate: A,
-    expectedVersion?: number
-  ): Promise<void> {
+  protected async persist(aggregate: A): Promise<void> {
     const current = await this.version(aggregate.id)
-    const version = expectedVersion ?? aggregate.version
-    if (current !== version) throw new ConcurrencyError(aggregate, current)
-    const { id, changes } = aggregate
-    await this.stream.append(id.value, changes, version + changes.length)
+    if (current !== aggregate.version)
+      throw new ConcurrencyError(aggregate, current)
+
+    const changes = aggregate.commit()
+    await this.stream.append(aggregate.id.value, changes, aggregate.version)
   }
 
   async get(id: IUniqueID): Promise<A | null> {

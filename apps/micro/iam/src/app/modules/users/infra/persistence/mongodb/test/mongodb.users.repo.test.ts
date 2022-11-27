@@ -16,7 +16,7 @@ describe(MongoDbUsersRepo, () => {
   let repo: MongoDbUsersRepo
 
   const dto = fakeSignupUserDTO()
-  const user = User.from(dto)
+  const user = User.from({ ...dto, version: 1 })
 
   const eventbus: IEventBus = { publish: jest.fn(), register: jest.fn() }
 
@@ -31,7 +31,7 @@ describe(MongoDbUsersRepo, () => {
     service = module.get(MongoDbService)
     repo = new MongoDbUsersRepo(service, eventbus)
 
-    const user = User.from(dto)
+    const user = User.from({ ...dto, version: 1 })
     await repo.persist(user)
   })
 

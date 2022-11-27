@@ -16,7 +16,7 @@ describe(MongoDbWorkspacesRepo, () => {
   let repo: MongoDbWorkspacesRepo
 
   const dto = fakeCreateWorkspaceDTO()
-  const workspace = Workspace.from(dto)
+  const workspace = Workspace.from({ ...dto, version: 1 })
 
   const eventbus: IEventBus = { publish: jest.fn(), register: jest.fn() }
 
@@ -31,7 +31,7 @@ describe(MongoDbWorkspacesRepo, () => {
     service = module.get(MongoDbService)
     repo = new MongoDbWorkspacesRepo(service, eventbus)
 
-    const workspace = Workspace.from(dto)
+    const workspace = Workspace.from({ ...dto, version: 1 })
     await repo.persist(workspace)
   })
 

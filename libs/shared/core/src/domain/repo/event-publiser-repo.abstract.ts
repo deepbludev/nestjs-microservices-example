@@ -16,7 +16,8 @@ export abstract class IEventPublisherRepo<
   }
 
   override async save(aggregate: A, expectedVersion?: number): Promise<void> {
+    const changes = [...aggregate.changes]
     await super.save(aggregate, expectedVersion)
-    await this.eventbus.publish(aggregate.commit())
+    await this.eventbus.publish(changes)
   }
 }

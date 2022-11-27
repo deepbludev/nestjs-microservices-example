@@ -87,27 +87,20 @@ describe(EventStore, () => {
       expect(async () => {
         await eventstore.save(original)
       }).rejects.toThrowError(ConcurrencyError.with(original, 6))
-
-      expect(async () => {
-        await eventstore.save(original, 6)
-      }).not.toThrowError()
-
-      expect(async () => {
-        await eventstore.save(original, 4)
-      }).rejects.toThrowError(ConcurrencyError.with(original, 6))
     }
 
     const refetched = await eventstore.get(aggregate.id)
+
     if (refetched) {
       expect(refetched.version).toEqual(6)
+      expect(await eventstore.version(refetched.id)).toBe(6)
       expect(refetched.props.foo).toEqual('qux')
       expect(refetched.changes.length).toBe(0)
 
       const snapshot: AggregateStub = refetched.snapshot(15)
       expect(async () => {
         await eventstore.save(snapshot)
-      }).rejects.toThrowError(ConcurrencyError)
-      expect(await eventstore.version(aggregate.id)).toBe(6)
+      }).rejects.toThrowError(ConcurrencyError.with(snapshot, 6))
     }
   })
 })

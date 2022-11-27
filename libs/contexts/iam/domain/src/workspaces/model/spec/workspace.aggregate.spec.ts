@@ -3,8 +3,12 @@ import { WorkspacesFactory } from '../../services/workspaces.factory'
 import { Workspace } from '../workspace.aggregate'
 
 describe(Workspace, () => {
-  const dto = fakeCreateWorkspaceDTO()
-  const { data: workspace } = WorkspacesFactory.create(dto)
+  const original = fakeCreateWorkspaceDTO()
+
+  const { data: workspace } = WorkspacesFactory.create(original)
+  workspace.commit()
+
+  const dto = { ...original, version: workspace.version }
 
   describe('#dto', () => {
     it('returns a DTO version of the workspace', () => {
@@ -13,9 +17,7 @@ describe(Workspace, () => {
   })
 
   describe('#from', () => {
-    workspace.commit()
     const workspaceFromDTO = Workspace.from(dto)
-
     it('returns a workspace generated from the DTO', () => {
       expect(workspaceFromDTO).toEqual(workspace)
     })
