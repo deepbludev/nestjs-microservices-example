@@ -58,7 +58,8 @@ describe('IAM Workspaces Commands (e2e)', () => {
             data: {
               id: workspace.id,
             },
-            message: 'workspace Valid Workspace (valid-workspace) created',
+            message:
+              'Workspace "Valid Workspace Name" (valid-workspace-slug) created',
             statusCode: 201,
           })
         })
