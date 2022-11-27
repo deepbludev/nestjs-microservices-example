@@ -27,7 +27,7 @@ describe(CreateWorkspaceAmqpRpcController, () => {
         expect(response).toEqual({
           data: { id: dto.id },
           statusCode: 201,
-          message: `Workspace ${dto.name} created`,
+          message: `Workspace ${dto.name} (${dto.slug}) created`,
         })
       })
     })
