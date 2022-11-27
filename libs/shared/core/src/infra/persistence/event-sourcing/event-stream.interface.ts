@@ -16,6 +16,6 @@ export abstract class IEventStream<
   }
 
   get name(): string {
-    return `${this.aggregateName}.eventstream`
+    return `${this.aggregateName}.events`
   }
 }

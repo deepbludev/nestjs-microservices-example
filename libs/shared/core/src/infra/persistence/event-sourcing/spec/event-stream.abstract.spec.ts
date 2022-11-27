@@ -45,7 +45,7 @@ describe(IEventStream, () => {
   })
 
   it('should have a stream name', () => {
-    expect(stream.name).toEqual('AggregateStub.eventstream')
+    expect(stream.name).toEqual('AggregateStub.events')
   })
 
   it('should be able to append events to multiple aggregates', async () => {
