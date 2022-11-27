@@ -59,35 +59,29 @@ describe('IAM Workspaces Commands (e2e)', () => {
               id: workspace.id,
             },
             message:
-              'Workspace "Valid Workspace Name" (valid-workspace-slug) created',
+              'Workspace Valid Workspace Name (valid-workspace-slug) created',
             statusCode: 201,
           })
         })
 
-        describe('when slug already exists', () => {
-          it.skip('fails with same Workspace ID', async () => {
-            const id = WorkspaceId.create().value
-            const workspace = fakeCreateWorkspaceDTO({
-              id,
-              slug: 'other-workspace',
-            })
-
+        describe('when workspace already exists', () => {
+          it('fails with same Workspace ID', async () => {
+            const workspace = fakeCreateWorkspaceDTO()
             const otherWorkspaceWithSameId = fakeCreateWorkspaceDTO({
-              id,
               slug: 'other-workspace',
             })
 
             await api.request().post('/iam/workspaces/create').send(workspace)
 
             return expect(otherWorkspaceWithSameId, HttpStatus.CONFLICT, {
-              message: WorkspaceIdAlreadyExistsError.with(id).message,
+              message: WorkspaceIdAlreadyExistsError.with(workspace.id).message,
               statusCode: 409,
             })
           })
 
           it.skip('fails with same slug', async () => {
-            const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
-            const otherId = '88cc384c-eb13-4eee-af43-9f64c36f9e99'
+            const id = 'cce2fded-80cd-4ec9-8806-842834e73e6j'
+            const otherId = '88cc484c-eb13-4eee-afk3-9f64c36f9e99'
             const workspace = fakeCreateWorkspaceDTO({ id })
             const otherWorkspaceWithSameSlug = fakeCreateWorkspaceDTO({
               id: otherId,

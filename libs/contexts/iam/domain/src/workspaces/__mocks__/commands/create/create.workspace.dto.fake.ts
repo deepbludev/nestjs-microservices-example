@@ -3,7 +3,7 @@ import { CreateWorkspaceRequestDTO } from '../../../commands/create/create.works
 export const fakeCreateWorkspaceDTO = (
   dto?: Partial<CreateWorkspaceRequestDTO>
 ): CreateWorkspaceRequestDTO => ({
-  id: dto?.id ?? 'cce2fded-90cd-4ec9-8806-842834e73e6d',
+  id: dto?.id ?? '85d25856-efca-4d7d-9081-450c19b4f33a',
   name: dto?.name ?? 'Valid Workspace Name',
   slug: dto?.slug ?? 'valid-workspace-slug',
 })

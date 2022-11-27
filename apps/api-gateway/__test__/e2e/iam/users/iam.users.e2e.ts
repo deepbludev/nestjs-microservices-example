@@ -65,21 +65,15 @@ describe('POST /iam/users/signup (e2e)', () => {
 
         describe('when user already exists', () => {
           it('fails with same User ID', async () => {
-            const id = UserId.create().value
-            const user = fakeSignupUserDTO({
-              id,
-              email: 'other_email@email.com',
-            })
-
+            const user = fakeSignupUserDTO()
             const otherUserWithSameId = fakeSignupUserDTO({
-              id,
               email: 'other_email@email.com',
             })
 
             await api.request().post('/iam/users/signup').send(user)
 
             return expect(otherUserWithSameId, HttpStatus.CONFLICT, {
-              message: UserIdAlreadyExistsError.with(id).message,
+              message: UserIdAlreadyExistsError.with(user.id).message,
               statusCode: 409,
             })
           })

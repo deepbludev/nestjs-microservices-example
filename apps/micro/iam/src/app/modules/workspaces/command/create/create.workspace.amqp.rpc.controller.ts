@@ -28,7 +28,7 @@ export class CreateWorkspaceAmqpRpcController
     return isOk
       ? {
           data: { id },
-          message: `Workspace "${name}" (${slug}) created`,
+          message: `Workspace ${name} (${slug}) created`,
           statusCode: HttpStatusCode.CREATED,
         }
       : HttpError.response(error)
