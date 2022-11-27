@@ -1,9 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Constructor } from '../../../../domain/types'
+import { Constructor, IAggregateRoot } from '../../../../domain'
+import { AggregateType } from '../aggregate.type'
 
-export function eventstream(aggregateClass: string) {
-  return function (target: Constructor & { aggregate: string }) {
-    target.aggregate = aggregateClass
-    return target
+export const eventstream = <A extends IAggregateRoot>(
+  aggregate: AggregateType<A>
+) =>
+  function <T extends Constructor>(BaseClass: T) {
+    const EventStoreClass = class extends BaseClass {
+      aggregateClass: AggregateType<A> = aggregate
+    }
+    Reflect.defineProperty(EventStoreClass, 'name', { value: BaseClass.name })
+    return EventStoreClass
   }
-}

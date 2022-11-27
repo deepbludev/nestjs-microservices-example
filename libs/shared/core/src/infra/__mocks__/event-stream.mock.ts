@@ -3,8 +3,8 @@ import { AggregateStub } from '../../domain/__mocks__'
 import { IEventStream } from '../persistence/event-sourcing/event-stream.interface'
 import { eventstream } from '../persistence/event-sourcing/utils/event-stream.decorator'
 
-@eventstream(AggregateStub.name)
-export class EventStreamMock extends IEventStream {
+@eventstream(AggregateStub)
+export class EventStreamMock extends IEventStream<AggregateStub> {
   readonly db: Map<string, { events: IDomainEvent[]; version: number }> =
     new Map()
 

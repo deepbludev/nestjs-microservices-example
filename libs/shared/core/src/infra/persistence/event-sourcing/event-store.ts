@@ -1,17 +1,12 @@
 import {
   IAggregateRoot,
-  IDomainEvent,
   IEventBus,
   IEventPublisherRepo,
   IUniqueID,
 } from '../../../domain'
+import { AggregateType } from './aggregate.type'
 import { ConcurrencyError } from './errors/event-sourcing.errors'
 import { IEventStream } from './event-stream.interface'
-
-export interface AggregateType<A extends IAggregateRoot> {
-  name: string
-  rehydrate: (id: IUniqueID, events: IDomainEvent[]) => A
-}
 
 /**
  * Base abstract class for event stores.
@@ -23,7 +18,7 @@ export abstract class EventStore<
 > extends IEventPublisherRepo<A> {
   protected aggregateClass: AggregateType<A> = IAggregateRoot
 
-  constructor(protected readonly stream: IEventStream, eventbus: IEventBus) {
+  constructor(protected readonly stream: IEventStream<A>, eventbus: IEventBus) {
     super(eventbus)
   }
 
