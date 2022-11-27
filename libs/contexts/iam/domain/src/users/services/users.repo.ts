@@ -1,5 +1,5 @@
-import { IEventPublisherRepo } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
+import { IEventPublisherRepo } from '@obeya/shared/core'
 import { Nullable } from '@obeya/shared/domain'
 
 import { User } from '../model/user.aggregate'

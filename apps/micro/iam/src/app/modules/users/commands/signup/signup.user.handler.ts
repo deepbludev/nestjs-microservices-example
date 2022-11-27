@@ -1,9 +1,3 @@
-import {
-  commandHandler,
-  CommandResponse,
-  ICommandHandler,
-  Result,
-} from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
 import {
   SignupUser,
@@ -12,6 +6,12 @@ import {
   UsersFactory,
   UsersRepo,
 } from '@obeya/contexts/iam/domain'
+import {
+  commandHandler,
+  CommandResponse,
+  ICommandHandler,
+  Result,
+} from '@obeya/shared/core'
 
 @Injectable()
 @commandHandler(SignupUser)

@@ -1,4 +1,5 @@
-import { IUniqueID, UniqueIDProps } from './unique-id.vo'
+import { IUniqueID } from './unique-id.vo'
+import { type UniqueIDProps } from './unique-id.vo'
 import { customUID } from './utils/custom-uid.decorator'
 import { uuid } from './utils/id.utils'
 

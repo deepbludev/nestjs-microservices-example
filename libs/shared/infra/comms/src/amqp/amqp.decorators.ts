@@ -1,5 +1,5 @@
-import { Constructor, ICommand, IQuery } from '@deepblu/ddd'
 import { RabbitRPC } from '@golevelup/nestjs-rabbitmq'
+import { Constructor, ICommand, IQuery } from '@obeya/shared/core'
 import { Context } from '@obeya/shared/domain'
 
 export const amqpRpc =

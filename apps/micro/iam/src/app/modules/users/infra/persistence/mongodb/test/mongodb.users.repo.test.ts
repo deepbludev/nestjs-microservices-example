@@ -1,7 +1,7 @@
-import { IEventBus } from '@deepblu/ddd'
 import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
 import { fakeSignupUserDTO, User } from '@obeya/contexts/iam/domain'
+import { IEventBus } from '@obeya/shared/core'
 import { Context } from '@obeya/shared/domain'
 import {
   mongodbConfig,

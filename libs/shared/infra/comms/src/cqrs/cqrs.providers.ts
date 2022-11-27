@@ -1,3 +1,4 @@
+import { Type } from '@nestjs/common'
 import {
   ICommandBus,
   ICommandHandler,
@@ -5,8 +6,7 @@ import {
   IEventSubscriber,
   IQueryBus,
   IQueryHandler,
-} from '@deepblu/ddd'
-import { Type } from '@nestjs/common'
+} from '@obeya/shared/core'
 
 import { CommandBus } from './commandbus'
 import { CQRS } from './cqrs.tokens'

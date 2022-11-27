@@ -1,5 +1,5 @@
-import { eventSubscriber, IEventSubscriber } from '@deepblu/ddd'
 import { UserSignedUp } from '@obeya/contexts/iam/domain'
+import { eventSubscriber, IEventSubscriber } from '@obeya/shared/core'
 
 @eventSubscriber(UserSignedUp)
 export class UserSignedUpSubscriber extends IEventSubscriber {

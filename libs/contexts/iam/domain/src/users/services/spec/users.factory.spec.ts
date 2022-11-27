@@ -2,7 +2,7 @@ import {
   InvalidEmailError,
   InvalidPasswordError,
   InvalidPropError,
-} from '@deepblu/ddd'
+} from '@obeya/shared/core'
 
 import { fakeSignupUserDTO } from '../../__mocks__/commands/signup/signup.user.dto.fake'
 import { User } from '../../model/user.aggregate'

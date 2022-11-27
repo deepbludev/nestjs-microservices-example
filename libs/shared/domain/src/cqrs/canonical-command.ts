@@ -1,4 +1,4 @@
-import { Command as BaseCommand, IPayload, textUtils } from '@deepblu/ddd'
+import { Command as BaseCommand, IPayload, textUtils } from '@obeya/shared/core'
 
 export type CanonicalCommand = `cmd:${string}`
 

@@ -1,4 +1,4 @@
-import { IAggregateProps, IAggregateRoot, IUniqueID } from '@deepblu/ddd'
+import { IAggregateProps, IAggregateRoot, IUniqueID } from '@obeya/shared/core'
 
 export abstract class AggregateRoot<
   D extends { id: string } = { id: string },

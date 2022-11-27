@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 import { PasswordEncrypter } from './password-encrypter.interface'
 
-export class BcryptPasswordEncrypter implements PasswordEncrypter {
+export class BcryptJsPasswordEncrypter implements PasswordEncrypter {
   constructor(public readonly salt: number = 12) {}
 
   public encrypt(password: string, salt?: number): string {

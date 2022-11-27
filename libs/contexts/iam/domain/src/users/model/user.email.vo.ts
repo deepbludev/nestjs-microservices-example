@@ -1,4 +1,4 @@
-import { Email } from '@deepblu/ddd'
+import { Email } from '@obeya/shared/core'
 import { is } from '@obeya/shared/domain'
 
 export class UserEmail extends Email {

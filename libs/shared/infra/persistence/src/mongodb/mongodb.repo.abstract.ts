@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IEventBus, IEventPublisherRepo } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
+import { IEventBus, IEventPublisherRepo } from '@obeya/shared/core'
 import { AggregateRoot, Nullable } from '@obeya/shared/domain'
 import { Binary, Collection, Document } from 'mongodb'
 

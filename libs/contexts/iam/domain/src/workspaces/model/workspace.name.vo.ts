@@ -1,4 +1,4 @@
-import { CustomString, Result } from '@deepblu/ddd'
+import { CustomString, Result } from '@obeya/shared/core'
 import { is } from '@obeya/shared/domain'
 
 export class WorkspaceName extends CustomString {

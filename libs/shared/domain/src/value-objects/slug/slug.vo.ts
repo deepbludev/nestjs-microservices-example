@@ -1,4 +1,4 @@
-import { CustomString, customString, Result } from '@deepblu/ddd'
+import { CustomString, customString, Result } from '@obeya/shared/core'
 
 import { InvalidSlugError } from './invalid-slug.error'
 

@@ -1,9 +1,9 @@
-import { Entity } from '../../entity/entity'
+import { IEntity } from '../../entity/entity.abstract'
 import { IUniqueID } from '../../uid/unique-id.vo'
 import { UUID } from '../../uid/uuid.vo'
 import { IEntityRepo } from '../entity-repo.abstract'
 
-class EntityStub extends Entity<{ foo: string }> {
+class EntityStub extends IEntity<UUID, { foo: string }> {
   constructor(props: { foo: string }, id?: UUID) {
     super(props, id)
   }

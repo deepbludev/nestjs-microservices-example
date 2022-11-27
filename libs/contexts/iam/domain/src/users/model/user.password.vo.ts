@@ -1,4 +1,4 @@
-import { Password, Result } from '@deepblu/ddd'
+import { Password, Result } from '@obeya/shared/core'
 import { is } from '@obeya/shared/domain'
 
 export class UserPassword extends Password {

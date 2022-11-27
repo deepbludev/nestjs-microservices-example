@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Payload } from '@deepblu/ddd'
+import { Payload } from '@obeya/shared/core'
 import { Command } from '@obeya/shared/domain'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
