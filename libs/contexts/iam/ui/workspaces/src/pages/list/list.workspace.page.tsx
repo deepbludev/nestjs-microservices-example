@@ -1,4 +1,4 @@
-import { Slug } from '@obeya/shared/domain'
+import { Slug } from '@obeya/shared/core'
 import { Button } from '@obeya/shared/ui/design-system'
 
 import { CreateWorkspaceUseCase } from '../../usecases/create/create.workspace.usecase'

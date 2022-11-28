@@ -1,5 +1,5 @@
-import { Result } from '@obeya/shared/core'
-import { InvalidSlugError, is, Slug } from '@obeya/shared/domain'
+import { InvalidSlugError, Result, Slug } from '@obeya/shared/core'
+import { is } from '@obeya/shared/domain'
 
 export class WorkspaceSlug extends Slug {
   static readonly is = is(this.name, this.validate, {

@@ -1,5 +1,6 @@
-import { CustomString, customString, Result } from '@obeya/shared/core'
-
+import { Result } from '../../../domain'
+import { customString } from '../custom-string/custom-string.decorator'
+import { CustomString } from '../custom-string/custom-string.vo'
 import { InvalidSlugError } from './invalid-slug.error'
 
 @customString({

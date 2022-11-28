@@ -1,4 +1,4 @@
-import { InvalidStringError } from '@obeya/shared/core'
+import { InvalidStringError } from '../custom-string/invalid-string.error'
 
 export class InvalidSlugError extends InvalidStringError {
   static withSlug(slug: string) {
