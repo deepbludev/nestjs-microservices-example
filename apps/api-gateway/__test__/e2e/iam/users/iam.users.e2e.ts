@@ -36,30 +36,21 @@ describe('POST /iam/users/signup (e2e)', () => {
       'password must be at least 10 characters long',
     ]
 
-    const expect = (
-      user: SignupUserRequestDTO,
-      httpStatusCode: HttpStatus,
-      expected
-    ) =>
-      api
-        .request()
-        .post('/iam/users/signup')
-        .send(user)
-        .expect(httpStatusCode)
-        .expect(expected)
+    const req = () => api.request().post('/iam/users/signup')
 
     describe('POST /iam/users/signup', () => {
       describe('when email, id and password are valid', () => {
         it('creates a valid user', () => {
           const user = fakeSignupUserDTO()
 
-          return expect(user, HttpStatus.CREATED, {
-            data: {
-              id: user.id,
-            },
-            message: 'User valid@email.com created',
-            statusCode: 201,
-          })
+          return req()
+            .send(user)
+            .expect(HttpStatus.CREATED)
+            .expect({
+              data: { id: user.id },
+              message: 'User valid@email.com created',
+              statusCode: 201,
+            })
         })
 
         describe('when user already exists', () => {
@@ -71,10 +62,13 @@ describe('POST /iam/users/signup (e2e)', () => {
 
             await api.request().post('/iam/users/signup').send(user)
 
-            return expect(otherUserWithSameId, HttpStatus.CONFLICT, {
-              message: UserIdAlreadyExistsError.with(user.id).message,
-              statusCode: 409,
-            })
+            return req()
+              .send(otherUserWithSameId)
+              .expect(HttpStatus.CONFLICT)
+              .expect({
+                message: UserIdAlreadyExistsError.with(user.id).message,
+                statusCode: 409,
+              })
           })
 
           it('fails with same user email', async () => {
@@ -88,10 +82,13 @@ describe('POST /iam/users/signup (e2e)', () => {
 
             await api.request().post('/iam/users/signup').send(user)
 
-            return expect(otherUserWithSameEmail, HttpStatus.CONFLICT, {
-              message: UserEmailAlreadyInUseError.with(user.email).message,
-              statusCode: 409,
-            })
+            return req()
+              .send(otherUserWithSameEmail)
+              .expect(HttpStatus.CONFLICT)
+              .expect({
+                message: UserEmailAlreadyInUseError.with(user.email).message,
+                statusCode: 409,
+              })
           })
         })
       })
@@ -104,7 +101,7 @@ describe('POST /iam/users/signup (e2e)', () => {
             password: 'invalid',
           })
 
-          return expect(user, HttpStatus.BAD_REQUEST, {
+          return req().send(user).expect(HttpStatus.BAD_REQUEST).expect({
             statusCode: 400,
             error: 'Bad Request',
             message: errorMessages,
@@ -116,7 +113,7 @@ describe('POST /iam/users/signup (e2e)', () => {
         it('returns 400 BAD REQUEST error', () => {
           const user = {} as SignupUserRequestDTO
 
-          return expect(user, HttpStatus.BAD_REQUEST, {
+          return req().send(user).expect(HttpStatus.BAD_REQUEST).expect({
             statusCode: 400,
             error: 'Bad Request',
             message: errorMessages,

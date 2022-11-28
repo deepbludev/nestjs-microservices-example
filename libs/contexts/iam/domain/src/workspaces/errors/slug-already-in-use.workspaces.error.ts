@@ -2,7 +2,7 @@ import { HttpException, HttpStatus } from '@nestjs/common'
 
 export class WorkspaceSlugAlreadyInUseError extends HttpException {
   constructor(slug: string) {
-    super(`Slug ${slug} already in use`, HttpStatus.CONFLICT)
+    super(`slug ${slug} already in use`, HttpStatus.CONFLICT)
   }
 
   static with(slug: string) {

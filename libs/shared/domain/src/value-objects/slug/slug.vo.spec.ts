@@ -21,4 +21,10 @@ describe(Slug, () => {
     expect(Slug.toSlug(text)).toEqual(expectedSlug)
     expect(isOk).toBe(true)
   })
+
+  it('should not be valid if longer than 64 characters', () => {
+    const text = 'a'.repeat(65)
+    expect(Slug.create(text).isOk).toBe(false)
+    expect(Slug.validate(text)).toBe(false)
+  })
 })

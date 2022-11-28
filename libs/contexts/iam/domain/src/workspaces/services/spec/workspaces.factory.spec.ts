@@ -1,4 +1,5 @@
 import { InvalidPropError, InvalidStringError } from '@obeya/shared/core'
+import { InvalidSlugError } from '@obeya/shared/domain'
 
 import { fakeCreateWorkspaceDTO } from '../../__mocks__/commands/create/create.workspace.dto.fake'
 import { Workspace } from '../../model/workspace.aggregate'
@@ -48,7 +49,7 @@ describe(WorkspacesFactory, () => {
           fakeCreateWorkspaceDTO({ slug: 'invalid_Slug' })
         )
         expect(isOk).toBe(false)
-        expect(error.message).toEqual('Slug must be alphanumeric kebab-case.')
+        expect(error.message).toEqual(new InvalidSlugError().message)
       })
     })
   })

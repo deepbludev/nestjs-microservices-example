@@ -30,37 +30,28 @@ describe('IAM Workspaces Commands (e2e)', () => {
   })
 
   describe('POST /iam/workspaces/create', () => {
-    const expect = (
-      workspace: CreateWorkspaceRequestDTO,
-      httpStatusCode: HttpStatus,
-      expected
-    ) =>
-      api
-        .request()
-        .post('/iam/workspaces/create')
-        .send(workspace)
-        .expect(httpStatusCode)
-        .expect(expected)
+    const req = () => api.request().post('/iam/workspaces/create')
 
     describe('POST', () => {
       const errorMessages = [
         'workspace id must be a valid UUID',
         'workspace name is not valid',
-        'workspace slug must be in kebab-case format',
+        'slug must be alphanumeric kebab-case of less than 64 characthers',
       ]
 
       describe('when name and slug are valid', () => {
         it('creates a valid workspace', () => {
           const workspace = fakeCreateWorkspaceDTO()
 
-          return expect(workspace, HttpStatus.CREATED, {
-            data: {
-              id: workspace.id,
-            },
-            message:
-              'Workspace Valid Workspace Name (valid-workspace-slug) created',
-            statusCode: 201,
-          })
+          return req()
+            .send(workspace)
+            .expect(HttpStatus.CREATED)
+            .expect({
+              data: { id: workspace.id },
+              message:
+                'Workspace Valid Workspace Name (valid-workspace-slug) created',
+              statusCode: 201,
+            })
         })
 
         describe('when workspace already exists', () => {
@@ -72,28 +63,34 @@ describe('IAM Workspaces Commands (e2e)', () => {
 
             await api.request().post('/iam/workspaces/create').send(workspace)
 
-            return expect(otherWorkspaceWithSameId, HttpStatus.CONFLICT, {
-              message: WorkspaceIdAlreadyExistsError.with(workspace.id).message,
-              statusCode: 409,
-            })
+            return req()
+              .send(otherWorkspaceWithSameId)
+              .expect(HttpStatus.CONFLICT)
+              .expect({
+                message: WorkspaceIdAlreadyExistsError.with(workspace.id)
+                  .message,
+                statusCode: 409,
+              })
           })
 
           it('fails with same slug', async () => {
-            const id = 'cce2fded-80cd-4ec9-8806-842834e73e6j'
-            const otherId = '88cc484c-eb13-4eee-afk3-9f64c36f9e99'
+            const id = '12e8a297-59f6-4614-b5ec-13b45249531f'
+            const otherId = '4e6beba7-72ec-460f-b9df-ed29ff6690b9'
             const workspace = fakeCreateWorkspaceDTO({ id })
             const otherWorkspaceWithSameSlug = fakeCreateWorkspaceDTO({
               id: otherId,
-              slug: workspace.slug,
             })
 
             await api.request().post('/iam/workspaces/create').send(workspace)
 
-            return expect(otherWorkspaceWithSameSlug, HttpStatus.CONFLICT, {
-              message: WorkspaceSlugAlreadyInUseError.with(workspace.slug)
-                .message,
-              statusCode: 409,
-            })
+            return req()
+              .send(otherWorkspaceWithSameSlug)
+              .expect(HttpStatus.CONFLICT)
+              .expect({
+                message: WorkspaceSlugAlreadyInUseError.with(workspace.slug)
+                  .message,
+                statusCode: 409,
+              })
           })
         })
       })
@@ -106,7 +103,7 @@ describe('IAM Workspaces Commands (e2e)', () => {
             slug: 'invalid Slug',
           })
 
-          return expect(workspace, HttpStatus.BAD_REQUEST, {
+          return req().send(workspace).expect(HttpStatus.BAD_REQUEST).expect({
             statusCode: 400,
             error: 'Bad Request',
             message: errorMessages,
@@ -118,7 +115,7 @@ describe('IAM Workspaces Commands (e2e)', () => {
         it('returns 400 BAD REQUEST error', () => {
           const workspace = {} as CreateWorkspaceRequestDTO
 
-          return expect(workspace, HttpStatus.BAD_REQUEST, {
+          return req().send(workspace).expect(HttpStatus.BAD_REQUEST).expect({
             statusCode: 400,
             error: 'Bad Request',
             message: errorMessages,

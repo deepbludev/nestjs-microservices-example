@@ -3,8 +3,9 @@ import { CustomString, customString, Result } from '@obeya/shared/core'
 import { InvalidSlugError } from './invalid-slug.error'
 
 @customString({
-  validator: value => !!value.match(/^[a-z0-9-]+$/),
-  error: () => InvalidSlugError.with('Slug must be alphanumeric kebab-case.'),
+  validator: value =>
+    /^[a-z0-9-]+$/.test(value) && value?.length > 0 && value?.length <= 64,
+  error: () => new InvalidSlugError(),
 })
 export class Slug extends CustomString {
   public static toSlug(text: string): string {
