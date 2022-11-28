@@ -22,7 +22,7 @@ describe('POST /iam/users/signup (e2e)', () => {
   })
 
   afterEach(async () => {
-    await dbService.db(Context.IAM).dropDatabase()
+    await dbService.collection('User', Context.IAM).deleteMany({})
   })
 
   afterAll(async () => {

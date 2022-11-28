@@ -22,7 +22,7 @@ describe('IAM Workspaces Commands (e2e)', () => {
   })
 
   afterEach(async () => {
-    await dbService.db(Context.IAM).dropDatabase()
+    await dbService.collection('Workspace', Context.IAM).deleteMany({})
   })
 
   afterAll(async () => {
