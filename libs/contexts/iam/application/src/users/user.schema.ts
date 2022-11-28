@@ -7,4 +7,11 @@ export class UserDTOSchema implements UserDTO {
   @UserEmail.is email: string
   @UserPassword.is password: string
   @IsNumber() version: number
+
+  constructor(user: UserDTO) {
+    this.id = user.id
+    this.email = user.email
+    this.password = user.password
+    this.version = user.version
+  }
 }

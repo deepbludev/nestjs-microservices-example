@@ -11,4 +11,11 @@ export class WorkspaceDTOSchema implements WorkspaceDTO {
   @WorkspaceName.is name: string
   @WorkspaceSlug.is slug: string
   @IsNumber() version: number
+
+  constructor(workspace: WorkspaceDTO) {
+    this.id = workspace.id
+    this.name = workspace.name
+    this.slug = workspace.slug
+    this.version = workspace.version
+  }
 }

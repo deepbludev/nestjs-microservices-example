@@ -7,7 +7,7 @@ export interface ListWorkspacesPageProps {
   createWorkspaceUseCase: CreateWorkspaceUseCase
 }
 
-const workspace = (id?: string) => {
+const createWorkspace = (id?: string) => {
   const name = `Workspace ${Date.now()}`
   return { id, name, slug: Slug.toSlug(name) }
 }
@@ -15,13 +15,15 @@ const workspace = (id?: string) => {
 export function ListWorkspacesPage({
   createWorkspaceUseCase,
 }: ListWorkspacesPageProps) {
+  const workspace = createWorkspace()
+
   const {
     isLoading,
     isError,
     error: { status, error },
     dispatch,
     id,
-  } = createWorkspaceUseCase(workspace())
+  } = createWorkspaceUseCase(workspace)
 
   return (
     <>
