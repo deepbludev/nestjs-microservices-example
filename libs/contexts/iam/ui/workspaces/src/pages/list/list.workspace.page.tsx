@@ -17,25 +17,14 @@ export function ListWorkspacesPage(props: ListWorkspacesPageProps) {
     isError,
     error: { status, error },
     dispatch,
-    result,
+    id,
   } = useCreateWorkspace(createWorkspace())
-
-  const { data, message, statusCode } = result || {}
 
   return (
     <>
       <p>Workspaces</p>
       <div>
-        {isLoading ? (
-          <div>loading...</div>
-        ) : (
-          <>
-            <p>{data?.id}</p>
-            <p>
-              {statusCode}:{message}
-            </p>
-          </>
-        )}
+        {isLoading ? <div>loading...</div> : <p>{id && `Workspace: ${id}`}</p>}
       </div>
       <Button onClick={dispatch}>Create random workspace</Button>
       {isError && <div>{`Error ${status}: ${error}`}</div>}

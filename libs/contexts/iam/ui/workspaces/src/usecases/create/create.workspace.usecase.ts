@@ -7,17 +7,26 @@ import { type Optional } from '@obeya/shared/core'
 import { WorkspaceId } from '@obeya/shared/domain'
 import { useCommand, UseCommandResponse } from '@obeya/shared/ui/utils'
 
+export type CreateWorkspaceRequest = Optional<Payload<CreateWorkspace>, 'id'>
+
+export type CreateWorkspaceResponse = Omit<
+  UseCommandResponse<CreateWorkspaceResponseDTO>,
+  'result'
+> & {
+  id: string | undefined
+}
+
 export const useCreateWorkspace = (
-  workspace: Optional<Payload<CreateWorkspace>, 'id'>
-): UseCommandResponse<CreateWorkspaceResponseDTO> => {
+  workspace: CreateWorkspaceRequest
+): CreateWorkspaceResponse => {
   const payload = {
     ...workspace,
     id: workspace.id ?? WorkspaceId.create().value,
   }
 
-  const response = useCommand<CreateWorkspaceResponseDTO>(
+  const { result, ...rest } = useCommand<CreateWorkspaceResponseDTO>(
     CreateWorkspace.with(payload)
   )
 
-  return response
+  return { id: result?.data?.id, ...rest }
 }

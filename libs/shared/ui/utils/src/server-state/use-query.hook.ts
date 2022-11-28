@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { IPayload } from '@obeya/shared/core'
 import { Query } from '@obeya/shared/domain'
 import { apiClient, HttpResponse } from '@obeya/shared/infra/http'
 import { useQuery as useTanstackQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-import { CqrsKey, CqrsResult, CqrsError } from './types'
+import { CqrsError, CqrsKey, CqrsResult } from './types'
 
 export interface UseQueryOptions {
   options?: Omit<Parameters<typeof useTanstackQuery>, 'queryKey' | 'queryFn'>
