@@ -6,7 +6,7 @@ export class WorkspaceName extends CustomString {
     message: 'workspace name is not valid',
   })
 
-  static create(value: string): Result<WorkspaceName> {
+  static override create(value: string): Result<WorkspaceName> {
     return super.create(value)
   }
 }

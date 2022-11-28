@@ -4,7 +4,9 @@ import { ListWorkspacesPage } from './list.workspace.page'
 
 describe(ListWorkspacesPage, () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<ListWorkspacesPage />)
+    const { baseElement } = render(
+      <ListWorkspacesPage createWorkspaceUseCase={jest.fn()} />
+    )
     expect(baseElement).toBeTruthy()
   })
 })

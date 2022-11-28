@@ -6,7 +6,7 @@ export class UserPassword extends Password {
     message: 'password must be at least 10 characters long',
   })
 
-  static create(value: string): Result<UserPassword> {
+  static override create(value: string): Result<UserPassword> {
     return super.create(value)
   }
 }

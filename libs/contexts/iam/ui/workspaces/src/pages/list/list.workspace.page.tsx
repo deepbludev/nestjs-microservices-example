@@ -1,24 +1,27 @@
 import { Slug } from '@obeya/shared/domain'
 import { Button } from '@obeya/shared/ui/design-system'
 
-import { useCreateWorkspace } from '../../usecases/create/create.workspace.usecase'
+import { CreateWorkspaceUseCase } from '../../usecases/create/create.workspace.usecase'
 
-/* eslint-disable-next-line */
-export interface ListWorkspacesPageProps {}
+export interface ListWorkspacesPageProps {
+  createWorkspaceUseCase: CreateWorkspaceUseCase
+}
 
-const createWorkspace = (id?: string) => {
+const workspace = (id?: string) => {
   const name = `Workspace ${Date.now()}`
   return { id, name, slug: Slug.toSlug(name) }
 }
 
-export function ListWorkspacesPage(props: ListWorkspacesPageProps) {
+export function ListWorkspacesPage({
+  createWorkspaceUseCase,
+}: ListWorkspacesPageProps) {
   const {
     isLoading,
     isError,
     error: { status, error },
     dispatch,
     id,
-  } = useCreateWorkspace(createWorkspace())
+  } = createWorkspaceUseCase(workspace())
 
   return (
     <>

@@ -6,7 +6,7 @@ export class WorkspaceSlug extends Slug {
     message: new InvalidSlugError().message,
   })
 
-  static create(value: string): Result<WorkspaceSlug> {
+  static override create(value: string): Result<WorkspaceSlug> {
     return super.create(value)
   }
 }

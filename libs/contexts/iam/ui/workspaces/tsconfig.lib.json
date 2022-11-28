@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "../../../../../dist/out-tsc",
     "types": [
-      "node"
+      "node",
+      "jest"
     ]
   },
   "files": [
@@ -19,7 +20,8 @@
     "**/*.spec.js",
     "**/*.test.js",
     "**/*.spec.jsx",
-    "**/*.test.jsx"
+    "**/*.test.jsx",
+    "**/__mocks__/**/*.ts",
   ],
   "include": [
     "**/*.js",
