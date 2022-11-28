@@ -16,6 +16,7 @@ describe(CustomString, () => {
 
   it('should fail if provided an empty string', () => {
     expect(CustomString.create('').isFail).toBeTruthy()
+    expect(CustomString.create('  ').isFail).toBeTruthy()
   })
 
   it('should fail if provided a string longer than 255 characters', () => {

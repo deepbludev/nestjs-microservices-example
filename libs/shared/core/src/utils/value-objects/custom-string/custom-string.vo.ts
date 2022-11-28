@@ -36,10 +36,11 @@ export class CustomString extends ValueObject<{ value: string }> {
     validator?: StringValidator,
     error?: StringValidatorError
   ): Result<S, E> {
-    const result = validator ? validator(value) : this.isValid(value)
-    const resultError = error ? error(value) : this.error(value)
+    const trimmed = value?.trim()
+    const result = validator ? validator(trimmed) : this.isValid(trimmed)
+    const resultError = error ? error(trimmed) : this.error(trimmed)
     return result
-      ? Result.ok<S, E>(Reflect.construct(this, [{ value }]))
+      ? Result.ok<S, E>(Reflect.construct(this, [{ trimmed }]))
       : Result.fail<S, E>(resultError as E)
   }
 
