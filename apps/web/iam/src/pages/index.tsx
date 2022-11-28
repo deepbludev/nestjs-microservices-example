@@ -17,7 +17,7 @@ export function Index() {
     isLoading,
     isError,
     error: { status, error },
-    mutate,
+    dispatch,
     result,
   } = useCommand<SignupUserResponseDTO>(SignupUser.with(user))
 
@@ -42,7 +42,7 @@ export function Index() {
         )}
       </div>
       <Button color="light">Click me</Button>
-      <Button color="bnw" onClick={() => mutate()}>
+      <Button color="bnw" onClick={dispatch}>
         Create random user
       </Button>
       {isError && <div>{`Error ${status}: ${error}`}</div>}
