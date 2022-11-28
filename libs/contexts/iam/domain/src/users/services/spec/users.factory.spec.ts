@@ -55,7 +55,7 @@ describe(UsersFactory, () => {
         expect(isOk).toBe(false)
         expect(error).toEqual(
           InvalidPasswordError.with(
-            'Password "invalid" is too short. It must be at least 10 characters long.'
+            'Password "invalid" is too short. It must be between 10 and 255 characters long.'
           )
         )
       })

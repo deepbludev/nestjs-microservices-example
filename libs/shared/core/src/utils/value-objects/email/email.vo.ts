@@ -1,18 +1,20 @@
 import { Result } from '../../../domain'
 import { textUtils } from '../../text.utils'
-import { customString } from '../custom-string/custom-string.decorator'
-import { CustomString } from '../custom-string/custom-string.vo'
+import {
+  CustomString,
+  StringValidator,
+  StringValidatorError,
+} from '../custom-string/custom-string.vo'
 import { InvalidEmailError } from './invalid-email.error'
 
-@customString({
-  validator: (email: string) => textUtils.isValidEmail(email),
-  error: (email: string) => InvalidEmailError.with(email),
-})
 export class Email extends CustomString {
-  /**
-   * Creates a new email with the given value, validator and error message
-   * @factory
-   */
+  public static override readonly validate: StringValidator = (email: string) =>
+    textUtils.isValidEmail(email)
+
+  public static override readonly error: StringValidatorError = (
+    email: string
+  ) => InvalidEmailError.with(email)
+
   static override create<E extends Email>(
     value: string
   ): Result<E, InvalidEmailError> {

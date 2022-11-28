@@ -1,6 +1,5 @@
 import { Result } from '../../../domain'
 import { textUtils } from '../../text.utils'
-import { customString } from '../custom-string/custom-string.decorator'
 import {
   CustomString,
   StringValidator,
@@ -10,17 +9,20 @@ import { BcryptJsPasswordEncrypter } from './encrypter/bcryptjs.password-encrypt
 import { PasswordEncrypter } from './encrypter/password-encrypter.interface'
 import { InvalidPasswordError } from './invalid-password.error'
 
-@customString({
-  validator: (value: string) => value?.length >= Password.MIN,
-  error: (value: string) =>
-    InvalidPasswordError.with(
-      `Password "${value}" is too short. ` +
-        `It must be at least ${Password.MIN} characters long.`
-    ),
-})
 export class Password extends CustomString {
   protected static override readonly MIN: number = 10
   static readonly encrypter: PasswordEncrypter = new BcryptJsPasswordEncrypter()
+
+  public static override readonly validate: StringValidator = (value: string) =>
+    value?.length >= Password.MIN && value?.length <= Password.MAX
+
+  public static override readonly error: StringValidatorError = (
+    value: string
+  ) =>
+    InvalidPasswordError.with(
+      `Password "${value}" is too short. ` +
+        `It must be between ${Password.MIN} and ${Password.MAX} characters long.`
+    )
 
   public static generate(length: number): string {
     return textUtils.randomString(length)

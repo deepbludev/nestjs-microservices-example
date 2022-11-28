@@ -1,14 +1,18 @@
 import { Result } from '../../../domain'
-import { customString } from '../custom-string/custom-string.decorator'
-import { CustomString } from '../custom-string/custom-string.vo'
+import {
+  CustomString,
+  StringValidator,
+  StringValidatorError,
+} from '../custom-string/custom-string.vo'
 import { InvalidSlugError } from './invalid-slug.error'
 
-@customString({
-  validator: value =>
-    /^[a-z0-9-]+$/.test(value) && value?.length > 0 && value?.length <= 64,
-  error: () => new InvalidSlugError(),
-})
 export class Slug extends CustomString {
+  public static override readonly validate: StringValidator = value =>
+    /^[a-z0-9-]+$/.test(value) && value?.length > 0 && value?.length <= 64
+
+  public static override readonly error: StringValidatorError = () =>
+    new InvalidSlugError()
+
   public static toSlug(text: string): string {
     return text
       .toLowerCase()
