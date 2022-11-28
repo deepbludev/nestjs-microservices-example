@@ -11,7 +11,7 @@ export class Query<P extends IPayload = IPayload> extends BaseQuery<P> {
     return `/${this.canonical.split(':')[1].replaceAll('.', '/')}`
   }
 
-  get canonical(): string {
+  get canonical(): CanonicalQuery {
     return (this.constructor as typeof Query).canonical
   }
 
