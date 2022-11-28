@@ -5,7 +5,6 @@ import {
   WorkspaceIdAlreadyExistsError,
   WorkspaceSlugAlreadyInUseError,
 } from '@obeya/contexts/iam/domain'
-import { WorkspaceId } from '@obeya/shared/domain'
 import { Context } from '@obeya/shared/domain'
 import { MongoDbService } from '@obeya/shared/infra/persistence'
 
@@ -46,8 +45,8 @@ describe('IAM Workspaces Commands (e2e)', () => {
     describe('POST', () => {
       const errorMessages = [
         'workspace id must be a valid UUID',
-        'name is not valid',
-        'slug must be in kebab-case format',
+        'workspace name is not valid',
+        'workspace slug must be in kebab-case format',
       ]
 
       describe('when name and slug are valid', () => {
@@ -79,7 +78,7 @@ describe('IAM Workspaces Commands (e2e)', () => {
             })
           })
 
-          it.skip('fails with same slug', async () => {
+          it('fails with same slug', async () => {
             const id = 'cce2fded-80cd-4ec9-8806-842834e73e6j'
             const otherId = '88cc484c-eb13-4eee-afk3-9f64c36f9e99'
             const workspace = fakeCreateWorkspaceDTO({ id })
@@ -100,7 +99,7 @@ describe('IAM Workspaces Commands (e2e)', () => {
       })
 
       describe('when id, name and slug are invalid', () => {
-        it.skip('returns 400 BAD REQUEST error', () => {
+        it('returns 400 BAD REQUEST error', () => {
           const workspace = fakeCreateWorkspaceDTO({
             id: 'invalid',
             name: '',
@@ -116,7 +115,7 @@ describe('IAM Workspaces Commands (e2e)', () => {
       })
 
       describe('when parameters are missing', () => {
-        it.skip('returns 400 BAD REQUEST error', () => {
+        it('returns 400 BAD REQUEST error', () => {
           const workspace = {} as CreateWorkspaceRequestDTO
 
           return expect(workspace, HttpStatus.BAD_REQUEST, {

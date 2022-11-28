@@ -5,7 +5,6 @@ import {
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
-import { UserId } from '@obeya/shared/domain'
 import { Context } from '@obeya/shared/domain'
 import { MongoDbService } from '@obeya/shared/infra/persistence'
 
