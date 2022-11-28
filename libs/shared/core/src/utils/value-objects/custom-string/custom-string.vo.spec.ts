@@ -33,17 +33,17 @@ describe(CustomString, () => {
 
   it('should get uppercase value', () => {
     expect(subject.uppercase).toEqual('TEST STRING')
-    expect(otherSubject.uppercase).toEqual('TEST  STRING ')
+    expect(otherSubject.uppercase).toEqual('TEST  STRING')
   })
 
   it('should get lowercase value', () => {
     expect(subject.lowercase).toEqual('test string')
-    expect(otherSubject.lowercase).toEqual('test  string ')
+    expect(otherSubject.lowercase).toEqual('test  string')
   })
 
   it('should get capitalized value', () => {
     expect(subject.capitalized).toEqual('Test string')
-    expect(otherSubject.capitalized).toEqual('Test  string ')
+    expect(otherSubject.capitalized).toEqual('Test  string')
   })
 
   it('should get camel case value', () => {

@@ -40,7 +40,7 @@ export class CustomString extends ValueObject<{ value: string }> {
     const result = validator ? validator(trimmed) : this.isValid(trimmed)
     const resultError = error ? error(trimmed) : this.error(trimmed)
     return result
-      ? Result.ok<S, E>(Reflect.construct(this, [{ trimmed }]))
+      ? Result.ok<S, E>(Reflect.construct(this, [{ value: trimmed }]))
       : Result.fail<S, E>(resultError as E)
   }
 
