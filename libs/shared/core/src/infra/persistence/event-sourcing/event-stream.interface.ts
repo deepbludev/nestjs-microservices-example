@@ -1,21 +1,16 @@
 import { IAggregateRoot, IDomainEvent } from '../../../domain'
-import { AggregateType } from './aggregate.type'
 
 export abstract class IEventStream<
   A extends IAggregateRoot,
   E extends IDomainEvent = IDomainEvent
 > {
-  protected aggregateClass: AggregateType<A> = IAggregateRoot
-
-  abstract append(aggId: string, events: E[], version: number): Promise<void>
-  abstract get(aggId: string): Promise<E[]>
-  abstract version(aggId: string): Promise<number>
-
-  get aggregateName(): string {
-    return this.aggregateClass.name
-  }
+  abstract append(aggId: A['id'], events: E[], version: number): Promise<void>
+  abstract store(aggregate: A, changes: E[]): Promise<void>
+  abstract get(aggId: A['id']): Promise<E[]>
+  abstract version(aggId: A['id']): Promise<number>
+  abstract readonly aggregate: string
 
   get name(): string {
-    return `${this.aggregateName}.events`
+    return this.aggregate + '.events'
   }
 }

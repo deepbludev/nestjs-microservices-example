@@ -7,10 +7,10 @@ describe(IEventStream, () => {
   let stream: EventStreamMock
   let aggregate: AggregateStub
   let events: IDomainEvent[]
-  let aggId: string
+  let aggId: AggregateStub['id']
   let version: number
   let otherAggregate: AggregateStub
-  let otherAggId: string
+  let otherAggId: AggregateStub['id']
   let otherEvents: IDomainEvent[]
   let otherVersion: number
 
@@ -20,7 +20,7 @@ describe(IEventStream, () => {
     aggregate.toggle()
     aggregate.updateProps({ foo: 'baz' })
 
-    aggId = aggregate.id.value
+    aggId = aggregate.id
     events = [...aggregate.changes]
     version = aggregate.version
 
@@ -28,7 +28,7 @@ describe(IEventStream, () => {
     otherAggregate.toggle()
     otherAggregate.toggle()
 
-    otherAggId = otherAggregate.id.value
+    otherAggId = otherAggregate.id
     otherEvents = [...otherAggregate.changes]
     otherVersion = otherAggregate.version
 
@@ -38,14 +38,6 @@ describe(IEventStream, () => {
 
   it('should be defined', () => {
     expect(IEventStream).toBeDefined()
-  })
-
-  it('should have a aggregate name', () => {
-    expect(stream.aggregateName).toEqual('AggregateStub')
-  })
-
-  it('should have a stream name', () => {
-    expect(stream.name).toEqual('AggregateStub.events')
   })
 
   it('should be able to append events to multiple aggregates', async () => {
@@ -62,5 +54,16 @@ describe(IEventStream, () => {
 
     expect(fetchedVersion).toEqual(version)
     expect(otherFetchedVersion).toEqual(otherVersion)
+  })
+
+  it('should be able to store aggregate snapshots', async () => {
+    await stream.store(aggregate, aggregate.changes)
+    await stream.store(otherAggregate, otherAggregate.changes)
+
+    const stored = stream.snapshots.get(aggId.value)
+    const otherStored = stream.snapshots.get(otherAggId.value)
+
+    expect(stored).toEqual(aggregate)
+    expect(otherStored).toEqual(otherAggregate)
   })
 })

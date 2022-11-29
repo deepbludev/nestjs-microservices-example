@@ -1,23 +1,40 @@
 import { IDomainEvent } from '../../domain'
 import { AggregateStub } from '../../domain/__mocks__'
 import { IEventStream } from '../persistence/event-sourcing/event-stream.interface'
-import { eventstream } from '../persistence/event-sourcing/utils/event-stream.decorator'
 
-@eventstream(AggregateStub)
 export class EventStreamMock extends IEventStream<AggregateStub> {
-  readonly db: Map<string, { events: IDomainEvent[]; version: number }> =
+  aggregate = AggregateStub.name
+
+  readonly snapshots: Map<string, AggregateStub> = new Map()
+  readonly events: Map<string, { events: IDomainEvent[]; version: number }> =
     new Map()
 
-  async append(aggId: string, events: IDomainEvent[], version: number) {
-    const prev = this.db.get(aggId)?.events || []
-    this.db.set(aggId, { events: prev.concat(events), version })
+  async append(
+    aggId: AggregateStub['id'],
+    events: IDomainEvent[],
+    version: number
+  ) {
+    const prev = this.events.get(aggId.value)?.events || []
+    this.events.set(aggId.value, { events: prev.concat(events), version })
   }
 
-  async version(aggId: string): Promise<number> {
-    return this.db.get(aggId)?.version ?? -1
+  async version(aggId: AggregateStub['id']): Promise<number> {
+    return this.events.get(aggId.value)?.version ?? -1
   }
 
-  async get(aggId: string): Promise<IDomainEvent[]> {
-    return this.db.get(aggId)?.events.filter(e => e.aggregateId === aggId) || []
+  async get(aggId: AggregateStub['id']): Promise<IDomainEvent[]> {
+    return (
+      this.events
+        .get(aggId.value)
+        ?.events.filter(e => e.aggregateId === aggId.value) || []
+    )
+  }
+
+  async store(
+    aggregate: AggregateStub,
+    changes: IDomainEvent[]
+  ): Promise<void> {
+    this.snapshots.set(aggregate.id.value, aggregate)
+    this.append(aggregate.id, changes, aggregate.version)
   }
 }
