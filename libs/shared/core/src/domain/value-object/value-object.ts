@@ -1,7 +1,7 @@
 import { DomainObject } from '../core/domain-object.abstract'
 import {
+  type DomainObjectType,
   DomainObjects,
-  DomainObjectType,
   IProps,
 } from '../types/domain-object.types'
 

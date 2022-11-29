@@ -1,4 +1,4 @@
-import { IDomainEvent } from '../../../../domain'
+import { DomainEvent } from '../../../../domain'
 import { AggregateStub } from '../../../../domain/__mocks__'
 import { EventStreamMock } from '../../../__mocks__'
 import { IEventStream } from '../event-stream.interface'
@@ -6,12 +6,12 @@ import { IEventStream } from '../event-stream.interface'
 describe(IEventStream, () => {
   let stream: EventStreamMock
   let aggregate: AggregateStub
-  let events: IDomainEvent[]
+  let events: DomainEvent[]
   let aggId: AggregateStub['id']
   let version: number
   let otherAggregate: AggregateStub
   let otherAggId: AggregateStub['id']
-  let otherEvents: IDomainEvent[]
+  let otherEvents: DomainEvent[]
   let otherVersion: number
 
   beforeEach(async () => {

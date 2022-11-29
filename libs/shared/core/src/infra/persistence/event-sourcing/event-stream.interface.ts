@@ -1,8 +1,8 @@
-import { IAggregateRoot, IDomainEvent } from '../../../domain'
+import { DomainEvent, IAggregateRoot } from '../../../domain'
 
 export abstract class IEventStream<
   A extends IAggregateRoot,
-  E extends IDomainEvent = IDomainEvent
+  E extends DomainEvent = DomainEvent
 > {
   abstract append(aggId: A['id'], events: E[], version: number): Promise<void>
   abstract store(aggregate: A, changes: E[]): Promise<void>

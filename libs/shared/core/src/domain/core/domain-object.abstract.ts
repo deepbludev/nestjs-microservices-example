@@ -1,7 +1,7 @@
 import v from '../../utils/validator'
 import {
+  type DomainObjectType,
   DomainObjects,
-  DomainObjectType,
   IDomainObject,
   IProps,
 } from '../types/domain-object.types'

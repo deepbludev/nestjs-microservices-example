@@ -1,6 +1,6 @@
 import { InvalidPropError } from '../core/errors'
 import { Result } from '../core/result'
-import { IValueObjectProps,ValueObject } from '../value-object/value-object'
+import { IValueObjectProps, ValueObject } from '../value-object/value-object'
 import { idUtils } from './utils/id.utils'
 
 export interface UniqueIDProps extends IValueObjectProps {
