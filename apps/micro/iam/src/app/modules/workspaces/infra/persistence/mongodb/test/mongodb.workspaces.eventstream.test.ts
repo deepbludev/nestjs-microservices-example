@@ -1,6 +1,6 @@
 import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
-import { fakeCreateWorkspaceDTO, Workspace } from '@obeya/contexts/iam/domain'
+import { CreateWorkspaceMother, Workspace } from '@obeya/contexts/iam/domain'
 import { IEventBus } from '@obeya/shared/core'
 import { Context } from '@obeya/shared/domain'
 import {
@@ -15,7 +15,7 @@ describe(MongoDbWorkspacesRepo, () => {
   let service: MongoDbService
   let repo: MongoDbWorkspacesRepo
 
-  const dto = fakeCreateWorkspaceDTO()
+  const dto = CreateWorkspaceMother.fake()
   const workspace = Workspace.from({ ...dto, version: 1 })
 
   const eventbus: IEventBus = { publish: jest.fn(), register: jest.fn() }
