@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import { CreateWorkspaceUseCase } from '../../usecases/create/create.workspace.usecase'
 import { ListWorkspacesPage } from './list.workspace.page'
 
-describe('ListWorkspacesPage', () => {
+describe(ListWorkspacesPage, () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <WebAppShell>
