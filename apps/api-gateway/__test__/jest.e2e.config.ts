@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'checkout',
+  displayName: 'api-gateway',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
