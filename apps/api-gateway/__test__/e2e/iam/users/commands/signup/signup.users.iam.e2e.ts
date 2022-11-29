@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common'
 import {
-  fakeSignupUserDTO,
+  SignupUserMother,
   SignupUserRequestDTO,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
@@ -40,7 +40,7 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
 
     describe('when email, id and password are valid', () => {
       it('creates a valid user', () => {
-        const user = fakeSignupUserDTO()
+        const user = SignupUserMother.fake()
 
         return req()
           .send(user)
@@ -54,8 +54,8 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
 
       describe('when user already exists', () => {
         it('fails with same User ID', async () => {
-          const user = fakeSignupUserDTO()
-          const otherUserWithSameId = fakeSignupUserDTO({
+          const user = SignupUserMother.fake()
+          const otherUserWithSameId = SignupUserMother.fake({
             email: 'other_email@email.com',
           })
 
@@ -73,8 +73,8 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
         it('fails with same user email', async () => {
           const id = 'cce2fded-90cd-4ec9-8806-842834e73e6c'
           const otherId = '88cc384c-eb13-4eee-af43-9f64c36f9e99'
-          const user = fakeSignupUserDTO({ id })
-          const otherUserWithSameEmail = fakeSignupUserDTO({
+          const user = SignupUserMother.fake({ id })
+          const otherUserWithSameEmail = SignupUserMother.fake({
             id: otherId,
             email: user.email,
           })
@@ -94,11 +94,7 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
 
     describe('when id, email and password are invalid', () => {
       it('returns 400 BAD REQUEST error', () => {
-        const user = fakeSignupUserDTO({
-          id: 'invalid',
-          email: 'invalid',
-          password: 'invalid',
-        })
+        const user = SignupUserMother.invalid()
 
         return req().send(user).expect(HttpStatus.BAD_REQUEST).expect({
           statusCode: 400,

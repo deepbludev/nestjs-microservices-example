@@ -4,7 +4,7 @@ import {
   InvalidPropError,
 } from '@obeya/shared/core'
 
-import { fakeSignupUserDTO } from '../../__mocks__/commands/signup/signup.user.dto.fake'
+import { SignupUserMother } from '../../__mocks__/commands/signup/signup.user.dto.mother'
 import { User } from '../../model/user.aggregate'
 import { UsersFactory } from '../users.factory'
 
@@ -13,7 +13,7 @@ describe(UsersFactory, () => {
     const factory = new UsersFactory()
     let user: User
     let isOk: boolean
-    const dto = fakeSignupUserDTO()
+    const dto = SignupUserMother.fake()
 
     describe('when email and password are valid', () => {
       beforeAll(() => {
@@ -34,7 +34,7 @@ describe(UsersFactory, () => {
     describe('when inputs are invalid', () => {
       it('fails with invalid id', () => {
         const { isOk, error } = factory.create(
-          fakeSignupUserDTO({ id: 'invalid' })
+          SignupUserMother.fake({ id: 'invalid' })
         )
         expect(isOk).toBe(false)
         expect(error).toBeInstanceOf(InvalidPropError)
@@ -42,7 +42,7 @@ describe(UsersFactory, () => {
 
       it('fails with invalid email', () => {
         const { isOk, error } = factory.create(
-          fakeSignupUserDTO({ email: 'invalid' })
+          SignupUserMother.fake({ email: 'invalid' })
         )
         expect(isOk).toBe(false)
         expect(error).toEqual(InvalidEmailError.with('invalid'))
@@ -50,7 +50,7 @@ describe(UsersFactory, () => {
 
       it('fails with invalid password', () => {
         const { isOk, error } = factory.create(
-          fakeSignupUserDTO({ password: 'invalid' })
+          SignupUserMother.fake({ password: 'invalid' })
         )
         expect(isOk).toBe(false)
         expect(error).toEqual(

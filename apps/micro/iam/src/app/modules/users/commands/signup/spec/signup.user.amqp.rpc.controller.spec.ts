@@ -1,6 +1,6 @@
 import {
-  fakeSignupUserDTO,
   SignupUser,
+  SignupUserMother,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
@@ -19,7 +19,7 @@ describe(SignupUserAmqpRpcController, () => {
       const dispatchSpy = jest.spyOn(commandbus, 'dispatch')
 
       it('returns status 201 Created', async () => {
-        const dto = fakeSignupUserDTO()
+        const dto = SignupUserMother.fake()
 
         const response = await ctrl.run(dto)
 
@@ -34,7 +34,7 @@ describe(SignupUserAmqpRpcController, () => {
 
     describe('when user already exists', () => {
       it('fails with same User ID', async () => {
-        const dto = fakeSignupUserDTO()
+        const dto = SignupUserMother.fake()
         const error = UserIdAlreadyExistsError.with(dto.id)
         commandbus.dispatch = jest.fn().mockResolvedValue(Result.fail(error))
 
@@ -48,7 +48,7 @@ describe(SignupUserAmqpRpcController, () => {
       })
 
       it('fails with same User email', async () => {
-        const dto = fakeSignupUserDTO()
+        const dto = SignupUserMother.fake()
         const error = UserEmailAlreadyInUseError.with(dto.email)
         commandbus.dispatch = jest.fn().mockResolvedValue(Result.fail(error))
 

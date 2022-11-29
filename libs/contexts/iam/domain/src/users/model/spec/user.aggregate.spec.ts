@@ -1,9 +1,9 @@
-import { fakeSignupUserDTO } from '../../__mocks__/commands/signup/signup.user.dto.fake'
+import { SignupUserMother } from '../../__mocks__/commands/signup/signup.user.dto.mother'
 import { UsersFactory } from '../../services/users.factory'
 import { User } from '../user.aggregate'
 
 describe(User, () => {
-  const original = fakeSignupUserDTO()
+  const original = SignupUserMother.fake()
 
   const { data: user } = UsersFactory.create(original)
   user.commit()

@@ -1,6 +1,6 @@
 import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
-import { fakeSignupUserDTO, User } from '@obeya/contexts/iam/domain'
+import { SignupUserMother, User } from '@obeya/contexts/iam/domain'
 import { IEventBus } from '@obeya/shared/core'
 import { Context } from '@obeya/shared/domain'
 import {
@@ -15,7 +15,7 @@ describe(MongoDbUsersRepo, () => {
   let service: MongoDbService
   let repo: MongoDbUsersRepo
 
-  const dto = fakeSignupUserDTO()
+  const dto = SignupUserMother.fake()
   const user = User.from({ ...dto, version: 1 })
 
   const eventbus: IEventBus = { publish: jest.fn(), register: jest.fn() }

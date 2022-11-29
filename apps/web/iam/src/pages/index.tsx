@@ -1,16 +1,13 @@
 import { Title } from '@mantine/core'
-import { SignupUser, SignupUserResponseDTO } from '@obeya/contexts/iam/domain'
-import { uuid } from '@obeya/shared/core'
+import {
+  SignupUser,
+  SignupUserMother,
+  SignupUserResponseDTO,
+} from '@obeya/contexts/iam/domain'
 import { Button } from '@obeya/shared/ui/design-system'
 import { useCommand } from '@obeya/shared/ui/utils'
 
-const createUser = () => ({
-  id: uuid.create(),
-  email: `${Date.now()}@example.com`,
-  password: 'valid_password',
-})
-
-const user = createUser()
+const user = SignupUserMother.random()
 
 export function Index() {
   const {
