@@ -10,7 +10,7 @@ import {
 } from '@obeya/shared/infra/http'
 
 @Controller()
-export class IamUsersPostController {
+export class IamUsersCommandController {
   constructor(readonly amqp: AmqpService) {}
 
   @Post(SignupUser.path())

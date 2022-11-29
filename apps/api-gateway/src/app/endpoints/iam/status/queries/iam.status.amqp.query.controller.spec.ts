@@ -1,9 +1,9 @@
 import { amqpServiceMock } from '@obeya/shared/infra/comms'
 
-import { IamStatusAmqpGetController } from './iam.status.amqp.get.controller'
+import { IamStatusAmqpQueryController } from './iam.status.amqp.query.controller'
 
-describe(IamStatusAmqpGetController, () => {
-  const ctrl = new IamStatusAmqpGetController(amqpServiceMock)
+describe(IamStatusAmqpQueryController, () => {
+  const ctrl = new IamStatusAmqpQueryController(amqpServiceMock)
 
   describe('GET /status', () => {
     it('returns status 200 OK if IAM microservice is up', async () => {

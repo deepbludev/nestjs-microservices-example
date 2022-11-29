@@ -4,7 +4,7 @@ import {
   InvalidStringError,
 } from '@obeya/shared/core'
 
-import { fakeCreateWorkspaceDTO } from '../../__mocks__/commands/create/create.workspace.dto.fake'
+import { fakeCreateWorkspaceDTO } from '../../__mocks__/commands/create/create.workspace.dto.mother'
 import { Workspace } from '../../model/workspace.aggregate'
 import { WorkspacesFactory } from '../workspaces.factory'
 

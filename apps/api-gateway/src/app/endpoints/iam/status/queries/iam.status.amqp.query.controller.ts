@@ -3,7 +3,7 @@ import { Context } from '@obeya/shared/domain'
 import { AmqpService, RPC } from '@obeya/shared/infra/comms'
 
 @Controller('/iam')
-export class IamStatusAmqpGetController {
+export class IamStatusAmqpQueryController {
   constructor(readonly amqp: AmqpService) {}
 
   @Get('/status')

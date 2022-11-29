@@ -10,10 +10,10 @@ import { Context } from '@obeya/shared/domain'
 import { amqpServiceMock, RPC } from '@obeya/shared/infra/comms'
 import { HttpResponse, HttpStatusCode } from '@obeya/shared/infra/http'
 
-import { IamWorkspacesPostController } from './iam.workspaces.post.controller'
+import { IamWorkspacesCommandsController } from './iam.workspaces.command.controller'
 
-describe(IamWorkspacesPostController, () => {
-  const ctrl = new IamWorkspacesPostController(amqpServiceMock)
+describe(IamWorkspacesCommandsController, () => {
+  const ctrl = new IamWorkspacesCommandsController(amqpServiceMock)
   const dto: CreateWorkspaceRequestDTO = fakeCreateWorkspaceDTO()
 
   describe('POST /workspaces', () => {

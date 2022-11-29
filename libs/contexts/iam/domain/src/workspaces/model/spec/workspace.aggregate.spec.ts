@@ -1,4 +1,4 @@
-import { fakeCreateWorkspaceDTO } from '../../__mocks__/commands/create/create.workspace.dto.fake'
+import { fakeCreateWorkspaceDTO } from '../../__mocks__/commands/create/create.workspace.dto.mother'
 import { WorkspacesFactory } from '../../services/workspaces.factory'
 import { Workspace } from '../workspace.aggregate'
 

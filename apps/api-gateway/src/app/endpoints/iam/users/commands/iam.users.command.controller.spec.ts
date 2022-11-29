@@ -8,10 +8,10 @@ import { Context } from '@obeya/shared/domain'
 import { amqpServiceMock, RPC } from '@obeya/shared/infra/comms'
 import { HttpResponse, HttpStatusCode } from '@obeya/shared/infra/http'
 
-import { IamUsersPostController } from './iam.users.post.controller'
+import { IamUsersCommandController } from './iam.users.command.controller'
 
-describe(IamUsersPostController, () => {
-  const ctrl = new IamUsersPostController(amqpServiceMock)
+describe(IamUsersCommandController, () => {
+  const ctrl = new IamUsersCommandController(amqpServiceMock)
   const dto = {
     id: 'cce2fded-90cd-4ec9-8806-842834e73e6c',
     email: 'valid@email.com',

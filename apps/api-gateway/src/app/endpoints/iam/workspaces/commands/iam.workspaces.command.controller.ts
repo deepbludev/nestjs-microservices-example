@@ -13,7 +13,7 @@ import {
 } from '@obeya/shared/infra/http'
 
 @Controller()
-export class IamWorkspacesPostController {
+export class IamWorkspacesCommandsController {
   constructor(readonly amqp: AmqpService) {}
 
   @Post(CreateWorkspace.path())

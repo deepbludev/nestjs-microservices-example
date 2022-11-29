@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 
-import { IamUsersPostController } from './post/iam.users.post.controller'
+import { IamUsersCommandController } from './commands/iam.users.command.controller'
 
 @Module({
-  controllers: [IamUsersPostController],
+  controllers: [IamUsersCommandController],
 })
 export class IamUsersModule {}
