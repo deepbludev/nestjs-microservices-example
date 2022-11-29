@@ -28,11 +28,11 @@ export abstract class EventStore<
       throw new ConcurrencyError(aggregate, current)
 
     const changes = aggregate.commit()
-    await this.stream.append(aggregate.id.value, changes, aggregate.version)
+    await this.stream.store(aggregate, changes)
   }
 
   async get(id: IUniqueID): Promise<A | null> {
-    const events = await this.stream.get(id.value)
+    const events = await this.stream.get(id)
     if (!events.length) return null
     return this.aggregateClass.rehydrate(id, events)
   }
@@ -50,6 +50,6 @@ export abstract class EventStore<
   }
 
   async version(aggrId: IUniqueID): Promise<number> {
-    return await this.stream.version(aggrId.value)
+    return await this.stream.version(aggrId)
   }
 }

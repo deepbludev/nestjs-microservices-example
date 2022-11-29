@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@nestjs/common'
 import { IEventBus, IEventPublisherRepo } from '@obeya/shared/core'
-import { AggregateDTO, AggregateRoot, Nullable } from '@obeya/shared/domain'
-import { Binary, Collection, Document } from 'mongodb'
+import { AggregateRoot, Nullable } from '@obeya/shared/domain'
+import { Binary, Collection } from 'mongodb'
 
 import { MongoDbService, MongoDoc } from './mongodb.service'
-
-export type MongoDTO = AggregateDTO & Document
-export type Filter<DTO extends MongoDTO> = Partial<DTO>
+import { Filter, MongoDTO } from './mongodb.types'
 
 @Injectable()
 export abstract class MongoDbRepo<

@@ -16,6 +16,7 @@ describe(EventStore, () => {
   let changes: IDomainEvent[]
 
   let appendSpy: jest.SpyInstance
+  let storeSpy: jest.SpyInstance
   let publishSpy: jest.SpyInstance
 
   beforeAll(async () => {
@@ -31,6 +32,7 @@ describe(EventStore, () => {
     changes = [...aggregate.changes]
 
     appendSpy = jest.spyOn(eventstream, 'append')
+    storeSpy = jest.spyOn(eventstream, 'store')
     publishSpy = jest.spyOn(eventbus, 'publish')
 
     await eventstore.save(aggregate)
@@ -43,10 +45,12 @@ describe(EventStore, () => {
   it('should delegate persistence to the event stream', () => {
     expect(appendSpy).toHaveBeenCalledTimes(1)
     expect(appendSpy).toHaveBeenCalledWith(
-      aggregate.id.value,
+      aggregate.id,
       changes,
       4 //aggregate.version
     )
+    expect(storeSpy).toHaveBeenCalledTimes(1)
+    expect(storeSpy).toHaveBeenCalledWith(aggregate, changes)
   })
 
   it('should publish events', () => {
