@@ -1,7 +1,7 @@
 import { HttpStatus } from '@nestjs/common'
 import {
+  CreateWorkspaceMother,
   CreateWorkspaceRequestDTO,
-  fakeCreateWorkspaceDTO,
   WorkspaceIdAlreadyExistsError,
   WorkspaceSlugAlreadyInUseError,
 } from '@obeya/contexts/iam/domain'
@@ -30,7 +30,8 @@ describe('IAM/Workspaces CreateWorkspace Command (e2e)', () => {
   })
 
   describe('POST /iam/workspaces/create', () => {
-    const req = () => api.request().post('/iam/workspaces/create')
+    const createWorkspaceCommand = () =>
+      api.request().post('/iam/workspaces/create')
 
     const errorMessages = [
       'workspace id must be a valid UUID',
@@ -40,9 +41,9 @@ describe('IAM/Workspaces CreateWorkspace Command (e2e)', () => {
 
     describe('when name and slug are valid', () => {
       it('creates a valid workspace', () => {
-        const workspace = fakeCreateWorkspaceDTO()
+        const workspace = CreateWorkspaceMother.fake()
 
-        return req()
+        return createWorkspaceCommand()
           .send(workspace)
           .expect(HttpStatus.CREATED)
           .expect({
@@ -55,14 +56,14 @@ describe('IAM/Workspaces CreateWorkspace Command (e2e)', () => {
 
       describe('when workspace already exists', () => {
         it('fails with same Workspace ID', async () => {
-          const workspace = fakeCreateWorkspaceDTO()
-          const otherWorkspaceWithSameId = fakeCreateWorkspaceDTO({
+          const workspace = CreateWorkspaceMother.fake()
+          const otherWorkspaceWithSameId = CreateWorkspaceMother.fake({
             slug: 'other-workspace',
           })
 
           await api.request().post('/iam/workspaces/create').send(workspace)
 
-          return req()
+          return createWorkspaceCommand()
             .send(otherWorkspaceWithSameId)
             .expect(HttpStatus.CONFLICT)
             .expect({
@@ -74,14 +75,14 @@ describe('IAM/Workspaces CreateWorkspace Command (e2e)', () => {
         it('fails with same slug', async () => {
           const id = '12e8a297-59f6-4614-b5ec-13b45249531f'
           const otherId = '4e6beba7-72ec-460f-b9df-ed29ff6690b9'
-          const workspace = fakeCreateWorkspaceDTO({ id })
-          const otherWorkspaceWithSameSlug = fakeCreateWorkspaceDTO({
+          const workspace = CreateWorkspaceMother.fake({ id })
+          const otherWorkspaceWithSameSlug = CreateWorkspaceMother.fake({
             id: otherId,
           })
 
           await api.request().post('/iam/workspaces/create').send(workspace)
 
-          return req()
+          return createWorkspaceCommand()
             .send(otherWorkspaceWithSameSlug)
             .expect(HttpStatus.CONFLICT)
             .expect({
@@ -95,17 +96,16 @@ describe('IAM/Workspaces CreateWorkspace Command (e2e)', () => {
 
     describe('when id, name and slug are invalid', () => {
       it('returns 400 BAD REQUEST error', () => {
-        const workspace = fakeCreateWorkspaceDTO({
-          id: 'invalid',
-          name: '',
-          slug: 'invalid Slug',
-        })
+        const workspace = CreateWorkspaceMother.invalid()
 
-        return req().send(workspace).expect(HttpStatus.BAD_REQUEST).expect({
-          statusCode: 400,
-          error: 'Bad Request',
-          message: errorMessages,
-        })
+        return createWorkspaceCommand()
+          .send(workspace)
+          .expect(HttpStatus.BAD_REQUEST)
+          .expect({
+            statusCode: 400,
+            error: 'Bad Request',
+            message: errorMessages,
+          })
       })
     })
 
@@ -113,11 +113,14 @@ describe('IAM/Workspaces CreateWorkspace Command (e2e)', () => {
       it('returns 400 BAD REQUEST error', () => {
         const workspace = {} as CreateWorkspaceRequestDTO
 
-        return req().send(workspace).expect(HttpStatus.BAD_REQUEST).expect({
-          statusCode: 400,
-          error: 'Bad Request',
-          message: errorMessages,
-        })
+        return createWorkspaceCommand()
+          .send(workspace)
+          .expect(HttpStatus.BAD_REQUEST)
+          .expect({
+            statusCode: 400,
+            error: 'Bad Request',
+            message: errorMessages,
+          })
       })
     })
   })

@@ -1,4 +1,4 @@
-import { SignupUserMother } from '../../__mocks__/commands/signup/signup.user.dto.mother'
+import { SignupUserMother } from '../../__mocks__/commands/signup/signup.user.mother'
 import { UsersFactory } from '../../services/users.factory'
 import { User } from '../user.aggregate'
 

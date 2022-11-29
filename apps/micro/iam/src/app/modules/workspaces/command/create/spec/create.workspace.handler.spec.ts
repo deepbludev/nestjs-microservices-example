@@ -1,6 +1,6 @@
 import {
   CreateWorkspace,
-  fakeCreateWorkspaceDTO,
+  CreateWorkspaceMother,
   WorkspaceIdAlreadyExistsError,
   WorkspacesFactory,
   WorkspaceSlugAlreadyInUseError,
@@ -23,7 +23,7 @@ describe(CreateWorkspaceHandler, () => {
   const commandbus = new CommandBus([handler])
 
   describe('#handle', () => {
-    const { id, name, slug } = fakeCreateWorkspaceDTO()
+    const { id, name, slug } = CreateWorkspaceMother.fake()
     const command: CreateWorkspace = CreateWorkspace.with({ id, name, slug })
 
     describe('when name and slug are valid', () => {
@@ -65,7 +65,7 @@ describe(CreateWorkspaceHandler, () => {
       })
 
       it('fails with same slug', async () => {
-        const dto = fakeCreateWorkspaceDTO({
+        const dto = CreateWorkspaceMother.fake({
           id: '9e48f43e-fd9b-4c31-9d39-7e17509bbfbb',
           slug: 'other-workspace-slug',
         })

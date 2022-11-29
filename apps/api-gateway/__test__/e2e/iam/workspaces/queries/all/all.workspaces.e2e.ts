@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common'
-import { fakeCreateWorkspaceDTO } from '@obeya/contexts/iam/domain'
+import { CreateWorkspaceMother } from '@obeya/contexts/iam/domain'
 import { Context } from '@obeya/shared/domain'
 import { MongoDbService } from '@obeya/shared/infra/persistence'
 
@@ -25,16 +25,20 @@ describe('IAM/Workspaces AllWorkspaces Query (e2e)', () => {
   })
 
   describe('GET /iam/workspaces/all', () => {
-    const req = () => api.request().post('/iam/workspaces/all')
+    const allWorkspacesQuery = () => api.request().get('/iam/workspaces/all')
+    const createWorkspaceCommand = () =>
+      api.request().post('/iam/workspaces/all')
 
     it.skip('returns all workspaces', async () => {
-      const workspace = fakeCreateWorkspaceDTO()
-      const otherWorkspace = fakeCreateWorkspaceDTO({ slug: 'other-workspace' })
+      const workspace = CreateWorkspaceMother.fake()
+      const otherWorkspace = CreateWorkspaceMother.fake({
+        slug: 'other-workspace',
+      })
 
-      await api.request().post('/iam/workspaces/create').send(workspace)
-      await api.request().post('/iam/workspaces/create').send(otherWorkspace)
+      await createWorkspaceCommand().send(workspace)
+      await createWorkspaceCommand().send(otherWorkspace)
 
-      return req()
+      return allWorkspacesQuery()
         .expect(HttpStatus.OK)
         .expect({
           data: [

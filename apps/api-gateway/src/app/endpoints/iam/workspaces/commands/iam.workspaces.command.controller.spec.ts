@@ -1,8 +1,8 @@
 import {
   CreateWorkspace,
+  CreateWorkspaceMother,
   CreateWorkspaceRequestDTO,
   CreateWorkspaceResponseDTO,
-  fakeCreateWorkspaceDTO,
   WorkspaceIdAlreadyExistsError,
   WorkspaceSlugAlreadyInUseError,
 } from '@obeya/contexts/iam/domain'
@@ -14,7 +14,7 @@ import { IamWorkspacesCommandsController } from './iam.workspaces.command.contro
 
 describe(IamWorkspacesCommandsController, () => {
   const ctrl = new IamWorkspacesCommandsController(amqpServiceMock)
-  const dto: CreateWorkspaceRequestDTO = fakeCreateWorkspaceDTO()
+  const dto: CreateWorkspaceRequestDTO = CreateWorkspaceMother.fake()
 
   describe('POST /workspaces', () => {
     describe('when email and password are valid', () => {

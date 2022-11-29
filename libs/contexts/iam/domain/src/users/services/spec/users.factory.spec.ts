@@ -4,7 +4,7 @@ import {
   InvalidPropError,
 } from '@obeya/shared/core'
 
-import { SignupUserMother } from '../../__mocks__/commands/signup/signup.user.dto.mother'
+import { SignupUserMother } from '../../__mocks__/commands/signup/signup.user.mother'
 import { User } from '../../model/user.aggregate'
 import { UsersFactory } from '../users.factory'
 

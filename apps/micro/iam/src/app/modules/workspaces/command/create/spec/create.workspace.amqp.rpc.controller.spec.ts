@@ -1,6 +1,6 @@
 import {
   CreateWorkspace,
-  fakeCreateWorkspaceDTO,
+  CreateWorkspaceMother,
   WorkspaceIdAlreadyExistsError,
   WorkspaceSlugAlreadyInUseError,
 } from '@obeya/contexts/iam/domain'
@@ -19,7 +19,7 @@ describe(CreateWorkspaceAmqpRpcController, () => {
       const dispatchSpy = jest.spyOn(commandbus, 'dispatch')
 
       it('returns status 201 Created', async () => {
-        const dto = fakeCreateWorkspaceDTO()
+        const dto = CreateWorkspaceMother.fake()
 
         const response = await ctrl.run(dto)
 
@@ -34,7 +34,7 @@ describe(CreateWorkspaceAmqpRpcController, () => {
 
     describe('when workspace already exists', () => {
       it('fails with same Workspace ID', async () => {
-        const dto = fakeCreateWorkspaceDTO()
+        const dto = CreateWorkspaceMother.fake()
         const error = WorkspaceIdAlreadyExistsError.with(dto.id)
         commandbus.dispatch = jest.fn().mockResolvedValue(Result.fail(error))
 
@@ -48,7 +48,7 @@ describe(CreateWorkspaceAmqpRpcController, () => {
       })
 
       it('fails with same slug', async () => {
-        const dto = fakeCreateWorkspaceDTO()
+        const dto = CreateWorkspaceMother.fake()
         const error = WorkspaceSlugAlreadyInUseError.with(dto.slug)
         commandbus.dispatch = jest.fn().mockResolvedValue(Result.fail(error))
 

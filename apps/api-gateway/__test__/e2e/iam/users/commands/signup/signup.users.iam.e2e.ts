@@ -36,13 +36,13 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
       'password must be at least 10 characters long',
     ]
 
-    const req = () => api.request().post('/iam/users/signup')
+    const signupUserCommand = () => api.request().post('/iam/users/signup')
 
     describe('when email, id and password are valid', () => {
       it('creates a valid user', () => {
         const user = SignupUserMother.fake()
 
-        return req()
+        return signupUserCommand()
           .send(user)
           .expect(HttpStatus.CREATED)
           .expect({
@@ -61,7 +61,7 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
 
           await api.request().post('/iam/users/signup').send(user)
 
-          return req()
+          return signupUserCommand()
             .send(otherUserWithSameId)
             .expect(HttpStatus.CONFLICT)
             .expect({
@@ -81,7 +81,7 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
 
           await api.request().post('/iam/users/signup').send(user)
 
-          return req()
+          return signupUserCommand()
             .send(otherUserWithSameEmail)
             .expect(HttpStatus.CONFLICT)
             .expect({
@@ -96,11 +96,14 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
       it('returns 400 BAD REQUEST error', () => {
         const user = SignupUserMother.invalid()
 
-        return req().send(user).expect(HttpStatus.BAD_REQUEST).expect({
-          statusCode: 400,
-          error: 'Bad Request',
-          message: errorMessages,
-        })
+        return signupUserCommand()
+          .send(user)
+          .expect(HttpStatus.BAD_REQUEST)
+          .expect({
+            statusCode: 400,
+            error: 'Bad Request',
+            message: errorMessages,
+          })
       })
     })
 
@@ -108,11 +111,14 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
       it('returns 400 BAD REQUEST error', () => {
         const user = {} as SignupUserRequestDTO
 
-        return req().send(user).expect(HttpStatus.BAD_REQUEST).expect({
-          statusCode: 400,
-          error: 'Bad Request',
-          message: errorMessages,
-        })
+        return signupUserCommand()
+          .send(user)
+          .expect(HttpStatus.BAD_REQUEST)
+          .expect({
+            statusCode: 400,
+            error: 'Bad Request',
+            message: errorMessages,
+          })
       })
     })
   })

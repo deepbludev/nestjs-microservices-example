@@ -1,9 +1,9 @@
-import { fakeCreateWorkspaceDTO } from '../../__mocks__/commands/create/create.workspace.dto.mother'
+import { CreateWorkspaceMother } from '../../__mocks__/commands/create/create.workspace.mother'
 import { WorkspacesFactory } from '../../services/workspaces.factory'
 import { Workspace } from '../workspace.aggregate'
 
 describe(Workspace, () => {
-  const original = fakeCreateWorkspaceDTO()
+  const original = CreateWorkspaceMother.fake()
 
   const { data: workspace } = WorkspacesFactory.create(original)
   workspace.commit()
