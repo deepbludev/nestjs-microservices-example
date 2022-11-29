@@ -8,9 +8,9 @@ import { AxiosHttpClient, HttpClientConfig } from './http.client'
 export class ApiClient {
   readonly http: AxiosHttpClient
 
-  constructor(baseURL?: string) {
+  constructor(baseURL: string) {
     this.http = new AxiosHttpClient({
-      baseURL: baseURL ?? 'http://localhost:3000',
+      baseURL,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -39,4 +39,6 @@ export class ApiClient {
   }
 }
 
-export const apiClient = new ApiClient(process.env['API_BASE_URL'])
+export const apiClient = new ApiClient(
+  process.env['API_BASE_URL'] ?? 'http://localhost:3000'
+)
