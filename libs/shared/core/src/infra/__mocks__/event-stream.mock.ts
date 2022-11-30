@@ -1,4 +1,4 @@
-import { DomainEvent } from '../../domain'
+import { IDomainEvent } from '../../domain'
 import { AggregateStub } from '../../domain/__mocks__'
 import { IEventStream } from '../persistence/event-sourcing/event-stream.interface'
 
@@ -6,12 +6,12 @@ export class EventStreamMock extends IEventStream<AggregateStub> {
   aggregate = AggregateStub.name
 
   readonly snapshots: Map<string, AggregateStub> = new Map()
-  readonly events: Map<string, { events: DomainEvent[]; version: number }> =
+  readonly events: Map<string, { events: IDomainEvent[]; version: number }> =
     new Map()
 
   async append(
     aggId: AggregateStub['id'],
-    events: DomainEvent[],
+    events: IDomainEvent[],
     version: number
   ) {
     const prev = this.events.get(aggId.value)?.events || []
@@ -22,7 +22,7 @@ export class EventStreamMock extends IEventStream<AggregateStub> {
     return this.events.get(aggId.value)?.version ?? -1
   }
 
-  async get(aggId: AggregateStub['id']): Promise<DomainEvent[]> {
+  async get(aggId: AggregateStub['id']): Promise<IDomainEvent[]> {
     return (
       this.events
         .get(aggId.value)
@@ -30,7 +30,10 @@ export class EventStreamMock extends IEventStream<AggregateStub> {
     )
   }
 
-  async store(aggregate: AggregateStub, changes: DomainEvent[]): Promise<void> {
+  async store(
+    aggregate: AggregateStub,
+    changes: IDomainEvent[]
+  ): Promise<void> {
     this.snapshots.set(aggregate.id.value, aggregate)
     this.append(aggregate.id, changes, aggregate.version)
   }

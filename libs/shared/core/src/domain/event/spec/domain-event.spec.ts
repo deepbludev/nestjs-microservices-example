@@ -95,7 +95,7 @@ describe(DomainEvent, () => {
   })
 
   it('should be able to be serialized', () => {
-    const serialized = event.serialize()
+    const serialized = event.dto
     expect(serialized).toEqual({
       id: event.id,
       timestamp: event.timestamp,
@@ -108,7 +108,7 @@ describe(DomainEvent, () => {
   })
 
   it('should be able to be deserialized', () => {
-    const serialized = event.serialize()
+    const serialized = event.dto
     const deserialized = TestEvent.from<TestProps>(serialized)
     expect(deserialized).toBeInstanceOf(TestEvent)
     expect(deserialized).toEqual(event)

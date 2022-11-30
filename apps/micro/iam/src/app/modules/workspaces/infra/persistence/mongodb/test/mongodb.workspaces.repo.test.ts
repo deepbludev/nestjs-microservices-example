@@ -36,7 +36,7 @@ describe(MongoDbWorkspacesRepo, () => {
   })
 
   afterEach(async () => {
-    await service.db().dropDatabase()
+    await service.db().collection('Workspace').deleteMany({})
     await service.client.close()
   })
 

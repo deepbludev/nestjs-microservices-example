@@ -32,16 +32,13 @@ export abstract class DomainEvent<P extends IPayload = IPayload>
   /**
    * Creates a new DomainEvent from a serialized event
    * @factory
-   * @param serialized - the serialized event usually coming from a message queue or persistance layer
+   * @param dto - the serialized event usually coming from a message queue or persistance layer
    */
-  static from<P extends IPayload>(serialized: IDomainEvent<P>): DomainEvent<P> {
-    const deserialized = Reflect.construct(this, [
-      serialized.payload,
-      serialized.aggregateId,
-    ])
-    Reflect.set(deserialized, 'timestamp', serialized.timestamp)
-    Reflect.set(deserialized, 'id', serialized.id)
-    return deserialized
+  static from<P extends IPayload>(dto: IDomainEvent<P>): DomainEvent<P> {
+    const event = Reflect.construct(this, [dto.payload, dto.aggregateId])
+    Reflect.set(event, 'timestamp', dto.timestamp)
+    Reflect.set(event, 'id', dto.id)
+    return event
   }
 
   /**
@@ -49,15 +46,19 @@ export abstract class DomainEvent<P extends IPayload = IPayload>
    * Useful for persistance or sending over the wire.
    * @returns serialized version of the event.
    */
-  serialize(): IDomainEvent<P> {
+  get dto(): IDomainEvent<P> {
+    return (this.constructor as typeof DomainEvent).dto(this)
+  }
+
+  static dto<E extends IDomainEvent>(event: E): IDomainEvent<Payload<E>> {
     return {
-      id: this.id,
-      name: this.name,
-      canonical: this.canonical,
-      timestamp: this.timestamp,
-      aggregateId: this.aggregateId,
-      aggregateName: this.aggregateName,
-      payload: this.payload,
+      id: event.id,
+      name: event.name,
+      canonical: event.canonical,
+      timestamp: event.timestamp,
+      aggregateId: event.aggregateId,
+      aggregateName: event.aggregateName,
+      payload: event.payload,
     }
   }
 

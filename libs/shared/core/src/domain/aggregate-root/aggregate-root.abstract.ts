@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IEntity, IEntityProps } from '../entity/entity.abstract'
-import { DomainEvent } from '../event/domain-event.abstract'
+import { IDomainEvent } from '../event/domain-event.interface'
 import { DomainObjects, DomainObjectType } from '../types/domain-object.types'
 import { IUniqueID } from '../uid/unique-id.vo'
 
@@ -28,7 +28,7 @@ export interface IAggregateProps extends IEntityProps {}
 export abstract class IAggregateRoot<
   I extends IUniqueID = IUniqueID,
   P extends IAggregateProps = IAggregateProps,
-  E extends DomainEvent = DomainEvent
+  E extends IDomainEvent = IDomainEvent
 > extends IEntity<I, P> {
   public override readonly domType: DomainObjectType =
     DomainObjects.AGGREGATE_ROOT
@@ -62,7 +62,7 @@ export abstract class IAggregateRoot<
 
   static rehydrate<
     A extends IAggregateRoot,
-    E extends DomainEvent = DomainEvent
+    E extends IDomainEvent = IDomainEvent
   >(id: IUniqueID, events: E[], snapshot?: A): A {
     const aggregate: A = snapshot || (Reflect.construct(this, [{}, id]) as A)
     events.forEach(event => {
@@ -77,7 +77,7 @@ export abstract class IAggregateRoot<
     return this._changes.length > 0
   }
 
-  get changes(): DomainEvent[] {
+  get changes(): IDomainEvent[] {
     return this._changes
   }
 
