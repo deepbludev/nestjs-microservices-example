@@ -22,7 +22,7 @@ export class EventStreamMock extends IEventStream<AggregateStub> {
     return this.events.get(aggId.value)?.version ?? -1
   }
 
-  async get(aggId: AggregateStub['id']): Promise<IDomainEvent[]> {
+  async getEvents(aggId: AggregateStub['id']): Promise<IDomainEvent[]> {
     return (
       this.events
         .get(aggId.value)

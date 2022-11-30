@@ -43,6 +43,10 @@ describe(MongoDbEventStream, () => {
 
     service = module.get(MongoDbService)
     stream = new MongoDbAggregateStubEventStream(service)
+
+    await stream.events.deleteMany({})
+    await stream.snapshots.deleteMany({})
+
     aggregate = AggregateStub.create({ foo: 'bar', is: true }).data
     aggregate.toggle()
     aggregate.updateProps({ foo: 'baz' })
@@ -63,34 +67,36 @@ describe(MongoDbEventStream, () => {
   })
 
   afterAll(async () => {
-    await stream.events.deleteMany({})
-    await stream.snapshots.deleteMany({})
+    await Promise.all([
+      stream.events.deleteMany({}),
+      stream.snapshots.deleteMany({}),
+    ])
     await service.client.close()
   })
 
-  it('should be defined', () => {
+  it('is defined', () => {
     expect(MongoDbEventStream).toBeDefined()
   })
 
-  it('should be able to store snapshots', async () => {
+  it('stores snapshots', async () => {
     const stored = await stream.getSnapshot(aggId)
     const otherStored = await stream.getSnapshot(otherAggId)
 
     expect(stored).toEqual(aggregate.dto)
     expect(otherStored).toEqual(otherAggregate.dto)
-    expect(stream.snapshots.countDocuments()).resolves.toBe(2)
+    expect(await stream.snapshots.countDocuments()).toBe(2)
   })
 
-  it('should be able to store events', async () => {
-    const fetchedEvents = await stream.get(aggId)
-    const otherFetchedEvents = await stream.get(otherAggId)
+  it('store events', async () => {
+    const fetchedEvents = await stream.getEvents(aggId)
+    const otherFetchedEvents = await stream.getEvents(otherAggId)
 
-    expect(stream.events.countDocuments()).resolves.toBe(6)
+    expect(await stream.events.countDocuments()).toBe(6)
     expect(fetchedEvents).toEqual(events.map(e => DomainEvent.dto(e)))
     expect(otherFetchedEvents).toEqual(otherEvents.map(e => DomainEvent.dto(e)))
   })
 
-  it("should keep track of the aggregate's current version", async () => {
+  it("keeps track of the aggregate's current version", async () => {
     const fetchedVersion = await stream.version(aggId)
     const otherFetchedVersion = await stream.version(otherAggId)
 
@@ -99,4 +105,12 @@ describe(MongoDbEventStream, () => {
     expect(fetchedVersion).toEqual(2)
     expect(otherFetchedVersion).toEqual(2)
   })
+
+  // it('finds aggregates by field', async () => {
+  //   const found = await stream.findBy({ foo: 'baz' })
+  //   const otherFound = await stream.findBy({ is: true })
+
+  //   expect(found).toEqual([aggregate])
+  //   expect(otherFound).toEqual([otherAggregate])
+  // })
 })

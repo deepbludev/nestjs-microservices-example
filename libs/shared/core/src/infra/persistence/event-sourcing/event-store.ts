@@ -32,7 +32,7 @@ export abstract class EventStore<
   }
 
   async get(id: IUniqueID): Promise<A | null> {
-    const events = await this.stream.get(id)
+    const events = await this.stream.getEvents(id)
     if (!events.length) return null
     return this.aggregateClass.rehydrate(id, events)
   }

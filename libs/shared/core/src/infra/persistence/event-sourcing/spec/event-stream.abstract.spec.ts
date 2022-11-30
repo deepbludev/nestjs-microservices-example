@@ -41,8 +41,8 @@ describe(IEventStream, () => {
   })
 
   it('should be able to append events to multiple aggregates', async () => {
-    const fetched = await stream.get(aggId)
-    const otherFetched = await stream.get(otherAggId)
+    const fetched = await stream.getEvents(aggId)
+    const otherFetched = await stream.getEvents(otherAggId)
 
     expect(fetched).toEqual(events)
     expect(otherFetched).toEqual(otherEvents)

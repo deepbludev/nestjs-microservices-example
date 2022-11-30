@@ -6,7 +6,7 @@ export abstract class IEventStream<
 > {
   abstract append(aggId: A['id'], events: E[], version: number): Promise<void>
   abstract store(aggregate: A, changes: E[]): Promise<void>
-  abstract get(aggId: A['id']): Promise<E[]>
+  abstract getEvents(aggId: A['id']): Promise<E[]>
   abstract version(aggId: A['id']): Promise<number>
   abstract readonly aggregate: string
 

@@ -51,9 +51,9 @@ export abstract class MongoDbRepo<
     )
   }
 
-  async findBy(filter: Filter<DTO>): Promise<Nullable<A>> {
-    const doc = await this.collection.findOne<MongoDoc<DTO>>(filter)
-    return doc ? this.mapper(doc) : null
+  async findBy(filter: Filter<DTO>): Promise<A[]> {
+    const docs = await this.collection.find<MongoDoc<DTO>>(filter).toArray()
+    return docs.map(doc => this.mapper(doc))
   }
 
   async clear(): Promise<void> {

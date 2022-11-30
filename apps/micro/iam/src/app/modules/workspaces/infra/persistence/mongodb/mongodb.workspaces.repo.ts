@@ -16,6 +16,6 @@ export class MongoDbWorkspacesRepo
   mapper = Workspace.from
 
   async findBySlug(slug: string): Promise<Nullable<Workspace>> {
-    return this.findBy({ slug })
+    return (await this.findBy({ slug }))[0]
   }
 }

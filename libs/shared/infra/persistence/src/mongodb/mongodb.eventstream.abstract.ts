@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@nestjs/common'
 import {
   DomainEvent,
@@ -10,7 +9,7 @@ import { AggregateRoot } from '@obeya/shared/domain'
 import { Binary, Collection } from 'mongodb'
 
 import { MongoDbService, MongoDoc } from './mongodb.service'
-import { MongoDTO } from './mongodb.types'
+import { Filter, MongoDTO } from './mongodb.types'
 
 @Injectable()
 export abstract class MongoDbEventStream<
@@ -45,21 +44,27 @@ export abstract class MongoDbEventStream<
 
   async store(aggregate: A, changes: E[]): Promise<void> {
     const { dto } = aggregate
-    await this.snapshots.updateOne(
-      { _id: new Binary(dto.id) },
-      { $set: dto },
-      { upsert: true }
-    )
-    await this.append(aggregate.id, changes)
+    await Promise.all([
+      this.append(aggregate.id, changes),
+      this.snapshots.updateOne(
+        { _id: new Binary(dto.id) },
+        { $set: dto },
+        { upsert: true }
+      ),
+    ])
+    // console.log({
+    //   stage: 'store',
+    //   snapshots: await this.snapshots.find().toArray(),
+    //   events: await this.events.countDocuments(),
+    //   versions: (await this.snapshots.find().toArray()).map(s => s.version),
+    // })
   }
 
-  async get(aggregateId: A['id']): Promise<E[]> {
-    const docs = await this.events
+  async getEvents(aggregateId: A['id']): Promise<E[]> {
+    return await this.events
       .find({ _aggregateId: new Binary(aggregateId.value) })
       .project<E>({ _id: 0, _aggregateId: 0 })
       .toArray()
-
-    return docs
   }
 
   async getSnapshot(aggregateId: A['id']): Promise<DTO> {
@@ -77,4 +82,9 @@ export abstract class MongoDbEventStream<
     const snapshot = await this.getSnapshot(aggregateId)
     return snapshot ? snapshot.version : -1
   }
+
+  // async findBy(filter: Filter<DTO>): Promise<A[]> {
+  //   const docs = await this.snapshots.find<MongoDoc<DTO>>(filter).toArray()
+  //   return docs.map(doc => this.mapper(doc))
+  // }
 }
