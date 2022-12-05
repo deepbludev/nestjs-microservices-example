@@ -21,21 +21,17 @@ export class ApiClient {
     command: C,
     config?: HttpClientConfig
   ): Promise<HttpResponse<T>> {
-    const response = await this.http.post<T, Payload<C>>(
-      command.path,
-      command.payload,
-      config
-    )
-    return response
+    return this.http.post<T, Payload<C>>(command.path, command.payload, config)
   }
 
   async get<Q extends Query = Query, T = any>(
     query: Q,
     config?: HttpClientConfig
   ): Promise<HttpResponse<T>> {
-    const params = new URLSearchParams(JSON.stringify(query.payload))
-    const response = this.http.get<T>(query.path, { ...config, params })
-    return response
+    return this.http.get<T>(query.path, {
+      ...config,
+      params: new URLSearchParams(JSON.stringify(query.payload)),
+    })
   }
 }
 
