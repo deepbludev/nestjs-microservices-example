@@ -52,12 +52,6 @@ export abstract class MongoDbEventStream<
         { upsert: true }
       ),
     ])
-    // console.log({
-    //   stage: 'store',
-    //   snapshots: await this.snapshots.find().toArray(),
-    //   events: await this.events.countDocuments(),
-    //   versions: (await this.snapshots.find().toArray()).map(s => s.version),
-    // })
   }
 
   async getEvents(aggregateId: A['id']): Promise<E[]> {
@@ -83,8 +77,8 @@ export abstract class MongoDbEventStream<
     return snapshot ? snapshot.version : -1
   }
 
-  // async findBy(filter: Filter<DTO>): Promise<A[]> {
-  //   const docs = await this.snapshots.find<MongoDoc<DTO>>(filter).toArray()
-  //   return docs.map(doc => this.mapper(doc))
-  // }
+  async findBy(filter: Filter<DTO>): Promise<A[]> {
+    const docs = await this.snapshots.find<MongoDoc<DTO>>(filter).toArray()
+    return docs.map(doc => this.mapper(doc))
+  }
 }

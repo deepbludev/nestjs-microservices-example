@@ -106,11 +106,13 @@ describe(MongoDbEventStream, () => {
     expect(otherFetchedVersion).toEqual(2)
   })
 
-  // it('finds aggregates by field', async () => {
-  //   const found = await stream.findBy({ foo: 'baz' })
-  //   const otherFound = await stream.findBy({ is: true })
+  it('finds aggregates by field', async () => {
+    const found = await stream.findBy({ foo: 'baz' })
+    expect(found.length).toEqual(1)
+    expect(found[0].equals(aggregate)).toBe(true)
 
-  //   expect(found).toEqual([aggregate])
-  //   expect(otherFound).toEqual([otherAggregate])
-  // })
+    const otherFound = await stream.findBy({ is: true })
+    expect(otherFound.length).toEqual(1)
+    expect(otherFound[0].equals(otherAggregate)).toBe(true)
+  })
 })
