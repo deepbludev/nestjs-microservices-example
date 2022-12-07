@@ -18,21 +18,27 @@ export function ListWorkspacesPage({
   const workspace = createWorkspace()
 
   const {
-    isLoading,
-    isError,
-    error: { status, error },
-    dispatch,
-    id,
+    isLoading: isCreateWorkspaceLoading,
+    isError: isCreateWorkspaceError,
+    error: createWorkspaceError,
+    dispatch: dispatchCreateWorkspace,
+    id: workspaceId,
   } = createWorkspaceUseCase(workspace)
 
   return (
     <>
       <p>Workspaces</p>
       <div>
-        {isLoading ? <div>loading...</div> : <p>{id && `Workspace: ${id}`}</p>}
+        {isCreateWorkspaceLoading ? (
+          <div>loading...</div>
+        ) : (
+          <p>{workspaceId && `Workspace: ${workspaceId}`}</p>
+        )}
       </div>
-      <Button onClick={dispatch}>Create random workspace</Button>
-      {isError && <div>{`Error ${status}: ${error}`}</div>}
+      <Button onClick={dispatchCreateWorkspace}>Create random workspace</Button>
+      {isCreateWorkspaceError && (
+        <div>{`Error ${createWorkspaceError.status}: ${createWorkspaceError.error}`}</div>
+      )}
     </>
   )
 }
