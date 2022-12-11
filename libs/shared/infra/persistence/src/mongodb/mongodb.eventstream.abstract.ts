@@ -66,7 +66,6 @@ export abstract class MongoDbEventStream<
       .find({ _id: new Binary(aggregateId.value) })
       .project<DTO>({ _id: 0 })
       .toArray()
-
     return snapshot
   }
 

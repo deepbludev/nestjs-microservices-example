@@ -9,13 +9,10 @@ export class EventStreamMock extends IEventStream<AggregateStub> {
   readonly events: Map<string, { events: IDomainEvent[]; version: number }> =
     new Map()
 
-  async append(
-    aggId: AggregateStub['id'],
-    events: IDomainEvent[],
-    version: number
-  ) {
-    const prev = this.events.get(aggId.value)?.events || []
-    this.events.set(aggId.value, { events: prev.concat(events), version })
+  async append(events: IDomainEvent[], version: number) {
+    const aggId = events[0].aggregateId
+    const prev = this.events.get(aggId)?.events || []
+    this.events.set(aggId, { events: prev.concat(events), version })
   }
 
   async version(aggId: AggregateStub['id']): Promise<number> {
@@ -35,6 +32,6 @@ export class EventStreamMock extends IEventStream<AggregateStub> {
     changes: IDomainEvent[]
   ): Promise<void> {
     this.snapshots.set(aggregate.id.value, aggregate)
-    this.append(aggregate.id, changes, aggregate.version)
+    this.append(changes, aggregate.version)
   }
 }

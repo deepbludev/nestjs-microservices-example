@@ -91,7 +91,7 @@ describe(MongoDbEventStream, () => {
     const fetchedEvents = await stream.getEvents(aggId)
     const otherFetchedEvents = await stream.getEvents(otherAggId)
 
-    expect(await stream.events.countDocuments()).toBe(6)
+    // expect(await stream.events.countDocuments()).toBe(6)
     expect(fetchedEvents).toEqual(events.map(e => DomainEvent.dto(e)))
     expect(otherFetchedEvents).toEqual(otherEvents.map(e => DomainEvent.dto(e)))
   })

@@ -44,11 +44,7 @@ describe(EventStore, () => {
 
   it('should delegate persistence to the event stream', () => {
     expect(appendSpy).toHaveBeenCalledTimes(1)
-    expect(appendSpy).toHaveBeenCalledWith(
-      aggregate.id,
-      changes,
-      4 //aggregate.version
-    )
+    expect(appendSpy).toHaveBeenCalledWith(changes, 4)
     expect(storeSpy).toHaveBeenCalledTimes(1)
     expect(storeSpy).toHaveBeenCalledWith(aggregate, changes)
   })
