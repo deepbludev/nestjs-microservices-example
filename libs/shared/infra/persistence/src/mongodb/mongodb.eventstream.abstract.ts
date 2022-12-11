@@ -32,20 +32,20 @@ export abstract class MongoDbEventStream<
     return this.client.db().collection(`${this.aggregate}.events`)
   }
 
-  async append(aggregateId: A['id'], events: E[]): Promise<void> {
+  async append(events: E[]): Promise<void> {
     const docs = events.map(event => ({
       ...DomainEvent.dto<E>(event),
       _id: new Binary(event.id),
-      _aggregateId: new Binary(aggregateId.value),
+      _aggregateId: new Binary(event.aggregateId),
     }))
 
     await this.events.insertMany(docs)
   }
 
-  async store(aggregate: A, changes: E[]): Promise<void> {
+  async store(aggregate: A, events: E[]): Promise<void> {
     const { dto } = aggregate
     await Promise.all([
-      this.append(aggregate.id, changes),
+      this.append(events),
       this.snapshots.updateOne(
         { _id: new Binary(dto.id) },
         { $set: dto },
@@ -62,14 +62,12 @@ export abstract class MongoDbEventStream<
   }
 
   async getSnapshot(aggregateId: A['id']): Promise<DTO> {
-    const dto = await this.snapshots.findOne<MongoDoc<DTO>>({
-      _id: new Binary(aggregateId.value),
-    })
+    const [snapshot] = await this.snapshots
+      .find({ _id: new Binary(aggregateId.value) })
+      .project<DTO>({ _id: 0 })
+      .toArray()
 
-    if (!dto) return null
-
-    Reflect.deleteProperty(dto, '_id')
-    return dto
+    return snapshot
   }
 
   async version(aggregateId: A['id']): Promise<number> {
