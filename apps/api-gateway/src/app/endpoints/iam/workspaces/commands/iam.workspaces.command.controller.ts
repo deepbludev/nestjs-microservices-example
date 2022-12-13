@@ -29,13 +29,10 @@ export class IamWorkspacesCommandsController {
       timeout: RPC.timeout,
     })
 
-    switch (response.statusCode) {
-      case HttpStatusCode.CREATED:
-        return response
-      case HttpStatusCode.CONFLICT:
-        throw HttpError.with(response)
-      default:
-        throw HttpError.server(response.message)
-    }
+    if (response.statusCode === HttpStatusCode.CREATED) return response
+
+    throw response.statusCode === HttpStatusCode.CONFLICT
+      ? HttpError.with(response)
+      : HttpError.server(response.message)
   }
 }
