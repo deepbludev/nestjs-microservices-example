@@ -7,7 +7,7 @@ import { useCommand } from '@obeya/shared/ui/utils'
 
 import { CreateWorkspaceUseCase } from './create.workspace.usecase'
 
-export const useCreateWorkspace: CreateWorkspaceUseCase = function (workspace) {
+export const useCreateWorkspace: CreateWorkspaceUseCase = workspace => {
   const payload = {
     ...workspace,
     id: workspace.id ?? WorkspaceId.create().value,
