@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IPayload } from '@obeya/shared/core'
 import { HttpResponse } from '@obeya/shared/infra/http'
