@@ -9,7 +9,7 @@ import {
   MongoDbService,
 } from '@obeya/shared/infra/persistence'
 
-import { MongoDbWorkspacesRepo } from '../mongodb.workspaces.repo'
+import { MongoDbWorkspacesRepo } from './mongodb.workspaces.repo'
 
 describe(MongoDbWorkspacesRepo, () => {
   let service: MongoDbService
