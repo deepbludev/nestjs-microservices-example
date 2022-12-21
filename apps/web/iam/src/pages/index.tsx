@@ -1,21 +1,24 @@
-import { UUID } from '@deepblu/ddd'
 import { Title } from '@mantine/core'
-import { SignupUser, SignupUserResponseDTO } from '@obeya/contexts/iam/domain'
+import {
+  SignupUser,
+  SignupUserMother,
+  SignupUserResponseDTO,
+} from '@obeya/contexts/iam/domain'
 import { Button } from '@obeya/shared/ui/design-system'
 import { useCommand } from '@obeya/shared/ui/utils'
 
-const createUser = () => ({
-  id: UUID.create().value,
-  email: `${Date.now()}@example.com`,
-  password: 'valid_password',
-})
+const user = SignupUserMother.random()
 
 export function Index() {
-  const user = createUser()
-  const response = useCommand<SignupUserResponseDTO>(SignupUser.with(user))
+  const {
+    isLoading,
+    isError,
+    error: { status, error },
+    dispatch,
+    result,
+  } = useCommand<SignupUserResponseDTO>(SignupUser.with(user))
 
-  const { isLoading, isError, error, mutate } = response
-  const { data, message } = response.data || {}
+  const { data, message, statusCode } = result || {}
 
   return (
     <>
@@ -29,17 +32,17 @@ export function Index() {
         ) : (
           <>
             <p>{data?.id}</p>
-            <p>{message}</p>
+            <p>
+              {statusCode}:{message}
+            </p>
           </>
         )}
       </div>
-
       <Button color="light">Click me</Button>
-      <Button color="bnw" onClick={() => mutate()}>
+      <Button color="bnw" onClick={dispatch}>
         Create random user
       </Button>
-
-      {isError && <div>{`error: ${error}`}</div>}
+      {isError && <div>{`Error ${status}: ${error}`}</div>}
     </>
   )
 }

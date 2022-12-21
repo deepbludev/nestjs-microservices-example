@@ -1,5 +1,5 @@
-import { IEventSubscriber, InMemoryAsyncEventBus } from '@deepblu/ddd'
 import { Inject, Injectable } from '@nestjs/common'
+import { IEventSubscriber, InMemoryAsyncEventBus } from '@obeya/shared/core'
 
 import { CQRS } from './cqrs.tokens'
 

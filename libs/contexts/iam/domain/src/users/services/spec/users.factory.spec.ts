@@ -2,9 +2,9 @@ import {
   InvalidEmailError,
   InvalidPasswordError,
   InvalidPropError,
-} from '@deepblu/ddd'
+} from '@obeya/shared/core'
 
-import { signupUserDTOStub } from '../../__mocks__/commands/signup/signup.user.dto.mock'
+import { SignupUserMother } from '../../__mocks__/commands/signup/signup.user.mother'
 import { User } from '../../model/user.aggregate'
 import { UsersFactory } from '../users.factory'
 
@@ -13,7 +13,7 @@ describe(UsersFactory, () => {
     const factory = new UsersFactory()
     let user: User
     let isOk: boolean
-    const dto = signupUserDTOStub()
+    const dto = SignupUserMother.fake()
 
     describe('when email and password are valid', () => {
       beforeAll(() => {
@@ -34,7 +34,7 @@ describe(UsersFactory, () => {
     describe('when inputs are invalid', () => {
       it('fails with invalid id', () => {
         const { isOk, error } = factory.create(
-          signupUserDTOStub({ id: 'invalid' })
+          SignupUserMother.fake({ id: 'invalid' })
         )
         expect(isOk).toBe(false)
         expect(error).toBeInstanceOf(InvalidPropError)
@@ -42,7 +42,7 @@ describe(UsersFactory, () => {
 
       it('fails with invalid email', () => {
         const { isOk, error } = factory.create(
-          signupUserDTOStub({ email: 'invalid' })
+          SignupUserMother.fake({ email: 'invalid' })
         )
         expect(isOk).toBe(false)
         expect(error).toEqual(InvalidEmailError.with('invalid'))
@@ -50,12 +50,12 @@ describe(UsersFactory, () => {
 
       it('fails with invalid password', () => {
         const { isOk, error } = factory.create(
-          signupUserDTOStub({ password: 'invalid' })
+          SignupUserMother.fake({ password: 'invalid' })
         )
         expect(isOk).toBe(false)
         expect(error).toEqual(
           InvalidPasswordError.with(
-            'Password "invalid" is too short. It must be at least 10 characters long.'
+            'Password "invalid" is too short. It must be between 10 and 255 characters long.'
           )
         )
       })

@@ -14,6 +14,6 @@ export class MongoDbUsersRepo
   mapper = User.from
 
   async findByEmail(email: string): Promise<Nullable<User>> {
-    return this.findBy({ email })
+    return (await this.findBy({ email }))[0]
   }
 }

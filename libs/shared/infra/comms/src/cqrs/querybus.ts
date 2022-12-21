@@ -1,5 +1,5 @@
-import { InMemoryQueryBus, IQueryHandler } from '@deepblu/ddd'
 import { Inject, Injectable } from '@nestjs/common'
+import { InMemoryQueryBus, IQueryHandler } from '@obeya/shared/core'
 
 import { CQRS } from './cqrs.tokens'
 

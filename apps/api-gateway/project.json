@@ -73,13 +73,6 @@
         "jestConfig": "apps/api-gateway/jest.config.ts",
         "passWithNoTests": true
       }
-    },
-    "e2e": {
-      "executor": "@nrwl/jest:jest",
-      "options": {
-        "jestConfig": "apps/api-gateway/__test__/jest.e2e.config.ts",
-        "passWithNoTests": true
-      }
     }
   },
   "tags": []

@@ -1,5 +1,5 @@
-import { Result } from '@deepblu/ddd'
 import { Injectable } from '@nestjs/common'
+import { Result } from '@obeya/shared/core'
 
 import { SignupUserRequestDTO } from '../commands/signup/signup.user.dto'
 import { UserSignedUp } from '../events/user.signedup.event'

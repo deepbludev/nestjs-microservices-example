@@ -1,4 +1,4 @@
-import { Command as BaseCommand, IPayload, textUtils } from '@deepblu/ddd'
+import { Command as BaseCommand, IPayload, textUtils } from '@obeya/shared/core'
 
 export type CanonicalCommand = `cmd:${string}`
 
@@ -11,7 +11,7 @@ export class Command<P extends IPayload = IPayload> extends BaseCommand<P> {
     return `/${this.canonical.split(':')[1].replaceAll('.', '/')}`
   }
 
-  get canonical(): string {
+  get canonical(): CanonicalCommand {
     return (this.constructor as typeof Command).canonical
   }
 

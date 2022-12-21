@@ -1,0 +1,5 @@
+export * from './gateways/api.http.client'
+export * from './gateways/http.client'
+export * from './protocols/http.errors'
+export * from './protocols/http.response'
+export * from './protocols/status-code.http'

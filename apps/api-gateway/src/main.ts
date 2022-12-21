@@ -9,6 +9,7 @@ async function bootstrap() {
 
   apiGateway.useGlobalPipes(new ValidationPipe())
   apiGateway.enableCors()
+  apiGateway.enableShutdownHooks()
 
   const port = apiGateway.get(ConfigService).get('port')
   await apiGateway.listen(port)

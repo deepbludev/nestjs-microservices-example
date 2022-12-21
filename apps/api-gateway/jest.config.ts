@@ -7,10 +7,11 @@ export default {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
+  testMatch: ['**/?(*.)+(e2e|spec|test).[jt]s?(x)'],
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/api-gateway',
-};
+}

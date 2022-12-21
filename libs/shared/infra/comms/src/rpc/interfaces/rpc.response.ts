@@ -1,6 +1,4 @@
-import { HttpStatus } from '@nestjs/common'
-import { HttpResponse } from '@obeya/shared/ui/utils'
+import { HttpResponse } from '@obeya/shared/infra/http'
 
-export interface RpcResponse<D = void> extends HttpResponse<D> {
-  statusCode: HttpStatus
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RpcResponse<D = void> extends HttpResponse<D> {}

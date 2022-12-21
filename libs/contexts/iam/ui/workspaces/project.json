@@ -1,0 +1,54 @@
+{
+  "name": "contexts-iam-ui-workspaces",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/contexts/iam/ui/workspaces/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/contexts/iam/ui/workspaces",
+        "tsConfig": "libs/contexts/iam/ui/workspaces/tsconfig.lib.json",
+        "project": "libs/contexts/iam/ui/workspaces/package.json",
+        "entryFile": "libs/contexts/iam/ui/workspaces/src/index.ts",
+        "external": [
+          "react/jsx-runtime"
+        ],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "swc",
+        "assets": [
+          {
+            "glob": "libs/contexts/iam/ui/workspaces/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/contexts/iam/ui/workspaces/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/contexts/iam/ui/workspaces/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

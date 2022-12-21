@@ -1,4 +1,4 @@
-import { DomainEvent, domainEvent } from '@deepblu/ddd'
+import { DomainEvent, domainEvent } from '@obeya/shared/core'
 
 import { SignupUserRequestDTO } from '../commands/signup/signup.user.dto'
 
