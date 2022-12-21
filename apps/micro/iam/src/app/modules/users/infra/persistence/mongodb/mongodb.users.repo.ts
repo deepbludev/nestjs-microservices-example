@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { User, UserDTO, UsersRepo } from '@obeya/contexts/iam/domain'
-import { Nullable } from '@obeya/shared/domain'
+import { Nullable } from '@obeya/shared/core'
 import { MongoDbRepo, MongoDoc } from '@obeya/shared/infra/persistence'
 
 export type UserDoc = MongoDoc<UserDTO>

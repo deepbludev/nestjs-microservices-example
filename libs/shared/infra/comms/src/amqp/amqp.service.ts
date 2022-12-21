@@ -67,19 +67,12 @@ export class AmqpService {
     return this.amqp.connection
   }
 
-  get managedChannel(): Channel {
-    return this.amqp.managedChannel
-  }
-
   get configuration(): Required<AmqpConfig> {
     return this.amqp.configuration
   }
 
   get channels(): Record<string, Channel> {
     return this.amqp.channels
-  }
-  get managedChannels(): Record<string, Channel> {
-    return this.amqp.managedChannels
   }
 
   get connected(): boolean {

@@ -23,7 +23,7 @@ export class AggregateStub extends AggregateRoot<
       id: this.id.value,
       foo: this.props.foo || '',
       bar: this.props.bar || 0,
-      is: this.props.is,
+      is: !!this.props.is,
       version: this.version,
     }
   }

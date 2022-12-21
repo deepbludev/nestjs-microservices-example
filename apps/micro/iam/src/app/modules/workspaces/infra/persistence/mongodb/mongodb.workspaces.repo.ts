@@ -4,7 +4,7 @@ import {
   WorkspaceDTO,
   WorkspacesRepo,
 } from '@obeya/contexts/iam/domain'
-import { Nullable } from '@obeya/shared/domain'
+import { Nullable } from '@obeya/shared/core'
 import { MongoDbRepo } from '@obeya/shared/infra/persistence'
 
 @Injectable()

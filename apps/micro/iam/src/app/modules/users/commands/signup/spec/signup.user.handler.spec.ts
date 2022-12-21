@@ -44,9 +44,9 @@ describe(SignupUserHandler, () => {
       it('delegates persistence to repo', async () => {
         const user = await repo.get(UserId.from(id).data)
 
-        expect(user.id.value).toEqual(id)
-        expect(user.email.value).toEqual(email)
-        expect(user.password.compare(password)).toBe(true)
+        expect(user?.id.value).toEqual(id)
+        expect(user?.email.value).toEqual(email)
+        expect(user?.password.compare(password)).toBe(true)
       })
 
       it('returns Result.ok()', async () => {

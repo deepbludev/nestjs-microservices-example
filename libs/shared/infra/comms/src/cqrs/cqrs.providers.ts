@@ -14,7 +14,7 @@ import { EventBus } from './eventbus'
 import { QueryBus } from './querybus'
 
 export const commandProviders = (
-  commandHandlers,
+  commandHandlers: Type<ICommandHandler>[],
   useCommandBusClass: Type<ICommandBus> = CommandBus
 ) => [
   ...commandHandlers,
@@ -27,7 +27,7 @@ export const commandProviders = (
 ]
 
 export const queryProviders = (
-  queryHandlers,
+  queryHandlers: Type<IQueryHandler>[],
   useQueryBusClass: Type<IQueryBus> = QueryBus
 ) => [
   ...queryHandlers,
@@ -40,7 +40,7 @@ export const queryProviders = (
 ]
 
 export const eventProviders = (
-  eventSubscribers,
+  eventSubscribers: Type<IEventSubscriber>[],
   useEventBusClass: Type<IEventBus> = EventBus
 ) => [
   ...eventSubscribers,

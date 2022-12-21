@@ -44,9 +44,9 @@ describe(CreateWorkspaceHandler, () => {
       it('delegates persistence to repo', async () => {
         const workspace = await repo.get(WorkspaceId.from(id).data)
 
-        expect(workspace.id.value).toEqual(id)
-        expect(workspace.name.value).toEqual(name)
-        expect(workspace.slug.value).toEqual(slug)
+        expect(workspace?.id.value).toEqual(id)
+        expect(workspace?.name.value).toEqual(name)
+        expect(workspace?.slug.value).toEqual(slug)
       })
 
       it('returns Result.ok()', async () => {

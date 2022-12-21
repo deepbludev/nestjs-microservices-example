@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { IEventPublisherRepo } from '@obeya/shared/core'
-import { Nullable } from '@obeya/shared/domain'
+import { Nullable } from '@obeya/shared/core'
 
 import { User } from '../model/user.aggregate'
 

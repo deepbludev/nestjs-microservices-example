@@ -1,3 +1,4 @@
+import { Nullable } from '../../utils/types.utils'
 import { IEntity } from '../entity/entity.abstract'
 import { IUniqueID } from '../uid/unique-id.vo'
 
@@ -9,11 +10,14 @@ import { IUniqueID } from '../uid/unique-id.vo'
  *
  * @abstract
  */
-export abstract class IEntityRepo<E extends IEntity> {
-  abstract get(id: IUniqueID): Promise<E | null>
+export abstract class IEntityRepo<
+  E extends IEntity<I>,
+  I extends IUniqueID = IUniqueID
+> {
+  abstract get(id: I): Promise<Nullable<E>>
   protected abstract persist(entity: E, expectedVersion?: number): Promise<void>
 
-  async exists(id: IUniqueID): Promise<boolean> {
+  async exists(id: I): Promise<boolean> {
     return !!(await this.get(id))
   }
 

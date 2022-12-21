@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@nestjs/common'
-import { IEventBus, IEventPublisherRepo } from '@obeya/shared/core'
-import { AggregateRoot, Nullable } from '@obeya/shared/domain'
+import { IEventBus, IEventPublisherRepo, Nullable } from '@obeya/shared/core'
+import { AggregateRoot } from '@obeya/shared/domain'
 import { Binary, Collection } from 'mongodb'
 
 import { MongoDbService, MongoDoc } from './mongodb.service'

@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common'
 
-import { WorkspacesCommandsModule } from './command/workspaces.commands.module'
+import { WorkspacesCommandsModule } from './commands/workspaces.commands.module'
 import { WorkspacesInfraModule } from './infra/workspaces.infra.module'
 import { WorkspacesQueriesModule } from './queries/workspaces.queries.module'
 

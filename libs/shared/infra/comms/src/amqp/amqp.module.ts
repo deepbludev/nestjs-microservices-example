@@ -28,7 +28,7 @@ export class AmqpModule {
               name: exchange,
               type: 'topic',
             })),
-            uri: config.get(amqp.uri),
+            uri: config.get(amqp.uri) || '',
           }),
         }),
       ],

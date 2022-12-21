@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Binary } from 'mongodb'
+import { Binary, Document } from 'mongodb'
 
 import { MongoDbClient } from './mongodb.client'
 
@@ -11,7 +11,7 @@ export class MongoDbService {
     return this.client.db(name)
   }
 
-  collection<T>(name: string, dbName?: string) {
+  collection<T extends Document>(name: string, dbName?: string) {
     return this.db(dbName).collection<T>(name)
   }
 }
