@@ -1,4 +1,4 @@
-export * from './amqp/__mocks__/amqp.service.mock'
+export * from './__mocks__/amqp.service.mock'
 export * from './amqp/amqp.config'
 export * from './amqp/amqp.constants'
 export * from './amqp/amqp.decorators'
