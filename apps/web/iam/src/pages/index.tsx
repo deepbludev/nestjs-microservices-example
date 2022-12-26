@@ -1,9 +1,9 @@
 import { Title } from '@mantine/core'
 import {
   SignupUser,
-  SignupUserMother,
   SignupUserResponseDTO,
-} from '@obeya/contexts/iam/domain'
+} from '@obeya/contexts/iam/application'
+import { SignupUserMother } from '@obeya/contexts/iam/domain'
 import { Button } from '@obeya/shared/ui/design-system'
 import { useCommand } from '@obeya/shared/ui/utils'
 

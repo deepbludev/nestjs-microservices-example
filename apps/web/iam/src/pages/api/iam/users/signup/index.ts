@@ -1,4 +1,4 @@
-import { SignupUserResponseDTO } from '@obeya/contexts/iam/domain'
+import { SignupUserResponseDTO } from '@obeya/contexts/iam/application'
 import axios from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
 

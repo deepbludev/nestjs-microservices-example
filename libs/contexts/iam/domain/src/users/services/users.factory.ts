@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { Result } from '@obeya/shared/core'
 
-import { SignupUserRequestDTO } from '../commands/signup/signup.user.dto'
 import { UserSignedUp } from '../events/user.signedup.event'
 import { User } from '../model/user.aggregate'
+import { CreateUserDTO } from '../model/user.dto'
 
 @Injectable()
 export class UsersFactory {
-  create({ id, ...props }: SignupUserRequestDTO): Result<User> {
+  create({ id, ...props }: CreateUserDTO): Result<User> {
     const [userId, ...results] = User.createProps({ id, ...props })
 
     const result = Result.combine<User>([userId, ...results])
@@ -20,7 +20,7 @@ export class UsersFactory {
     return Result.ok(user)
   }
 
-  static create(dto: SignupUserRequestDTO): Result<User> {
+  static create(dto: CreateUserDTO): Result<User> {
     return new UsersFactory().create(dto)
   }
 }

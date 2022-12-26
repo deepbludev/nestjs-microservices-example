@@ -1,7 +1,7 @@
 import { HttpStatus } from '@nestjs/common'
+import { SignupUserRequestDTO } from '@obeya/contexts/iam/application'
 import {
   SignupUserMother,
-  SignupUserRequestDTO,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
@@ -31,9 +31,9 @@ describe('IAM/Users SignupUser Command (e2e)', () => {
 
   describe('POST /iam/users/signup', () => {
     const errorMessages = [
-      'user id must be a valid UUID',
-      'email is not valid',
-      'password must be at least 10 characters long',
+      'UserId must be a valid UUID',
+      'UserEmail is not a valid email',
+      'UserPassword must be at least 10 characters long',
     ]
 
     const signupUserCommand = () => api.request().post('/iam/users/signup')

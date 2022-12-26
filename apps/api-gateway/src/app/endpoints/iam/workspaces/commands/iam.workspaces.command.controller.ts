@@ -11,7 +11,7 @@ import {
   HttpStatusCode,
 } from '@obeya/shared/infra/http'
 
-import { CreateWorkspaceRequestDTOSchema } from './workspace.command.dto.schema'
+import { CreateWorkspaceRequestDTOSchema } from './workspaces.command.dto.schema'
 
 @Controller()
 export class IamWorkspacesCommandsController {
@@ -33,7 +33,6 @@ export class IamWorkspacesCommandsController {
     const { CREATED, CONFLICT, BAD_REQUEST } = HttpStatusCode
     if (response.statusCode === CREATED) return response
 
-    console.log({ response: HttpError.with(response) })
     throw [CONFLICT, BAD_REQUEST].includes(response.statusCode)
       ? HttpError.with(response)
       : HttpError.server(response.message)

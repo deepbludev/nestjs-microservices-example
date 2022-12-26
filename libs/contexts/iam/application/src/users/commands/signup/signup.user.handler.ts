@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common'
 import {
-  SignupUser,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
   UsersFactory,
   UsersRepo,
 } from '@obeya/contexts/iam/domain'
+import { BadRequestError } from '@obeya/shared/application'
 import {
   commandHandler,
   CommandResponse,
   ICommandHandler,
   Result,
 } from '@obeya/shared/core'
+
+import { SignupUser } from './signup.user.command'
 
 @Injectable()
 @commandHandler(SignupUser)
@@ -24,7 +26,7 @@ export class SignupUserHandler extends ICommandHandler<SignupUser> {
   }
   async handle(command: SignupUser): CommandResponse {
     const { data: user, isFail, error } = this.factory.create(command.payload)
-    if (isFail) return Result.fail(error)
+    if (isFail) return Result.fail(BadRequestError.with(error))
 
     if (await this.repo.exists(user.id))
       return Result.fail(new UserIdAlreadyExistsError(user.id.value))

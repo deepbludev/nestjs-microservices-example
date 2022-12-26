@@ -1,5 +1,4 @@
 import {
-  SignupUser,
   SignupUserMother,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
@@ -10,7 +9,8 @@ import { CommandResponse, Result } from '@obeya/shared/core'
 import { UserId } from '@obeya/shared/domain'
 import { CommandBus } from '@obeya/shared/infra/comms'
 
-import { SignupUserHandler } from '../signup.user.handler'
+import { SignupUser } from './signup.user.command'
+import { SignupUserHandler } from './signup.user.handler'
 
 describe(SignupUserHandler, () => {
   const eventbus = {

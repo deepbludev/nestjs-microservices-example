@@ -1,5 +1,5 @@
+import { SignupUser } from '@obeya/contexts/iam/application'
 import {
-  SignupUser,
   SignupUserMother,
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
@@ -7,7 +7,7 @@ import {
 import { Result } from '@obeya/shared/core'
 import { CommandBus } from '@obeya/shared/infra/comms'
 
-import { SignupUserAmqpRpcController } from '../signup.user.amqp.rpc.controller'
+import { SignupUserAmqpRpcController } from './signup.user.amqp.rpc.controller'
 
 describe(SignupUserAmqpRpcController, () => {
   const commandbus = new CommandBus([])

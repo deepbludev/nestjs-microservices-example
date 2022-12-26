@@ -3,7 +3,7 @@ import {
   SignupUser,
   SignupUserRequestDTO,
   SignupUserResponseDTO,
-} from '@obeya/contexts/iam/domain'
+} from '@obeya/contexts/iam/application'
 import { ICommandBus } from '@obeya/shared/core'
 import { Context } from '@obeya/shared/domain'
 import { amqpHandler, RpcController } from '@obeya/shared/infra/comms'

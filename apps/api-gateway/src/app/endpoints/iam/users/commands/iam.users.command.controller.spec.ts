@@ -1,6 +1,8 @@
-import { SignupUserResponseDTOSchema } from '@obeya/contexts/iam/application'
 import {
   SignupUser,
+  SignupUserResponseDTO,
+} from '@obeya/contexts/iam/application'
+import {
   UserEmailAlreadyInUseError,
   UserIdAlreadyExistsError,
 } from '@obeya/contexts/iam/domain'
@@ -21,7 +23,7 @@ describe(IamUsersCommandController, () => {
   describe('POST /users/signup', () => {
     describe('when email and password are valid', () => {
       it('returns status 201 Created', async () => {
-        const expected: HttpResponse<SignupUserResponseDTOSchema> = {
+        const expected: HttpResponse<SignupUserResponseDTO> = {
           data: { id: dto.id },
           message: 'foo',
           statusCode: HttpStatusCode.CREATED,

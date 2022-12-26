@@ -1,6 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import { SignupUserRequestDTOSchema } from '@obeya/contexts/iam/application'
-import { SignupUser, SignupUserResponseDTO } from '@obeya/contexts/iam/domain'
+import {
+  SignupUser,
+  SignupUserResponseDTO,
+} from '@obeya/contexts/iam/application'
 import { Context } from '@obeya/shared/domain'
 import { AmqpService, RPC } from '@obeya/shared/infra/comms'
 import {
@@ -8,6 +10,8 @@ import {
   HttpResponse,
   HttpStatusCode,
 } from '@obeya/shared/infra/http'
+
+import { SignupUserRequestDTOSchema } from './users.command.dto.schema'
 
 @Controller()
 export class IamUsersCommandController {
@@ -26,9 +30,10 @@ export class IamUsersCommandController {
       timeout: RPC.timeout,
     })
 
-    if (response.statusCode === HttpStatusCode.CREATED) return response
+    const { CREATED, CONFLICT, BAD_REQUEST } = HttpStatusCode
+    if (response.statusCode === CREATED) return response
 
-    throw response.statusCode === HttpStatusCode.CONFLICT
+    throw [CONFLICT, BAD_REQUEST].includes(response.statusCode)
       ? HttpError.with(response)
       : HttpError.server(response.message)
   }
