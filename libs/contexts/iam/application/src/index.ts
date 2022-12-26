@@ -1,5 +1,4 @@
 export * from './users/commands/signup.user.schema'
 export * from './users/user.schema'
-export * from './workspaces/commands/create.workspace.handler'
-export * from './workspaces/commands/create.workspace.schema'
-export * from './workspaces/workspace.schema'
+export * from './workspaces/commands/create/create.workspace.command'
+export * from './workspaces/commands/create/create.workspace.handler'

@@ -9,7 +9,7 @@ export const uuid = {
 
 export const uid = {
   create: uuid.create,
-  isValid: (id: string) => v.string(id) && id.length > 0,
+  isValid: (id: string) => v?.string(id) && id?.length > 0,
 }
 
 export const idUtils = {

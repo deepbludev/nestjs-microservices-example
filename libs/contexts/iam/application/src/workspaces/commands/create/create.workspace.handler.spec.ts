@@ -1,5 +1,4 @@
 import {
-  CreateWorkspace,
   CreateWorkspaceMother,
   WorkspaceIdAlreadyExistsError,
   WorkspacesFactory,
@@ -10,7 +9,8 @@ import { CommandResponse, Result } from '@obeya/shared/core'
 import { WorkspaceId } from '@obeya/shared/domain'
 import { CommandBus } from '@obeya/shared/infra/comms'
 
-import { CreateWorkspaceHandler } from '../create.workspace.handler'
+import { CreateWorkspace } from './create.workspace.command'
+import { CreateWorkspaceHandler } from './create.workspace.handler'
 
 describe(CreateWorkspaceHandler, () => {
   const eventbus = {

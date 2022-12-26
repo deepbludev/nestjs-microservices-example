@@ -1,7 +1,7 @@
 import {
   CreateWorkspace,
   CreateWorkspaceResponseDTO,
-} from '@obeya/contexts/iam/domain'
+} from '@obeya/contexts/iam/application'
 import { WorkspaceId } from '@obeya/shared/domain'
 import { useCommand } from '@obeya/shared/ui/utils'
 

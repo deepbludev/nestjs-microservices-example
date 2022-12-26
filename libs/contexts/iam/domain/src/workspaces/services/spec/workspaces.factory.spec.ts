@@ -4,7 +4,7 @@ import {
   InvalidStringError,
 } from '@obeya/shared/core'
 
-import { CreateWorkspaceMother } from '../../__mocks__/commands/create/create.workspace.mother'
+import { CreateWorkspaceMother } from '../../__mocks__/create.workspace.mother'
 import { Workspace } from '../../model/workspace.aggregate'
 import { WorkspacesFactory } from '../workspaces.factory'
 

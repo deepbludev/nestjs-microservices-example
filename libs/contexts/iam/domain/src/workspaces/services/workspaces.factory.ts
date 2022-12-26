@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { Result } from '@obeya/shared/core'
 
-import { CreateWorkspaceRequestDTO } from '../commands/create/create.workspace.dto'
 import { WorkspaceCreated } from '../events/workspace.created.event'
 import { Workspace } from '../model/workspace.aggregate'
+import { CreateWorkspaceDTO } from '../model/workspace.dto'
 
 @Injectable()
 export class WorkspacesFactory {
-  create({ id, ...props }: CreateWorkspaceRequestDTO): Result<Workspace> {
+  create({ id, ...props }: CreateWorkspaceDTO): Result<Workspace> {
     const [workspaceId, ...results] = Workspace.createProps({ id, ...props })
 
     const result = Result.combine<Workspace>([workspaceId, ...results])
@@ -23,7 +23,7 @@ export class WorkspacesFactory {
     return Result.ok(workspace)
   }
 
-  static create(dto: CreateWorkspaceRequestDTO): Result<Workspace> {
+  static create(dto: CreateWorkspaceDTO): Result<Workspace> {
     return new WorkspacesFactory().create(dto)
   }
 }

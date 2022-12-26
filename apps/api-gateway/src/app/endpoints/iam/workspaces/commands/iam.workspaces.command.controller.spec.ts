@@ -1,8 +1,10 @@
 import {
   CreateWorkspace,
-  CreateWorkspaceMother,
   CreateWorkspaceRequestDTO,
   CreateWorkspaceResponseDTO,
+} from '@obeya/contexts/iam/application'
+import {
+  CreateWorkspaceMother,
   WorkspaceIdAlreadyExistsError,
   WorkspaceSlugAlreadyInUseError,
 } from '@obeya/contexts/iam/domain'

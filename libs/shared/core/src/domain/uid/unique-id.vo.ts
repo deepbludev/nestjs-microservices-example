@@ -25,7 +25,7 @@ export abstract class IUniqueID extends ValueObject<UniqueIDProps> {
   }
 
   static isValid(id: string): boolean {
-    return this.validate(id)
+    return this?.validate(id)
   }
 
   public static override isValidProps({ value }: UniqueIDProps): boolean {

@@ -1,8 +1,7 @@
 import { AggregateRoot, WorkspaceId } from '@obeya/shared/domain'
 
-import { CreateWorkspaceRequestDTO } from '../commands/create/create.workspace.dto'
 import { WorkspaceCreated } from '../events/workspace.created.event'
-import { WorkspaceDTO } from './workspace.dto'
+import { CreateWorkspaceDTO, WorkspaceDTO } from './workspace.dto'
 import { WorkspaceName } from './workspace.name.vo'
 import { WorkspaceSlug } from './workspace.slug.vo'
 
@@ -16,7 +15,7 @@ export class Workspace extends AggregateRoot<
   WorkspaceId,
   WorkspaceProps
 > {
-  static createProps(dto: CreateWorkspaceRequestDTO) {
+  static createProps(dto: CreateWorkspaceDTO) {
     const { id, name, slug } = dto
     const results = [
       WorkspaceId.from<WorkspaceId>(id),

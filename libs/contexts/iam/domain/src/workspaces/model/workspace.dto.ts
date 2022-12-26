@@ -4,16 +4,20 @@ import { z } from 'zod'
 import { WorkspaceName } from './workspace.name.vo'
 import { WorkspaceSlug } from './workspace.slug.vo'
 
-export const WorkspaceDTOSchema = z.object({
-  id: z.string().refine(WorkspaceId.isValid),
-  name: z.string().refine(WorkspaceName.isValid),
-  slug: z.string().refine(WorkspaceSlug.isValid),
+export const WorkspaceSchema = z.object({
+  id: z
+    .string()
+    .refine(WorkspaceId.isValid, { message: WorkspaceId.errorMessage }),
+  name: z
+    .string()
+    .refine(WorkspaceName.isValid, { message: WorkspaceName.errorMessage }),
+  slug: z
+    .string()
+    .refine(WorkspaceSlug.isValid, { message: WorkspaceSlug.errorMessage }),
   version: z.number().gte(-1),
 })
 
-export type WorkspaceDTO = z.infer<typeof WorkspaceDTOSchema> & AggregateDTO
+export type WorkspaceDTO = z.infer<typeof WorkspaceSchema> & AggregateDTO
 
-// export interface WorkspaceDTO extends AggregateDTO {
-//   name: string
-//   slug: string
-// }
+/** Create Workspace */
+export type CreateWorkspaceDTO = Pick<WorkspaceDTO, 'id' | 'name' | 'slug'>

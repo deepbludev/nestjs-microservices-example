@@ -1,13 +1,13 @@
+import { CreateWorkspace } from '@obeya/contexts/iam/application'
+import { CreateWorkspaceMother } from '@obeya/contexts/iam/domain'
 import {
-  CreateWorkspace,
-  CreateWorkspaceMother,
   WorkspaceIdAlreadyExistsError,
   WorkspaceSlugAlreadyInUseError,
 } from '@obeya/contexts/iam/domain'
 import { Result } from '@obeya/shared/core'
 import { CommandBus } from '@obeya/shared/infra/comms'
 
-import { CreateWorkspaceAmqpRpcController } from '../create.workspace.amqp.rpc.controller'
+import { CreateWorkspaceAmqpRpcController } from './create.workspace.amqp.rpc.controller'
 
 describe(CreateWorkspaceAmqpRpcController, () => {
   const commandbus = new CommandBus([])

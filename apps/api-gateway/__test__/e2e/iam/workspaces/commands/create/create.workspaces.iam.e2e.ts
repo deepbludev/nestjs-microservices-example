@@ -1,7 +1,7 @@
 import { HttpStatus } from '@nestjs/common'
+import { CreateWorkspaceRequestDTO } from '@obeya/contexts/iam/application'
 import {
   CreateWorkspaceMother,
-  CreateWorkspaceRequestDTO,
   WorkspaceIdAlreadyExistsError,
   WorkspaceSlugAlreadyInUseError,
 } from '@obeya/contexts/iam/domain'
@@ -34,9 +34,9 @@ describe('IAM/Workspaces CreateWorkspace Command (e2e)', () => {
       api.request().post('/iam/workspaces/create')
 
     const errorMessages = [
-      'workspace id must be a valid UUID',
-      'workspace name is not valid',
-      'slug must be alphanumeric kebab-case of less than 64 characthers',
+      'WorkspaceId must be a valid UUID',
+      'WorkspaceName is not valid',
+      'WorkspaceSlug must be alphanumeric kebab-case of less than 64 characthers',
     ]
 
     describe('when name and slug are valid', () => {
@@ -103,8 +103,8 @@ describe('IAM/Workspaces CreateWorkspace Command (e2e)', () => {
           .expect(HttpStatus.BAD_REQUEST)
           .expect({
             statusCode: 400,
-            error: 'Bad Request',
             message: errorMessages,
+            error: 'Bad Request',
           })
       })
     })
@@ -118,8 +118,8 @@ describe('IAM/Workspaces CreateWorkspace Command (e2e)', () => {
           .expect(HttpStatus.BAD_REQUEST)
           .expect({
             statusCode: 400,
-            error: 'Bad Request',
             message: errorMessages,
+            error: 'Bad Request',
           })
       })
     })

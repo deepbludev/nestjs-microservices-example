@@ -1,9 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import { CreateWorkspaceRequestDTOSchema } from '@obeya/contexts/iam/application'
 import {
   CreateWorkspace,
   CreateWorkspaceResponseDTO,
-} from '@obeya/contexts/iam/domain'
+} from '@obeya/contexts/iam/application'
 import { Context } from '@obeya/shared/domain'
 import { AmqpService, RPC } from '@obeya/shared/infra/comms'
 import {
@@ -11,6 +10,8 @@ import {
   HttpResponse,
   HttpStatusCode,
 } from '@obeya/shared/infra/http'
+
+import { CreateWorkspaceRequestDTOSchema } from './workspace.command.dto.schema'
 
 @Controller()
 export class IamWorkspacesCommandsController {
@@ -29,9 +30,11 @@ export class IamWorkspacesCommandsController {
       timeout: RPC.timeout,
     })
 
-    if (response.statusCode === HttpStatusCode.CREATED) return response
+    const { CREATED, CONFLICT, BAD_REQUEST } = HttpStatusCode
+    if (response.statusCode === CREATED) return response
 
-    throw response.statusCode === HttpStatusCode.CONFLICT
+    console.log({ response: HttpError.with(response) })
+    throw [CONFLICT, BAD_REQUEST].includes(response.statusCode)
       ? HttpError.with(response)
       : HttpError.server(response.message)
   }

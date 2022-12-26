@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common'
 import {
-  CreateWorkspace,
   WorkspaceIdAlreadyExistsError,
   WorkspacesFactory,
   WorkspaceSlugAlreadyInUseError,
   WorkspacesRepo,
 } from '@obeya/contexts/iam/domain'
+import { BadRequestError } from '@obeya/shared/application'
 import {
   commandHandler,
   CommandResponse,
   ICommandHandler,
   Result,
 } from '@obeya/shared/core'
+
+import { CreateWorkspace } from './create.workspace.command'
 
 @Injectable()
 @commandHandler(CreateWorkspace)
@@ -28,14 +30,15 @@ export class CreateWorkspaceHandler extends ICommandHandler<CreateWorkspace> {
       isFail,
       error,
     } = this.factory.create(command.payload)
-    if (isFail) return Result.fail(error)
+
+    if (isFail) return Result.fail(BadRequestError.with(error))
 
     if (await this.repo.exists(workspace.id))
-      return Result.fail(new WorkspaceIdAlreadyExistsError(workspace.id.value))
+      return Result.fail(WorkspaceIdAlreadyExistsError.with(workspace.id.value))
 
     if (await this.repo.findBySlug(workspace.slug.value))
       return Result.fail(
-        new WorkspaceSlugAlreadyInUseError(workspace.slug.value)
+        WorkspaceSlugAlreadyInUseError.with(workspace.slug.value)
       )
 
     this.repo.save(workspace)

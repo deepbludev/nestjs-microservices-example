@@ -45,7 +45,7 @@ export class CustomString extends ValueObject<{ value: string }> {
   }
 
   static isValid(value: string): boolean {
-    return this.validate(value)
+    return this?.validate(value)
   }
 
   public static override isValidProps(props: { value: string }): boolean {
