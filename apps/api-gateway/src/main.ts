@@ -8,7 +8,7 @@ async function bootstrap() {
   const apiGateway = await NestFactory.create(ApiGatewayModule)
 
   apiGateway.useGlobalPipes(new ValidationPipe())
-  apiGateway.enableCors()
+  apiGateway.enableCors({ credentials: true })
   apiGateway.enableShutdownHooks()
 
   const port = apiGateway.get(ConfigService).get('port')

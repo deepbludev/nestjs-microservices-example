@@ -11,6 +11,7 @@ export class ApiClient {
   constructor(baseURL: string) {
     this.http = new AxiosHttpClient({
       baseURL,
+      // withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
