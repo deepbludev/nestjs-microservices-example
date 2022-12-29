@@ -24,7 +24,7 @@ export class SignupUserHandler extends ICommandHandler<SignupUser> {
   ) {
     super()
   }
-  async handle(command: SignupUser): CommandResponse {
+  async handle<R = void>(command: SignupUser): CommandResponse<R> {
     const { data: user, isFail, error } = this.factory.create(command.payload)
     if (isFail) return Result.fail(BadRequestError.with(error))
 

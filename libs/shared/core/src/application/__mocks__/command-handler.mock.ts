@@ -14,7 +14,7 @@ import {
 export class CreateAggregateHandlerMock extends ICommandHandler<CreateAggregateStub> {
   _handle: jest.Mock = jest.fn()
 
-  async handle(command: CreateAggregateStub): CommandResponse {
+  async handle<R = void>(command: CreateAggregateStub): CommandResponse<R> {
     this._handle(command)
     return Result.ok()
   }
@@ -24,7 +24,7 @@ export class UpdatePropsHandlerMock extends ICommandHandler<UpdatePropsStub> {
   static override readonly subscription = UpdatePropsStub
   _handle: jest.Mock = jest.fn()
 
-  async handle(command: UpdatePropsStub): CommandResponse {
+  async handle<R = void>(command: UpdatePropsStub): CommandResponse<R> {
     this._handle(command)
     return Result.ok()
   }
@@ -37,7 +37,7 @@ export class ToggleAggregateHandlerMock extends ICommandHandler<ToggleAggregateS
     return ToggleAggregateStub
   }
 
-  async handle(command: ToggleAggregateStub): CommandResponse {
+  async handle<R = void>(command: ToggleAggregateStub): CommandResponse<R> {
     this._handle(command)
     return Result.ok()
   }
@@ -46,7 +46,7 @@ export class ToggleAggregateHandlerMock extends ICommandHandler<ToggleAggregateS
 export class EmptyCommandHandlerMock extends ICommandHandler<ToggleAggregateStub> {
   _handle: jest.Mock = jest.fn()
 
-  async handle(command: ToggleAggregateStub): CommandResponse {
+  async handle<R = void>(command: ToggleAggregateStub): CommandResponse<R> {
     this._handle(command)
     return Result.ok()
   }

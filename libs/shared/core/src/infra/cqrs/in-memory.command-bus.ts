@@ -17,7 +17,7 @@ export class InMemoryCommandBus implements ICommandBus {
     })
   }
 
-  async dispatch(command: ICommand): CommandResponse {
+  async dispatch<R = void>(command: ICommand): CommandResponse<R> {
     const handler = this.handlers.get(command.constructor.name)
     if (!handler) throw CommandNotRegisteredError.with(command)
 

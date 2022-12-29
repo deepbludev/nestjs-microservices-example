@@ -24,7 +24,7 @@ export class CreateWorkspaceHandler extends ICommandHandler<CreateWorkspace> {
   ) {
     super()
   }
-  async handle(command: CreateWorkspace): CommandResponse {
+  async handle<R = void>(command: CreateWorkspace): CommandResponse<R> {
     const {
       data: workspace,
       isFail,
